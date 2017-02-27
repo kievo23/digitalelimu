@@ -21,11 +21,11 @@
                             <label for="name" class="col-md-2 control-label">Topic</label>
 
                             <div class="col-md-10">
-                                <input id="topic" type="text" class="form-control" name="topic" value="{{ $topic->topic }}" autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $topic->name }}" autofocus>
 
-                                @if ($errors->has('topic'))
+                                @if ($errors->has('name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('topic') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>

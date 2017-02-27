@@ -104,10 +104,10 @@ class MainController extends Controller
         $rst = $topic->save();
 
         if($rst){
-            return redirect('main/index')->with('status','Input Successful');
+            return redirect('category/index')->with('status','Input Successful');
         }
         
-        return view('main.index',compact('topic'));
+        return view('category.index',compact('topic'));
     }
 
     /**
