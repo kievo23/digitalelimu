@@ -13,7 +13,11 @@
 use App\Book;
 
 Route::get('/', function () {
-    return view('welcome');
+	if(Auth::check()){
+		return redirect('home');
+	}else{
+		return view('welcome');
+	}    
 });
 
 Auth::routes();
@@ -54,6 +58,8 @@ Route::any('/content/destroy/{id}', 'ContentController@destroy');
 Route::get('/subscriptions/index','SubscriptionsController@index');
 Route::get('/subscriptions/edit/{id}','SubscriptionsController@edit');
 Route::post('/subscriptions/update/{id}','SubscriptionsController@update');
+Route::get('/reports/index', 'SubscriptionsController@reports');
+Route::post('/reports/index', 'SubscriptionsController@reportspost');
 
 //API
 Route::get('/api/getCategories', 'ApiController@getCategories');

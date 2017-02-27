@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Subscriptions;
 Use App\Book;
+use Carbon\Carbon;
+use DB;
 
 class SubscriptionsController extends Controller
 {
@@ -24,6 +26,23 @@ class SubscriptionsController extends Controller
     {
         $items = Subscriptions::all();
         return view('subscriptions.index',compact('items'));
+    }
+
+    public function reports()
+    {
+        //
+        $items = Subscriptions::all();
+        return view('subscriptions.report',compact('items'));
+    }
+
+    public function reportspost(Request $request)
+    {
+        $date = explode("-", $request->get('daterange'));
+        $startdate = Carbon::createFromFormat('m-d-Y',trim(str_replace('/', '-', $date[0])));
+        $enddate = Carbon::createFromFormat('m-d-Y',trim(str_replace('/', '-', $date[1])));
+        
+        $items = Subscriptions::whereBetween("created_at", [$startdate,$enddate])->get();
+        return view('subscriptions.report',compact('items'));
     }
 
     /**

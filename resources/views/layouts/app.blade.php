@@ -15,7 +15,7 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/jodit.min.css" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-
+    @yield('css')
     
     <!-- Scripts -->
     <script>
@@ -93,6 +93,7 @@
                             <a class="btn" href="{{ url('/book/index') }}">Books</a>
                             <a class="btn" href="{{ url('/content/index') }}">Content</a>
                             <a class="btn" href="{{ url('/subscriptions/index') }}">Subscriptions</a>
+                            <a class="btn" href="{{ url('/reports/index') }}">Reports</a>
                         </div>
                     </div>
                 </div>
@@ -112,7 +113,9 @@
     <script src="/js/jquery.dataTables.js"></script> 
     <script src="/js/jodit.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script> 
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/daterangepicker.js"></script> 
     <script>
     $(document).ready(function(){
         $('textarea').ckeditor({
@@ -127,6 +130,5 @@
         // $('.textarea').ckeditor(); // if class is prefered.
         @yield('js');
     </script>
-	
 </body>
 </html>
