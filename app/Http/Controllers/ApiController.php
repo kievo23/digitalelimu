@@ -61,7 +61,7 @@ class ApiController extends Controller
     public function getTerms($phone,$accesstoken,$book){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
-	        $terms = Content::select('term')
+	        $terms = Content::select('book_id','term')
 	        ->where('book_id','=',$book)->distinct()->get();
 	}else{
 		$terms = null;
@@ -72,7 +72,7 @@ class ApiController extends Controller
     public function getWeeks($phone,$accesstoken,$book,$term){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
-	        $weeks = Content::select('week')
+	        $weeks = Content::select('book_id','term','week')
 	        ->where('book_id','=',$book)
 	        ->where('term','=',$term)
             ->distinct()
@@ -86,7 +86,7 @@ class ApiController extends Controller
     public function getLessons($phone,$accesstoken,$book,$term,$week){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
-	        $lessons = Content::select('lesson')
+	        $lessons = Content::select('book_id','term','week','lesson')
 	        ->where('book_id','=',$book)
 	        ->where('term','=',$term)
 	        ->where('week','=',$week)
