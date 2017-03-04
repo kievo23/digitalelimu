@@ -198,7 +198,7 @@ class ApiController extends Controller
         if($amount => 250 && $amount < 400)
             $days = $amount * (365/250);
         if($amount => 400)
-            $days = 500;
+            $days = 5000;
         return $days;
     }
  /*
