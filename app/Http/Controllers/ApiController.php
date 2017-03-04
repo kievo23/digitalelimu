@@ -100,12 +100,22 @@ class ApiController extends Controller
     public function getContent($phone,$accesstoken,$book,$term,$week,$lesson){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
-	        $content = Content::where('book_id','=',$book)
-	        ->where('term','=',$term)
-	        ->where('week','=',$week)
-	        ->where('lesson','=',$lesson)
-	        ->first();
-	        $content = $content->details;
+
+            $result = Subscriptions::whereClientIdAndBookId($client->id,$book)
+                ->orderBy('id', 'DESC')
+                ->first();
+            $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
+            $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
+            if(Carbon::now() > $terminationDate){
+                $content = null;
+            }else{                
+                $content = Content::where('book_id','=',$book)
+                ->where('term','=',$term)
+                ->where('week','=',$week)
+                ->where('lesson','=',$lesson)
+                ->first();
+                $content = $content->details;
+            }
 	}else{
 		$content = null;
 	}
@@ -119,7 +129,7 @@ class ApiController extends Controller
                 ->orderBy('id', 'DESC')
                 ->first();
             $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
-            $terminationDate = $date->addDays($result->amount/5);
+            $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
             if(Carbon::now() > $terminationDate){
                 $rst = null;
             }else{
@@ -173,6 +183,23 @@ class ApiController extends Controller
             $result = $user;
         }
         return json_encode($result);
+    }
+
+    public function daysDeterminant($amount){
+        $days = "";
+        if($amount => 5 && $amount < 15)
+            $days = $amount/5;
+        if($amount => 15 && $amount < 50 )
+            $days = $amount * (7 / 15);
+        if($amount => 50 && $amount < 100)
+            $days = $amount * (30/50);
+        if($amount => 100 && $amount < 250)
+            $days = $amount * (120/100);
+        if($amount => 250 && $amount < 400)
+            $days = $amount * (365/250);
+        if($amount => 400)
+            $days = 500;
+        return $days;
     }
  /*
    
