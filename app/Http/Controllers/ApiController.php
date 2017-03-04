@@ -187,17 +187,17 @@ class ApiController extends Controller
 
     public function daysDeterminant($amount){
         $days = "";
-        if($amount => 5 && $amount < 15)
+        if($amount >= 5 && $amount < 15)
             $days = $amount/5;
-        if($amount => 15 && $amount < 50 )
+        if($amount >= 15 && $amount < 50 )
             $days = $amount * (7 / 15);
-        if($amount => 50 && $amount < 100)
+        if($amount >= 50 && $amount < 100)
             $days = $amount * (30/50);
-        if($amount => 100 && $amount < 250)
+        if($amount >= 100 && $amount < 250)
             $days = $amount * (120/100);
-        if($amount => 250 && $amount < 400)
+        if($amount >= 250 && $amount < 400)
             $days = $amount * (365/250);
-        if($amount => 400)
+        if($amount >= 400)
             $days = 5000;
         return $days;
     }
