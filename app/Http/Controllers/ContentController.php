@@ -44,6 +44,13 @@ class ContentController extends Controller
         return view('content.create',compact('books'));
     }
 
+    public function createId($id)
+    {
+        //
+        $books = Book::whereId($id)->get();
+        return view('content.create',compact('books'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -23,7 +23,8 @@ class ClassController extends Controller
     {
         //
         $classes = Clas::all();
-        return view('class.index',compact('classes'));
+        $category = Main::all();
+        return view('class.index',compact('classes','category'));
     }
     
     public function indexSort($main)
@@ -42,6 +43,13 @@ class ClassController extends Controller
     {
         //
         $mains = Main::all();
+        return view('class.create',compact('mains'));
+    }
+
+     public function createId($id)
+    {
+        //
+        $mains = Main::whereId($id)->get();
         return view('class.create',compact('mains'));
     }
 

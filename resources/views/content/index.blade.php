@@ -6,7 +6,7 @@
     <div class="panel-heading">Create Content</div>
 
     <div class="panel-body">
-        Welcome to Macmillan Publishers
+        Welcome to Digital Elimu
         <div class="pull-right">
             <a href=" {{ url('content/create') }}" class="btn btn-primary">Create Content</a>
         </div>

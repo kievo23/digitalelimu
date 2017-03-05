@@ -45,6 +45,13 @@ class BookController extends Controller
         return view('books.create',compact('classes'));
     }
 
+    public function createId($id)
+    {
+        //
+        $classes = Clas::whereId($id)->get();
+        return view('books.create',compact('classes'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Subscriptions;
 Use App\Book;
+Use App\Clas;
 use Carbon\Carbon;
 use DB;
 
@@ -25,7 +26,23 @@ class SubscriptionsController extends Controller
     public function index()
     {
         $items = Subscriptions::all();
-        return view('subscriptions.index',compact('items'));
+        $classes = Clas::all();
+        $books = Book::all();
+        foreach ($items as $key => $item) {
+            $item->category = self::categoryDeterminant($item->amount);
+        }      
+        return view('subscriptions.index',compact('items','classes','books'));
+    }
+
+    public function indexPost(Request $request)
+    {
+        $items = Subscriptions::all();
+        $classes = Clas::whereId($request->get('clas'))->get();
+        $books = Book::whereId($request->get('book'))->get();
+        foreach ($items as $key => $item) {
+            $item->category = self::categoryDeterminant($item->amount);
+        }      
+        return view('subscriptions.index',compact('items','classes','books'));
     }
 
     public function reports()
@@ -125,5 +142,22 @@ class SubscriptionsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function categoryDeterminant($amount){
+        $category = "";
+        if($amount >= 5 && $amount < 15)
+            $category = "Daily";
+        if($amount >= 15 && $amount < 50 )
+            $category = "Weekly";
+        if($amount >= 50 && $amount < 100)
+            $category = "Monthly";
+        if($amount >= 100 && $amount < 250)
+            $category = "Termly";
+        if($amount >= 250 && $amount < 400)
+            $category = "Yearly";
+        if($amount >= 400)
+            $category = "Perpetual";
+        return $category;
     }
 }

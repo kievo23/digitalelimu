@@ -32,6 +32,7 @@ Route::post('/category/update/{id}','MainController@update');
 Route::any('/category/destroy/{id}', 'MainController@destroy');
 
 Route::get('/class/create','ClassController@create');
+Route::get('/class/create/{id}','ClassController@createId');
 Route::get('/class/index','ClassController@index');
 Route::get('/class/index/{id}','ClassController@indexSort');
 Route::get('/class/edit/{id}','ClassController@edit');
@@ -40,6 +41,7 @@ Route::post('/class/update/{id}','ClassController@update');
 Route::any('/class/destroy/{id}', 'ClassController@destroy');
 
 Route::get('/book/create', 'BookController@create');
+Route::get('/book/create/{id}', 'BookController@createId');
 Route::post('/book/store', 'BookController@store');
 Route::get('/book/index','BookController@index');
 Route::get('/book/index/{id}','BookController@indexSort');
@@ -48,6 +50,7 @@ Route::get('/book/edit/{id}', 'BookController@edit');
 Route::any('/book/destroy/{id}', 'BookController@destroy');
 
 Route::get('/content/create', 'ContentController@create');
+Route::get('/content/create/{id}', 'ContentController@createId');
 Route::post('/content/store', 'ContentController@store');
 Route::get('/content/index','ContentController@index');
 Route::get('/content/index/{id}','ContentController@indexSort');
@@ -56,6 +59,7 @@ Route::get('/content/edit/{id}', 'ContentController@edit');
 Route::any('/content/destroy/{id}', 'ContentController@destroy');
 
 Route::get('/subscriptions/index','SubscriptionsController@index');
+Route::post('/subscriptions/index','SubscriptionsController@indexPost');
 Route::get('/subscriptions/edit/{id}','SubscriptionsController@edit');
 Route::post('/subscriptions/update/{id}','SubscriptionsController@update');
 Route::get('/reports/index', 'SubscriptionsController@reports');

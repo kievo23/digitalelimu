@@ -21,4 +21,6 @@ class Subscriptions extends Model
     {
         return $this->belongsTo('App\Clients', 'client_id');
     }
+
+    
 }

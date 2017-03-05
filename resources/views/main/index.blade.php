@@ -6,7 +6,7 @@
     <div class="panel-heading">Main Paper Category</div>
 
     <div class="panel-body">
-        Welcome to Macmillan Publishers
+        Welcome to Digital Elimu
         <div class="pull-right">
             <a href=" {{ url('category/create') }}" class="btn btn-primary">Create Category</a>
         </div>
@@ -30,7 +30,8 @@
                             <td>{{ $topic->name }}</td>
                             <td>{{ $topic->description }}</td>
                             <td>
-                            	<a href="{{ url('class/index',['id'=>$topic->id]) }}"  title="Classes"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                            	<a href="{{ url('class/index',['id'=>$topic->id]) }}"  title="Filter Classes"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                                <a href="{{ url('class/create',['id'=>$topic->id]) }}"  title="create Classes"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 <a href="{{ url('category/edit',['id'=>$topic->id]) }}" title="Edit record"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                 <a href="{{ url('category/destroy',['id'=>$topic->id]) }}"  title="Delete record" onclick="return confirm('Are you sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </td>
