@@ -90,7 +90,7 @@ class HomeController extends Controller
         $bestSellingBooks = DB::select("SELECT SUM(s.amount) as amount,b.id,b.name FROM subscriptions s LEFT JOIN book b on b.id=s.book_id WHERE s.created_at LIKE '".$year."%' GROUP BY s.book_id,b.id,b.name");
 
         //Best Clients
-        $bestClients = DB::select("SELECT SUM(s.amount) as amount,c.id,c.phone FROM subscriptions s LEFT JOIN clients c on c.id=s.client_id WHERE s.created_at LIKE '".$year."%' GROUP BY s.book_id,c.id,c.phone");
+        $bestClients = DB::select("SELECT SUM(s.amount) as amount,c.id,c.phone FROM subscriptions s LEFT JOIN clients c on c.id=s.client_id WHERE s.created_at LIKE '".$year."%' GROUP BY s.client_id,c.id,c.phone");
 
         return view('home',compact('books','daily','yesterday','thisWeek','lastSevenDaysSales','salesThisMonth','salesThisYear','salesLastYear','salesLastMonth','bestSellingBooks','bestClients'));
     }
