@@ -58,6 +58,8 @@ Route::post('/content/update/{id}', 'ContentController@update');
 Route::get('/content/edit/{id}', 'ContentController@edit');
 Route::any('/content/destroy/{id}', 'ContentController@destroy');
 
+Route::get('/edits/index/{id}','EditsController@index');
+
 Route::get('/subscriptions/index','SubscriptionsController@index');
 Route::post('/subscriptions/index','SubscriptionsController@indexPost');
 Route::get('/subscriptions/edit/{id}','SubscriptionsController@edit');

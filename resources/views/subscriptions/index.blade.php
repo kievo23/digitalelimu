@@ -7,28 +7,19 @@
                 <div class="panel-body">
                     <form class="form-inline" role="form" method="POST" action="{{ url('/subscriptions/index') }}">
                         <div class="form-group">
-                            <label for="clas">Class</label>
-                            <select name="clas" class="form-control">
-                                @if (count($classes) > 0)
-                                    @foreach($classes as $clas)
-                                        <option value="{{ $clas->id }}">{{ $clas->name }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div> 
-                        <div class="form-group">
                             <label for="book">Book</label>
                             <select name="book" class="form-control">
+                                <option value="">--Select--</option>
                                 @if (count($books) > 0)
                                     @foreach($books as $book)
-                                        <option value="{{ $clas->id }}">{{ $book->name }}</option>
+                                        <option value="{{ $book->id }}">{{ $book->name }}</option>
                                     @endforeach
                                 @endif
                             </select>
                         </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-primary">Filter</button>                       
-                    </form>
+                    </form><hr>
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
                             <ul>
@@ -62,8 +53,8 @@
                                 	<td>{{ $item->amount }}</td>
                                 	<td>{{ $item->created_at }}</td>
                                 	<td>
-		                                <a href="{{ url('subscriptions/edit',['id'=>$item->id]) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-		                                
+		                                <a href="{{ url('subscriptions/edit',['id'=>$item->id]) }}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+		                                <a href="{{ url('/edits/index',['id'=>$item->id]) }}" title="See edits"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 		                            </td>
                                 	</tr>
                                 	<?php $n++;?>

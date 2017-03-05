@@ -20,6 +20,7 @@
                     <form method="POST" action="{{ url('reports/index') }}" class="form-horizontal">
                         <input type="text" name="daterange" class="form-control" placeholder="Custom Date or Range"><br>
                         <input type="submit" name="submit" class="btn btn-primary form-control">
+                        {!! csrf_field() !!}
                     </form><hr>
                     @if($items)
                                 <?php $total=0?>
@@ -27,7 +28,13 @@
                                 <?php $total += $item->amount;?>
                                  @endforeach
                     @endif
-                    <div class="text-center alert alert-warning" role="alert"><h2><strong>Total Sales: {{ $total }} KsH</strong></h2> </div>
+                    <div class="text-center alert alert-warning" role="alert"><h2><strong>
+                    @if($date)
+                    <p>
+                        {{ $date }}
+                    </p>                    
+                    @endif
+                     Total Sales: {{ $total }} KsH</strong></h2> </div>
                     <table class="table" id="subscriptions">
                         <thead>
                         	<th>Id</th>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Subscriptions;
 Use App\Book;
 Use App\Clas;
+Use App\Clients;
+Use App\Edits;
 use Carbon\Carbon;
 use DB;
 
@@ -35,20 +37,25 @@ class SubscriptionsController extends Controller
 
     public function indexPost(Request $request)
     {
-        $items = Subscriptions::all();
-        $classes = Clas::whereId($request->get('clas'))->get();
-        $books = Book::whereId($request->get('book'))->get();
+        if($request->get('book') == "" || empty($request->get('book'))){
+            $items = Subscriptions::all();
+        }else{
+            $items = Subscriptions::whereBookId($request->get('book'))->get();
+        }
+        $classes = Clas::all();
+        $books = Book::all();
         foreach ($items as $key => $item) {
             $item->category = self::categoryDeterminant($item->amount);
-        }      
+        }     
         return view('subscriptions.index',compact('items','classes','books'));
     }
 
     public function reports()
     {
         //
+        $date = "From the beginning of Time";
         $items = Subscriptions::all();
-        return view('subscriptions.report',compact('items'));
+        return view('subscriptions.report',compact('items','date'));
     }
 
     public function reportspost(Request $request)
@@ -58,7 +65,8 @@ class SubscriptionsController extends Controller
         $enddate = Carbon::createFromFormat('m-d-Y',trim(str_replace('/', '-', $date[1])));
         
         $items = Subscriptions::whereBetween("created_at", [$startdate,$enddate])->get();
-        return view('subscriptions.report',compact('items'));
+        $date = $request->get('daterange');
+        return view('subscriptions.report',compact('items','date'));
     }
 
     /**
@@ -104,7 +112,8 @@ class SubscriptionsController extends Controller
         //
         $trans = Subscriptions::find($id);
         $books = Book::all();
-        return view('subscriptions.update',compact('trans','books'));
+        $clients = Clients::all();
+        return view('subscriptions.update',compact('trans','books','clients'));
     }
 
     /**
@@ -119,11 +128,21 @@ class SubscriptionsController extends Controller
         //
         $validator = $this->validate($request,[
             'book'=>'required|max:255',
+            'amount'=>'required|max:255',
+            'client'=>'required|max:255',
         ]);
 
         $topic = Subscriptions::find($id);
         $topic->book_id = $request->get('book');
+        $topic->amount = $request->get('amount');
+        $topic->client_id = $request->get('client');
         $rst = $topic->save();
+
+        $edit = new Edits();
+        $edit->sub_id = $topic->id;
+        $edit->amount = $topic->amount;
+        $edit->client_id = $topic->client_id;
+        $edit->save();
 
         if($rst){
             return redirect('subscriptions/index')->with('status','Input Successful');

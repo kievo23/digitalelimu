@@ -22,6 +22,24 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/subscriptions/update',['id'=>$trans->id]) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
+                        <div class="form-group{{ $errors->has('class') ? ' has-error' : '' }}">
+                            <label for="client" class="col-md-2 control-label">Client</label>
+
+                            <div class="col-md-10">
+                                <select class="form-control" name="client">
+                                @if($clients)
+                                    @foreach($clients as $main)
+                                    <option value="{{$main->id}}">{{$main->phone}}</option>
+                                    @endforeach
+                                @endif
+                                </select>
+                                @if($errors->has('class'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('class') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('class') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-2 control-label">Book</label>
@@ -42,7 +60,12 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="amount" class="col-md-2 control-label">Amount</label>
+                            <div class="col-md-10">
+                                <input type="text" name="amount" class="form-control" value="{{ $trans->amount }}">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
