@@ -5,7 +5,7 @@
                 <div class="panel-heading">Subscriptions</div>
 
                 <div class="panel-body">
-                    <form class="form-inline" method="post">
+                    <form class="form-inline" role="form" method="POST" action="{{ url('/subscriptions/index') }}">
                         <div class="form-group">
                             <label for="clas">Class</label>
                             <select name="clas" class="form-control">
@@ -26,6 +26,7 @@
                                 @endif
                             </select>
                         </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-primary">Filter</button>                       
                     </form>
                     @if (count($errors) > 0)

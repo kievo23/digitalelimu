@@ -17,7 +17,6 @@ class SubscriptionsController extends Controller
      * @return \Illuminate\Http\Response
      */
      
-    public $name;
     public function __construct()
     {
         $this->middleware('auth');
