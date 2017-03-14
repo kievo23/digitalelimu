@@ -47,7 +47,7 @@
                                 	<tr>
                                 	<td>{{ $n }}</td>
                                 	<td>{{ $item->book->name }}</td>
-                                    <td>{{ $item->id }}.elimu</td>
+                                    <td>{{ $item->book->id }}.elimu</td>
                                     <td>{{ $item->category }}</td>
                                 	<td>{{ $item->client->phone }}</td>
                                 	<td>{{ $item->amount }}</td>

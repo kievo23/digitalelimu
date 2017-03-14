@@ -61,7 +61,7 @@ class ContentController extends Controller
     {
         //
         $validator = $this->validate($request,[
-            'name'=>'required|unique:content|max:255',
+            'name'=>'required|max:255',
             'book'=>'required|integer',
             'term'=>'required|integer',
             'week'=>'required|integer',
