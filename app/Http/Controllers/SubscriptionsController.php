@@ -26,7 +26,7 @@ class SubscriptionsController extends Controller
      
     public function index()
     {
-        $items = Subscriptions::all()->orderBy('id','DESC');
+        $items = Subscriptions::orderBy('id','DESC')->get();
         $classes = Clas::all();
         $books = Book::all();
         foreach ($items as $key => $item) {
