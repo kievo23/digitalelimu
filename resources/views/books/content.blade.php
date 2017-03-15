@@ -14,7 +14,7 @@
 		</div>		
 	</div>
 </form>
-<div style="padding-top:30px">
+<div style="padding-top:40px">
 	{!! $content !!}	
 </div>
 @endsection
