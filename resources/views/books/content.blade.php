@@ -14,9 +14,9 @@
 		</div>		
 	</div>
 </form>
-
-{!! $content !!}
-
+<div style="padding-top:30px">
+	{!! $content !!}	
+</div>
 @endsection
 
 @section('js')
