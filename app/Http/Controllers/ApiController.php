@@ -62,7 +62,7 @@ class ApiController extends Controller
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
 	        $terms = Content::select('book_id','term')
-	        ->where('book_id','=',$book)->distinct()->get();
+	        ->where('book_id','=',$book)->distinct()->orderBy('term','ASC')->get();
 	}else{
 		$terms = null;
 	}
@@ -76,6 +76,7 @@ class ApiController extends Controller
 	        ->where('book_id','=',$book)
 	        ->where('term','=',$term)
             ->distinct()
+            ->orderBy('week','ASC')
 	        ->get();
 	}else{
 		$weeks = null;
@@ -90,6 +91,7 @@ class ApiController extends Controller
 	        ->where('book_id','=',$book)
 	        ->where('term','=',$term)
 	        ->where('week','=',$week)
+            ->orderBy('lesson','ASC')
 	        ->get();
 	}else{
 		$lessons = null;
