@@ -1,7 +1,7 @@
 @extends('layouts.content')
 @section('content')
 
-<form class="form-horizontal" style="position:fixed;top:0px">
+<form class="form-horizontal" style="position:fixed;top:0px;right: 0px;">
 	<div class="form-group">
 		<label for="font" class="col-sm-3 col-md-3 control-label">Choose Font</label>
 		<div class="col-sm-9 col-md-9">
