@@ -45,7 +45,7 @@
             filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
           });
 
-        
+        @yield('js')
         });
         // $('.textarea').ckeditor(); // if class is prefered.
     </script>
