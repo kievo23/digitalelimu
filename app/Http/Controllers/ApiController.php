@@ -25,11 +25,17 @@ class ApiController extends Controller
 
     public function getClasses($id){
         $classes = Clas::where('main_id','=',$id)->get();
+        foreach ($classes as $key => $class) {
+            $class->books = DB::table('book')->whereClassId($class->id)->count();
+        }
         return json_encode($classes);
     }
 
     public function getBooks($class){
     	$books = Book::where('class_id','=',$class)->get();
+        foreach ($books as $key => $book) {
+            $book->lessons = DB::table('content')->whereBookId($book->id)->count();
+        }
     	return json_encode($books);
     }
     
@@ -55,6 +61,9 @@ class ApiController extends Controller
         	$str = 0;
         }
         $books = DB::select("select * from book where id in (".$str.")");
+        foreach ($books as $key => $book) {
+            $book->lessons = DB::table('content')->whereBookId($book->id)->count();
+        }
         return json_encode($books);
     }
 
