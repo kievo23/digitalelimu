@@ -125,7 +125,11 @@ class ApiController extends Controller
                 ->where('week','=',$week)
                 ->where('lesson','=',$lesson)
                 ->first();
-                $content = $content->details;
+                if($content == null){
+                    $content == null;
+                }else{
+                    $content = $content->details;
+                }                
             }
 	}else{
 		$content = null;
