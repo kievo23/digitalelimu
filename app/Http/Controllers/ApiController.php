@@ -131,9 +131,9 @@ class ApiController extends Controller
                     $content = $content->details;
                 }                
             }
-	}else{
-		$content = null;
-	}
+    	}else{
+    		$content = null;
+    	}
 	return view('books.content',compact('content'));
     }
     
