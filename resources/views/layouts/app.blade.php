@@ -129,7 +129,7 @@
                     { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar' ] },
                     { name: 'tools', items: [ 'Maximize' ] },
                     { name: 'document', items: [ 'Source' ] },
-                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat','fontSize_sizes' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'TextColor', 'BGColor','-', 'RemoveFormat','fontSize_sizes' ] },
                     { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
                     { name: 'styles', items: [ 'Styles', 'Format' ,'Font', 'FontSize'] }
                 ]
