@@ -16,7 +16,6 @@
                     @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/content/store') }}">
                         {{ csrf_field() }}
-
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-2 control-label">Name</label>
 

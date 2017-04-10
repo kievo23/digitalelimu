@@ -15,6 +15,7 @@
     <link href="/css/jquery.dataTables.css" rel="stylesheet">
     <link href="/css/jodit.min.css" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     @yield('css')
     
     <!-- Scripts -->
