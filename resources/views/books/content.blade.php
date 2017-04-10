@@ -1,8 +1,8 @@
 @extends('layouts.content')
 @section('content')
 
-	<input type="range" min="80" max="180" id="slider"  value="110" style="position:fixed;top:0px;"/>
-<div style="padding-top:40px">
+	<input type="range" min="80" max="180" id="slider"  value="110" style="position:fixed;top:10px;"/>
+<div style="padding-top:30px">
 	{!! $content !!}	
 </div>
 
