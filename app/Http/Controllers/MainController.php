@@ -58,7 +58,7 @@ class MainController extends Controller
         //$upld = $request->file('photo')->move('uploads/', $fileName);
 
         $img = \Image::make($request->file('photo'));
-        $img->resize(150, null, function ($constraint) {
+        $img->resize(100, null, function ($constraint) {
             $constraint->aspectRatio();
         });
         $upld = $img->save('uploads/'.$fileName, 100);
@@ -119,7 +119,7 @@ class MainController extends Controller
         //$upld = $request->file('photo')->move('uploads/', $fileName);
 
         $img = \Image::make($request->file('photo'));
-        $img->resize(150, null, function ($constraint) {
+        $img->resize(100, null, function ($constraint) {
             $constraint->aspectRatio();
         });
         $upld = $img->save('uploads/'.$fileName, 100);
