@@ -75,6 +75,9 @@ class ApiController extends Controller
         if($client){
 	        $terms = Content::select('book_id','term')
 	        ->where('book_id','=',$book)->distinct()->orderBy('term','ASC')->get();
+            foreach ($terms as $key => $term) {
+                $term->weeks = DB::table('content')->whereTermAndBookId($term->term,$term->book_id)->count();
+            }
 	}else{
 		$terms = null;
 	}
@@ -90,6 +93,9 @@ class ApiController extends Controller
             ->distinct()
             ->orderBy('week','ASC')
 	        ->get();
+            foreach ($weeks as $key => $week) {
+                $week->lessons = DB::table('content')->whereTermAndBookIdAndWeek($week->term,$week->book_id,$week->week)->count();
+            }
 	}else{
 		$weeks = null;
 	}
