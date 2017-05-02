@@ -17,6 +17,7 @@ class CreateMainTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('description')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

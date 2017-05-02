@@ -29,6 +29,7 @@
                         <tr>
                             <td>{{ $topic->name }}</td>
                             <td>{{ $topic->description }}</td>
+                            <td><img src="{{ url('uploads/'.$topic->photo) }}" width="90px"></td>
                             <td>
                             	<a href="{{ url('class/index',['id'=>$topic->id]) }}"  title="Filter Classes"><i class="fa fa-filter" aria-hidden="true"></i></a>
                                 <a href="{{ url('class/create',['id'=>$topic->id]) }}"  title="create Classes"><i class="fa fa-pencil" aria-hidden="true"></i></a>

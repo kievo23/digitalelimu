@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Main;
+use Intervention\Image\Facades\Image as Image;
 
 class MainController extends Controller
 {
@@ -47,10 +48,22 @@ class MainController extends Controller
         $validator = $this->validate($request,[
             'name'=>'required|unique:main|max:255',
             'description'=>'required|max:255',
+            'photo' => 'mimes:jpeg,png,jpg|max:800',
         ]);
         $topic = new Main();
         $topic->name = $request->get('name');
         $topic->description = $request->get('description');
+
+        $fileName = rand(11111,99999).$request->file('photo')->getClientOriginalName();
+        //$upld = $request->file('photo')->move('uploads/', $fileName);
+
+        $img = \Image::make($request->file('photo'));
+        $img->resize(150, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $upld = $img->save('uploads/'.$fileName, 100);
+
+        $topic->photo = $fileName;
         $rst = $topic->save();
 
         if($rst){
@@ -96,11 +109,22 @@ class MainController extends Controller
         $validator = $this->validate($request,[
             'name'=>'required|max:255',
             'description'=>'required|max:255',
+            'photo' => 'mimes:jpeg,png,jpg|max:800',
         ]);
 
         $topic = Main::find($id);
         $topic->name = $request->get('name');
         $topic->description = $request->get('description');
+        $fileName = rand(11111,99999).$request->file('photo')->getClientOriginalName();
+        //$upld = $request->file('photo')->move('uploads/', $fileName);
+
+        $img = \Image::make($request->file('photo'));
+        $img->resize(150, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $upld = $img->save('uploads/'.$fileName, 100);
+
+        $topic->photo = $fileName;
         $rst = $topic->save();
 
         if($rst){

@@ -24,7 +24,7 @@ class ApiController extends Controller
     }
 
     public function getClasses($id){
-        $classes = Clas::where('main_id','=',$id)->get();
+        $classes = Clas::leftJoin('main', 'main.id', '=', 'class.main_id')->where('class.main_id','=',$id)->get();
         foreach ($classes as $key => $class) {
             $class->books = DB::table('book')->whereClassId($class->id)->count();
         }

@@ -14,7 +14,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/category/update',['id'=>$topic->id]) }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/category/update',['id'=>$topic->id]) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('topic') ? ' has-error' : '' }}">
@@ -42,6 +42,23 @@
                                         <strong>{{ $errors->first('description') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
+                            <label for="week" class="col-md-2 control-label">Photo</label>
+
+                            <div class="col-md-5">
+                                <input id="photo" type="file" class="form-control" name="photo" value="{{ old('photo') }}" autofocus>
+
+                                @if ($errors->has('photo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('photo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="col-md-5">
+                                {{$topic->photo}}
                             </div>
                         </div>
 

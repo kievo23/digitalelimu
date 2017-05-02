@@ -62,9 +62,7 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
-
-                        
+                        </div>                        
 
                         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-2 control-label">Description</label>

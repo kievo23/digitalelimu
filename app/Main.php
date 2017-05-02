@@ -10,6 +10,6 @@ class Main extends Model
     protected $table = 'main';
     
     protected $fillable = [
-        'name', 'description',
+        'name', 'description','photo'
     ];
 }
