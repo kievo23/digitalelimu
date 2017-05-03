@@ -23,6 +23,8 @@ class CreateContentsTable extends Migration
             $table->integer('week')->unsigned();
             $table->integer('lesson')->unsigned();            
             $table->text('details')->nullable();
+            $table->string('audio')->unsigned(); 
+            $table->string('video')->unsigned(); 
             $table->timestamps();
         });
     }
