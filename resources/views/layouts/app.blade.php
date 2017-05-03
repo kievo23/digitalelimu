@@ -16,6 +16,7 @@
     <link href="/css/jodit.min.css" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/responsive.dataTable.min.css') }}" rel="stylesheet">
     @yield('css')
     
     <!-- Scripts -->
@@ -116,6 +117,7 @@
     <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script> 
     <script src="/js/moment.min.js"></script>
     <script src="/js/daterangepicker.js"></script> 
+    <script src="/js/dataTable.responsive.js"></script> 
     <script>
     //CKEDITOR.replace( 'details' ); 
     

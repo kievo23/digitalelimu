@@ -24,6 +24,8 @@
                     <th>Week</th>
                     <th>Lesson</th>
                     <th>Description</th>
+                    <th>Audio</th>
+                    <th>Video</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -37,6 +39,8 @@
                             <td>{{ $content->week }}</td>
                             <td>{{ $content->lesson }}</td>
                             <td>{{ $content->description }}</td>
+                            <td>{{ $content->audio }}</td>
+                            <td>{{ $content->video }}</td>
                             <td>
                                 <a href="{{ url('content/edit',['id'=>$content->id]) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                 <a href="{{ url('content/destroy',['id'=>$content->id]) }}" onclick="return confirm('Are you sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -54,7 +58,9 @@
 @section('js')
 
 $(document).ready( function () {
-    $('#contents').DataTable();
-} );
+    $('#contents').DataTable({
+        responsive: true
+    });
+});
 
 @endsection

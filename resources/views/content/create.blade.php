@@ -14,7 +14,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/content/store') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/content/store') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-2 control-label">Name</label>
@@ -120,6 +120,34 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('audio') ? ' has-error' : '' }}">
+                            <label for="audio" class="col-md-2 control-label">Audio</label>
+
+                            <div class="col-md-10">
+                                <input id="audio" type="file" class="form-control" name="audio" value="{{ old('audio') }}" autofocus>
+
+                                @if ($errors->has('audio'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('audio') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div> 
+
+                        <div class="form-group{{ $errors->has('video') ? ' has-error' : '' }}">
+                            <label for="video" class="col-md-2 control-label">Video</label>
+
+                            <div class="col-md-10">
+                                <input id="video" type="file" class="form-control" name="video" value="{{ old('video') }}" autofocus>
+
+                                @if ($errors->has('video'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('video') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div> 
                         
                         <div id="details"></div>
                         

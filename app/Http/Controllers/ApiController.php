@@ -105,7 +105,7 @@ class ApiController extends Controller
     public function getLessons($phone,$accesstoken,$book,$term,$week){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
-	        $lessons = Content::select('book_id','term','week','lesson')
+	        $lessons = Content::select('book_id','term','week','lesson','audio','video')
 	        ->where('book_id','=',$book)
 	        ->where('term','=',$term)
 	        ->where('week','=',$week)

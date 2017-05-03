@@ -69,6 +69,8 @@ class ContentController extends Controller
             'description'=>'required|max:255',
             'details'=>'required',
             'description'=>'required|max:255',
+            'audio' => 'mimes:mpga,wav,ogg,mpeg',
+            'video' => 'mimes:mp4,mov,flv,avi,wmv',
         ]);
         $topic = new Content();
         $topic->name = $request->get('name');
@@ -78,6 +80,23 @@ class ContentController extends Controller
         $topic->lesson = $request->get('lesson');
         $topic->description = $request->get('description');
         $topic->details = $request->get('details');
+        if($request->hasFile('audio')){
+
+            $file = $request->file('audio');
+            $fileaudio = rand(11111,99999).$file->getClientOriginalName();
+            $path = public_path().'/uploads/audio/';
+            $rt = $file->move($path, $fileaudio);
+            $topic->audio = $fileaudio;
+        }
+        if($request->hasFile('video')){
+
+            $file = $request->file('video');
+            $filevideo = rand(11111,99999).$file->getClientOriginalName();
+            $path = public_path().'/uploads/video/';
+            $rt = $file->move($path, $filevideo);
+            $topic->video = $filevideo;
+        }        
+        
         $rst = $topic->save();
 
         if($rst){
@@ -127,7 +146,9 @@ class ContentController extends Controller
             'week'=>'required|integer',
             'lesson'=>'required|integer',
             'description'=>'required|max:255',
-            'details'=>'required',
+            'details'=>'required',            
+            'audio' => 'mimes:wav,ogg,mpeg,mpga',
+            'video' => 'mimes:mp4,mov,flv,avi,wmv',
         ]);
 
         $topic = Content::find($id);
@@ -138,6 +159,22 @@ class ContentController extends Controller
         $topic->lesson = $request->get('lesson');
         $topic->description = $request->get('description');
         $topic->details = $request->get('details');
+        if($request->hasFile('audio')){
+
+            $file = $request->file('audio');
+            $fileaudio = rand(11111,99999).$file->getClientOriginalName();
+            $path = public_path().'/uploads/audio/';
+            $rt = $file->move($path, $fileaudio);
+            $topic->audio = $fileaudio;
+        }
+        if($request->hasFile('video')){
+
+            $file = $request->file('video');
+            $filevideo = rand(11111,99999).$file->getClientOriginalName();
+            $path = public_path().'/uploads/video/';
+            $rt = $file->move($path, $filevideo);
+            $topic->video = $filevideo;
+        }   
         $rst = $topic->save();
 
         if($rst){

@@ -9,7 +9,7 @@ class Content extends Model
     protected $table = 'content';
     
     protected $fillable = [
-        'name','book_id','term','week','lesson','description','details'
+        'name','book_id','term','week','lesson','description','details','audio','video'
     ];
     
      public function book()

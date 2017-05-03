@@ -50,7 +50,9 @@
 @section('js')
 
 $(document).ready( function () {
-    $('#contents').DataTable();
+    $('#contents').DataTable({
+        responsive: true
+    });
 } );
 
 @endsection
