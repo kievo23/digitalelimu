@@ -95,6 +95,7 @@
                             <a class="btn" href="{{ url('/content/index') }}">Content</a>
                             <a class="btn" href="{{ url('/subscriptions/index') }}">Subscriptions</a>
                             <a class="btn" href="{{ url('/reports/index') }}">Reports</a>
+                            <a class="btn" href="{{ url('/category/clients') }}">Clients</a>
                         </div>
                     </div>
                 </div>

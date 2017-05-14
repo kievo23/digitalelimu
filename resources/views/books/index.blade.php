@@ -22,6 +22,7 @@
                     <th>Name</th>
                     <th>Class</th>                    
                     <th>Description</th>
+                    <th>Activate</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -33,10 +34,12 @@
                             <td>{{ $topic->name }}</td>
                             <td>{{ $topic->category->name }}</td>                            
                             <td>{{ $topic->description }}</td>
+                            <td>{{ $topic->activate }}</td>
                             <td>
                             	<a href="{{ url('content/index',['id'=>$topic->id]) }}"  title="Filter Contents"><i class="fa fa-filter" aria-hidden="true"></i></a>
                                 <a href="{{ url('content/create',['id'=>$topic->id]) }}"  title="Create Content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 <a href="{{ url('book/edit',['id'=>$topic->id]) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a href="{{ url('book/activate',['id'=>$topic->id]) }}" title="Activate"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
                                 <a href="{{ url('book/destroy',['id'=>$topic->id]) }}" onclick="return confirm('Are you sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </td>
                         </tr>

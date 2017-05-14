@@ -131,6 +131,35 @@
                             </div>
                         </div> 
                     </div>                
+
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h2>Clients with many Edits</h2></div>
+                            <div class="panel-body">
+                                <table class="table" id="contents">
+                                    <thead>
+                                        <tr>
+                                            <th>Subscription Id</th>
+                                            <th>Phone Number</th>
+                                            <th>Number of Edits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if($blainers)
+                                            @foreach($blainers as $item)
+                                                <tr>
+                                                    <td>{{ $item->sub_id }}</td>
+                                                    <td>{{ $item->phone }}</td> 
+                                                    <td>{{ $item->number }}</td>                          
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>                
+
                 </div>
             </div>
         </div>

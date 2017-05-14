@@ -26,9 +26,11 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/category/create','MainController@create');
 Route::get('/category/index','MainController@index');
+Route::get('/category/clients','MainController@clients');
 Route::get('/category/edit/{id}','MainController@edit');
 Route::post('/category/store','MainController@store');
 Route::post('/category/update/{id}','MainController@update');
+Route::get('/category/activate/{id}','MainController@activate');
 Route::any('/category/destroy/{id}', 'MainController@destroy');
 
 Route::get('/class/create','ClassController@create');
@@ -38,6 +40,7 @@ Route::get('/class/index/{id}','ClassController@indexSort');
 Route::get('/class/edit/{id}','ClassController@edit');
 Route::post('/class/store','ClassController@store');
 Route::post('/class/update/{id}','ClassController@update');
+Route::get('/class/activate/{id}','ClassController@activate');
 Route::any('/class/destroy/{id}', 'ClassController@destroy');
 
 Route::get('/book/create', 'BookController@create');
@@ -47,6 +50,7 @@ Route::get('/book/index','BookController@index');
 Route::get('/book/index/{id}','BookController@indexSort');
 Route::post('/book/update/{id}', 'BookController@update');
 Route::get('/book/edit/{id}', 'BookController@edit');
+Route::get('/book/activate/{id}','BookController@activate');
 Route::any('/book/destroy/{id}', 'BookController@destroy');
 
 Route::get('/content/create', 'ContentController@create');

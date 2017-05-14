@@ -19,13 +19,14 @@ class ApiController extends Controller
 {
     //
     public function getCategories(){
-    	$categories = Main::all();
+    	$categories = Main::where('activate',1)->get();
     	return json_encode($categories);
     }
 
     public function getClasses($id){
         $classes = Clas::leftJoin('main', 'main.id', '=', 'class.main_id')
         ->where('class.main_id','=',$id)
+        ->where('class.activate',1)
         ->select('class.id', 'main.photo', 'class.name','class.description')
         ->get();
         foreach ($classes as $key => $class) {
@@ -35,7 +36,9 @@ class ApiController extends Controller
     }
 
     public function getBooks($class){
-    	$books = Book::where('class_id','=',$class)->get();
+    	$books = Book::where('class_id','=',$class)
+        ->where('activate',1)
+        ->get();
         foreach ($books as $key => $book) {
             $book->lessons = DB::table('content')->whereBookId($book->id)->count();
         }

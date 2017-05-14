@@ -9,7 +9,7 @@ class Clas extends Model
     protected $table = 'class';
     
     protected $fillable = [
-        'id','name', 'main_id','description'
+        'id','name', 'main_id','description','activate'
     ];
 
     public function book(){

@@ -44,6 +44,23 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('activate') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-2 control-label">Activated</label>
+
+                            <div class="col-md-10">
+                                <select class="form-control" name="activate">
+                                <option id="activate" value="{{ old('activate') }}">--select--</option>
+                                <option id="activate" value="0">Not Active</option>
+                                <option id="activate" value="1">Active</option>
+                                </select>
+                                @if ($errors->has('activate'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('activate') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         
                         <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
                             <label for="week" class="col-md-2 control-label">Photo</label>

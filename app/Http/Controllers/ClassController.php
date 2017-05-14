@@ -71,6 +71,7 @@ class ClassController extends Controller
         $topic->name = $request->get('name');
         $topic->main_id = $request->get('main');
         $topic->description = $request->get('description');
+        $topic->activate = $request->get('activate');
         $rst = $topic->save();
 
         if($rst){
@@ -111,6 +112,16 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function activate(Request $request, $id)
+    {
+        $topic = Clas::find($id);
+        $topic->activate = $topic->activate == 0 ? 1 : 0;
+        $rst = $topic->save();
+        if($rst){
+            return redirect('class/index')->with('status','Successful');
+        }
+    }
+
     public function update(Request $request, $id)
     {
         //
@@ -124,6 +135,7 @@ class ClassController extends Controller
         $topic->name = $request->get('name');
         $topic->main_id = $request->get('main');
         $topic->description = $request->get('description');
+        $topic->activate = $request->get('activate');
         $rst = $topic->save();
 
         if($rst){

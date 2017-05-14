@@ -123,6 +123,16 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function activate(Request $request, $id)
+    {
+        $topic = Book::find($id);
+        $topic->activate = $topic->activate == 0 ? 1 : 0;
+        $rst = $topic->save();
+        if($rst){
+            return redirect('book/index')->with('status','Successful');
+        }
+    }
+
     public function update(Request $request, $id)
     {
         //

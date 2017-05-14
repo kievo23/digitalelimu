@@ -92,7 +92,9 @@ class HomeController extends Controller
         //Best Clients
         $bestClients = DB::select("SELECT SUM(s.amount) as amount,c.id,c.phone FROM subscriptions s LEFT JOIN clients c on c.id=s.client_id WHERE s.created_at LIKE '".$year."%' GROUP BY s.client_id,c.id,c.phone ORDER BY amount DESC limit 15");
 
-        return view('home',compact('books','daily','yesterday','thisWeek','lastSevenDaysSales','salesThisMonth','salesThisYear','salesLastYear','salesLastMonth','bestSellingBooks','bestClients'));
+        $blainers = DB::select("SELECT `edits`.`sub_id`,`edits`.`client_id`,`clients`.`phone`,COUNT( `edits`.`sub_id`) as number FROM edits LEFT JOIN clients on clients.id=edits.client_id GROUP BY clients.phone,edits.sub_id,edits.client_id");
+
+        return view('home',compact('books','daily','yesterday','thisWeek','lastSevenDaysSales','salesThisMonth','salesThisYear','salesLastYear','salesLastMonth','bestSellingBooks','bestClients','blainers'));
     }
 
     public function createBook(){

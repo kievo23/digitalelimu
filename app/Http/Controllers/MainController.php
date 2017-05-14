@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Main;
 use Intervention\Image\Facades\Image as Image;
+use App\Clients;
 
 class MainController extends Controller
 {
@@ -23,6 +24,13 @@ class MainController extends Controller
         //
         $topics = Main::all();
         return view('main.index',compact('topics'));
+    }
+
+    public function clients()
+    {
+        //
+        $topics = Clients::all();
+        return view('main.clients',compact('topics'));
     }
 
     /**
@@ -53,6 +61,7 @@ class MainController extends Controller
         $topic = new Main();
         $topic->name = $request->get('name');
         $topic->description = $request->get('description');
+        $topic->activate = $request->get('activate');
 
         $fileName = rand(11111,99999).$request->file('photo')->getClientOriginalName();
         //$upld = $request->file('photo')->move('uploads/', $fileName);
@@ -103,6 +112,15 @@ class MainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function activate(Request $request, $id)
+    {
+        $topic = Main::find($id);
+        $topic->activate = $topic->activate == 0 ? 1 : 0;
+        $rst = $topic->save();
+        if($rst){
+            return redirect('category/index')->with('status','Successful');
+        }
+    }
     public function update(Request $request, $id)
     {
         //
