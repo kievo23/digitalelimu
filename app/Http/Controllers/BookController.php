@@ -71,6 +71,7 @@ class BookController extends Controller
         $topic->name = $request->get('name');
         $topic->class_id = $request->get('class');
         $topic->description = $request->get('description');
+        $topic->activate = 0;
 
         $fileName = rand(11111,99999).$request->file('photo')->getClientOriginalName();
         //$upld = $request->file('photo')->move('uploads/', $fileName);
