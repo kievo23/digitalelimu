@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Main;
 use Intervention\Image\Facades\Image as Image;
 use App\Clients;
+use Mail;
 
 class MainController extends Controller
 {
@@ -22,7 +23,7 @@ class MainController extends Controller
     public function index()
     {
         //
-        $topics = Main::all();
+        $topics = Main::all();        
         return view('main.index',compact('topics'));
     }
 

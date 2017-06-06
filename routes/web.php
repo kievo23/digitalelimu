@@ -111,7 +111,9 @@ Route::get('/api/getContent/{phone}/{accesstoken}/{book}/{term}/{week}/{lesson}'
 Auth::routes();
 
 //API AUTH
-Route::any('/api/createUser/{phone}/{password}','ApiController@createClient');
+Route::post('/api/registerUser','ApiController@registerClient');
+Route::get('/api/passwordreset/{phone}/{code}','ApiController@resetPassword');
+Route::get('/api/newpassword/{phone}/{password}/{code}','ApiController@newpassword');
 Route::any('/api/authUser/{phone}/{password}','ApiController@authClient');
 Route::any('/api/payments','ApiController@getPayments');
 Route::post('/api/readBook','ApiController@readBook');

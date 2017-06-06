@@ -14,6 +14,7 @@ use App\Payments;
 use App\Subscriptions;
 use Carbon\Carbon;
 use DB;
+use Mail;
 
 class ApiController extends Controller
 {
@@ -210,6 +211,53 @@ class ApiController extends Controller
             $result = $user;
         }
         return json_encode($result);
+    }
+
+    public function registerClient(Request $request){
+        $token = md5($request->get('phone') . date("Y-m-d h:i:sa"));
+        $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
+        $user = Clients::create($data);
+        if($user){
+            Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message) {
+                $message->to('kelvinchege@gmail.com')->subject('Digital Elimu | Registration successful');
+            });
+        }
+    }
+
+    public function resetPassword($phone){
+        $user = Clients::wherePhone($phone)->first();
+        if($user){
+            $code = rand(11111,99999);
+            $user->resetcode = $code;
+            $user->save();
+            Mail::send('emails.passwordreset', ['resetcode'=> $code], function ($message) {
+                $message->to('kelvinchege@gmail.com')->subject('Digital Elimu | Password Reset');
+            });
+        }
+    }
+
+    public function verifyResetCode($phone,$code){
+        $user = Clients::wherePhoneAndResetcode($phone,$code)->first();
+        if($user){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function newpassword($phone,$newpassword,$code){
+        $user = Clients::wherePhoneAndResetcode($phone,$code)->first();
+        if($user){
+            $user->password = $newpassword;
+            if($user->save()){
+                Mail::send('emails.passwordreset', ['newpassword'=> $newpassword,'username'=>$user->username], function ($message) {
+                    $message->to('kelvinchege@gmail.com')->subject('Digital Elimu | New Password');
+                });
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 
     public function daysDeterminant($amount){

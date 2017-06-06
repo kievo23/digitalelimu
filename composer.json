@@ -11,7 +11,8 @@
         "unisharp/laravel-filemanager": "^1.6",
         "intervention/image": "^2.3",
         "zizaco/entrust": "5.2.x-dev",
-        "laravelcollective/html": "^5.2.0"
+        "laravelcollective/html": "^5.2.0",
+        "swiftmailer/swiftmailer": "^5.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
