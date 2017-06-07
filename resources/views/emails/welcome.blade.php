@@ -1,6 +1,6 @@
 <strong>Welcome to Digital Elimu</strong>
 
 <hr>
-Username: {{username}}
+Username: {{$username}}
 <br>
-Password: {{password}}
+Password: {{$password}}

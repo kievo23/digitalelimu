@@ -1,6 +1,6 @@
 <strong>Digital Elimu</strong>
 
 <hr>
-Username: {{username}}
+Username: {{$username}}
 <br>
-Password: {{newpassword}}
+Password: {{$newpassword}}
