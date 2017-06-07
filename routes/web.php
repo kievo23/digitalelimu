@@ -112,7 +112,8 @@ Auth::routes();
 
 //API AUTH
 Route::post('/api/registerUser','ApiController@registerClient');
-Route::get('/api/passwordreset/{phone}/{code}','ApiController@resetPassword');
+Route::get('/api/passwordreset/{phone}','ApiController@resetPassword');
+Route::get('/api/verifyresetcode/{phone}/{code}','ApiController@verifyResetCode');
 Route::get('/api/newpassword/{phone}/{password}/{code}','ApiController@newpassword');
 Route::any('/api/authUser/{phone}/{password}','ApiController@authClient');
 Route::any('/api/payments','ApiController@getPayments');

@@ -229,10 +229,15 @@ class ApiController extends Controller
         if($user){
             $code = rand(11111,99999);
             $user->resetcode = $code;
-            $user->save();
-            Mail::send('emails.passwordreset', ['resetcode'=> $code], function ($message) {
-                $message->to('kelvinchege@gmail.com')->subject('Digital Elimu | Password Reset');
-            });
+            if($user->save()){
+                Mail::send('emails.passwordreset', ['resetcode'=> $code], function ($message) {
+                    $message->to('kelvinchege@gmail.com')->subject('Digital Elimu | Password Reset');
+                });
+                return json_encode($user);
+            }else{
+                return false;
+            }
+            
         }
     }
 
