@@ -254,7 +254,7 @@ class ApiController extends Controller
         if($user){
             $user->password = $newpassword;
             if($user->save()){
-                Mail::send('emails.newpassword', ['newpassword'=> $newpassword,'username'=>$user->username], function ($message) {
+                Mail::send('emails.newpassword', ['newpassword'=> $newpassword,'username'=>$user->phone], function ($message) {
                     $message->to('kelvinchege@gmail.com')->subject('New Password');
                 });
                 return json_encode(1);
