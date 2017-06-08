@@ -261,6 +261,8 @@ class ApiController extends Controller
             }else{
                 return json_encode(0);
             }
+        }else{
+            return json_encode(0);
         }
     }
 
