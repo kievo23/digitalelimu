@@ -235,7 +235,7 @@ class ApiController extends Controller
                 });
                 return json_encode($user);
             }else{
-                return false;
+                return json_encode(null);
             }
             
         }
