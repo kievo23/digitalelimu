@@ -221,7 +221,9 @@ class ApiController extends Controller
             Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message) {
                 $message->to('kelvinchege@gmail.com')->subject('Registration Successful');
             });
+            return json_encode($user);
         }
+        return json_encode(new Clients);
     }
 
     public function resetPassword($phone){
