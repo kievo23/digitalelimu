@@ -236,8 +236,7 @@ class ApiController extends Controller
                 return json_encode($user);
             }else{
                 return json_encode(null);
-            }
-            
+            }            
         }
     }
 
@@ -258,9 +257,9 @@ class ApiController extends Controller
                 Mail::send('emails.passwordreset', ['newpassword'=> $newpassword,'username'=>$user->username], function ($message) {
                     $message->to('kelvinchege@gmail.com')->subject('New Password');
                 });
-                return true;
+                return json_encode(1);
             }else{
-                return false;
+                return json_encode(0);
             }
         }
     }
