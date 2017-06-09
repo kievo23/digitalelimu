@@ -222,7 +222,7 @@ class ApiController extends Controller
             $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
             $user = Clients::create($data);
             if($user){
-                Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password,'user' => $user], function ($message) use ($user) {
+                Mail::send('emails.welcome', ['username'=> $user->phone ,'password'=> $user->password,'user' => $user], function ($message) use ($user) {
                     $message->to($user->email)->subject('Registration Successful');
                 });
                 return json_encode($user);
