@@ -214,15 +214,15 @@ class ApiController extends Controller
     }
 
     public function registerClient(Request $request){
-        $user = Clients::wherePhone($request->get('phone'))->first();
-        if($user){
+        $cuser = Clients::wherePhone($request->get('phone'))->first();
+        if($cuser){
             return json_encode(new Clients);
         }else{
             $token = md5($request->get('phone') . date("Y-m-d h:i:sa"));
             $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
             $user = Clients::create($data);
             if($user){
-                Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message) {
+                Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message,$user) {
                     $message->to($user->email)->subject('Registration Successful');
                 });
                 return json_encode($user);
@@ -237,7 +237,7 @@ class ApiController extends Controller
             $code = rand(11111,99999);
             $user->resetcode = $code;
             if($user->save()){
-                Mail::send('emails.passwordreset', ['resetcode'=> $user->resetcode], function ($message) {
+                Mail::send('emails.passwordreset', ['resetcode'=> $user->resetcode], function ($message,$user) {
                     $message->to($user->email)->subject('Password Reset');
                 });
                 return json_encode($user);
@@ -261,7 +261,7 @@ class ApiController extends Controller
         if($user){
             $user->password = $newpassword;
             if($user->save()){
-                Mail::send('emails.newpassword', ['newpassword'=> $newpassword,'username'=>$user->phone], function ($message) {
+                Mail::send('emails.newpassword', ['newpassword'=> $newpassword,'username'=>$user->phone], function ($message,$user) {
                     $message->to($user->email)->subject('New Password');
                 });
                 return json_encode(1);
