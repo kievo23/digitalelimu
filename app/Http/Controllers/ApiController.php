@@ -214,16 +214,21 @@ class ApiController extends Controller
     }
 
     public function registerClient(Request $request){
-        $token = md5($request->get('phone') . date("Y-m-d h:i:sa"));
-        $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
-        $user = Clients::create($data);
+        $user = Clients::wherePhone($request->get('phone'))->first();
         if($user){
-            Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message) {
-                $message->to($user->email)->subject('Registration Successful');
-            });
-            return json_encode($user);
+            return json_encode(new Clients);
+        }else{
+            $token = md5($request->get('phone') . date("Y-m-d h:i:sa"));
+            $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
+            $user = Clients::create($data);
+            if($user){
+                Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message) {
+                    $message->to($user->email)->subject('Registration Successful');
+                });
+                return json_encode($user);
+            }
+            return json_encode(new Clients);
         }
-        return json_encode(new Clients);
     }
 
     public function resetPassword($phone){
