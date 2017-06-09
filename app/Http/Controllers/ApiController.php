@@ -219,7 +219,7 @@ class ApiController extends Controller
         $user = Clients::create($data);
         if($user){
             Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message) {
-                $message->to('kelvinchege@gmail.com')->subject('Registration Successful');
+                $message->to($user->email)->subject('Registration Successful');
             });
             return json_encode($user);
         }
@@ -233,7 +233,7 @@ class ApiController extends Controller
             $user->resetcode = $code;
             if($user->save()){
                 Mail::send('emails.passwordreset', ['resetcode'=> $user->resetcode], function ($message) {
-                    $message->to('kelvinchege@gmail.com')->subject('Password Reset');
+                    $message->to($user->email)->subject('Password Reset');
                 });
                 return json_encode($user);
             }else{
@@ -257,7 +257,7 @@ class ApiController extends Controller
             $user->password = $newpassword;
             if($user->save()){
                 Mail::send('emails.newpassword', ['newpassword'=> $newpassword,'username'=>$user->phone], function ($message) {
-                    $message->to('kelvinchege@gmail.com')->subject('New Password');
+                    $message->to($user->email)->subject('New Password');
                 });
                 return json_encode(1);
             }else{
