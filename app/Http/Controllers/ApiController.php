@@ -216,7 +216,9 @@ class ApiController extends Controller
     public function registerClient(Request $request){
         $cuser = Clients::wherePhone($request->get('phone'))->first();
         if($cuser){
-            return json_encode(new Clients);
+            $user = new Clients;
+            $user->phone = null;
+            return json_encode($user);
         }else{
             $token = md5($request->get('phone') . date("Y-m-d h:i:sa"));
             $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
