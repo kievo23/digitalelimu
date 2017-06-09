@@ -222,7 +222,7 @@ class ApiController extends Controller
             $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
             $user = Clients::create($data);
             if($user){
-                Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message,$user) {
+                Mail::send('emails.welcome', ['username'=> $user->username ,'password'=> $user->password], function ($message) use ($user) {
                     $message->to($user->email)->subject('Registration Successful');
                 });
                 return json_encode($user);
@@ -237,7 +237,7 @@ class ApiController extends Controller
             $code = rand(11111,99999);
             $user->resetcode = $code;
             if($user->save()){
-                Mail::send('emails.passwordreset', ['resetcode'=> $user->resetcode], function ($message,$user) {
+                Mail::send('emails.passwordreset', ['resetcode'=> $user->resetcode], function ($message) use ($user) {
                     $message->to($user->email)->subject('Password Reset');
                 });
                 return json_encode($user);
@@ -261,7 +261,7 @@ class ApiController extends Controller
         if($user){
             $user->password = $newpassword;
             if($user->save()){
-                Mail::send('emails.newpassword', ['newpassword'=> $newpassword,'username'=>$user->phone], function ($message,$user) {
+                Mail::send('emails.newpassword', ['newpassword'=> $newpassword,'username'=>$user->phone], function ($message) use ($user) {
                     $message->to($user->email)->subject('New Password');
                 });
                 return json_encode(1);
