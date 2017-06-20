@@ -19,7 +19,7 @@ $pesapalNotification=$_GET['pesapal_notification_type'];
 $pesapalTrackingId=$_GET['pesapal_transaction_tracking_id'];
 $pesapal_merchant_reference=$_GET['pesapal_merchant_reference'];
 
-if( $pesapalTrackingId!='')
+if($pesapalTrackingId!='')
 {
    $token = $params = NULL;
    $consumer = new OAuthConsumer($consumer_key, $consumer_secret);
@@ -54,7 +54,7 @@ if( $pesapalTrackingId!='')
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
    echo "Elements<pre>";
-   print_r($elements);
+   print_r($response);
    echo "</pre>";
    $status = $elements[1];
 
