@@ -108,6 +108,8 @@ Route::get('/api/getTerms/{phone}/{accesstoken}/{book}', 'ApiController@getTerms
 Route::get('/api/getWeeks/{phone}/{accesstoken}/{book}/{term}', 'ApiController@getWeeks');
 Route::get('/api/getLessons/{phone}/{accesstoken}/{book}/{term}/{week}', 'ApiController@getLessons');
 Route::get('/api/getContent/{phone}/{accesstoken}/{book}/{term}/{week}/{lesson}', 'ApiController@getContent');
+Route::get('/api/pesapalbuy', 'ApiController@pesapalBuy');
+Route::post('/api/pesapalprocess', 'ApiController@pesapalPost');
 Auth::routes();
 
 //API AUTH
@@ -116,6 +118,7 @@ Route::get('/api/passwordreset/{phone}','ApiController@resetPassword');
 Route::get('/api/newpassword/{phone}/{password}/{code}','ApiController@newpassword');
 Route::any('/api/authUser/{phone}/{password}','ApiController@authClient');
 Route::any('/api/payments','ApiController@getPayments');
+Route::any('/api/pesapal','ApiController@getPesapal');
 Route::post('/api/readBook','ApiController@readBook');
 
 //TEST ur

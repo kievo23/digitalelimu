@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Pesapal;
 use Illuminate\Http\Request;
 use App\Book;
 use App\Main;
@@ -19,6 +20,28 @@ use Mail;
 class ApiController extends Controller
 {
     //
+    public function pesapalBuy(){
+        include(app_path() . '/Handlers/pesapal/pesapal.php');
+        $details = array(
+            'amount' => 10,
+            'description' => 'Test Transaction',
+            'type' => 'MERCHANT',
+            'first_name' => 'Fname',
+            'last_name' => 'Lname',
+            'email' => 'test@test.com',
+            'phonenumber' => '254-723232323',
+            'reference' => 12,
+            'height'=>'400px',
+            //'currency' => 'USD'
+        );
+        $iframe=Pesapal::makePayment($details);
+        return view('api.index',compact('iframe'));
+    }
+
+    public function pesapalPost(Request $request){
+        print_r($_POST);
+    }
+
     public function getCategories(){
     	$categories = Main::where('activate',1)->get();
     	return json_encode($categories);
@@ -193,6 +216,29 @@ class ApiController extends Controller
         $sub->save();
     }
     
+    public function getPesapal(){
+        $data = json_decode(utf8_encode(file_get_contents("php://input")));
+        $payments = new Payments();
+        $payments->transcode = $data->transactionId;
+        $payments->category = $data->category;
+        $payments->providerRefId = $data->providerRefId;
+        $payments->source = $data->source;
+        $payments->destination = $data->destination;
+        $payments->accountNumber = $data->clientAccount;
+        $payments->amount = $data->value;
+        $payments->status = $data->status;
+        $payments->jsond = file_get_contents("php://input");
+        $payments->save();
+        
+        $client = Clients::wherePhone("0".substr($data->source,-9))->first();
+        
+        $sub = new Subscriptions();
+        $sub->client_id = $client->id;
+        $sub->book_id = substr($data->clientAccount,0,-6);
+        $sub->amount = substr($data->value,4,-5);
+        $sub->save();
+    }
+
     public function authClient($phone,$password){
         $user = Clients::wherePhone($phone)->first();
         if ($user) {
