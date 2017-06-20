@@ -34,7 +34,7 @@ if(isset($_POST['submit'])){
 	$email = $_POST['email'];
 	$phonenumber = '';//ONE of email or phonenumber is required
 
-	$callback_url = 'http://www.yourdomain.com/api/pesapal'; //redirect url, the page that will handle the response from pesapal.
+	$callback_url = 'http://139.59.187.229/pesapal/Pesapal-ipn.php'; //redirect url, the page that will handle the response from pesapal.
 
 	$post_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><PesapalDirectOrderInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" Amount=\"".$amount."\" Description=\"".$desc."\" Type=\"".$type."\" Reference=\"".$reference."\" FirstName=\"".$first_name."\" LastName=\"".$last_name."\" Email=\"".$email."\" PhoneNumber=\"".$phonenumber."\" xmlns=\"http://www.pesapal.com\" />";
 	$post_xml = htmlentities($post_xml);
