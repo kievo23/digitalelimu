@@ -19,7 +19,7 @@ $pesapalNotification=$_GET['pesapal_notification_type'];
 $pesapalTrackingId=$_GET['pesapal_transaction_tracking_id'];
 $pesapal_merchant_reference=$_GET['pesapal_merchant_reference'];
 
-if($pesapalNotification=="CHANGE" && $pesapalTrackingId!='')
+if( $pesapalTrackingId!='')
 {
    $token = $params = NULL;
    $consumer = new OAuthConsumer($consumer_key, $consumer_secret);
