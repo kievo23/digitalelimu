@@ -58,8 +58,8 @@ if($pesapalTrackingId!='')
    echo "</pre>";
    $status = $elements[1];
 
-   echo "Status<pre>";
-   print_r($status);
+   echo "response<pre>";
+   print_r($response);
    echo "</pre>";
 
    curl_close ($ch);
