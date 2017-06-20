@@ -73,7 +73,7 @@ class ApiController extends Controller
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
         	$str = "";
-        	$result = Subscriptions::whereClientIdAndStatus($client->id,'1')
+        	$result = Subscriptions::whereClientId($client->id)
                 	->orderBy('id', 'DESC')
                 	->get();
                 foreach($result as $single){
@@ -176,7 +176,7 @@ class ApiController extends Controller
     public function readBook(Request $request){
         $client = Clients::wherePhoneAndAccesstoken($request->get('phone'),$request->get('accesstoken'))->first();
         if($client){
-        	$result = Subscriptions::whereClientIdAndBookIdAndStatus($client->id,$request->get('bookid'),'1')
+        	$result = Subscriptions::whereClientIdAndBookId($client->id,$request->get('bookid'))
                 ->orderBy('id', 'DESC')
                 ->first();
             $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);

@@ -1,7 +1,10 @@
 <?php
 include_once('OAuth.php');
 
+
+session_start();
 $bookid = $_GET['book_id'];
+$client = $_GET['client'];
 
 if(isset($_POST['submit'])){
 	//pesapal params
@@ -23,6 +26,7 @@ if(isset($_POST['submit'])){
 	                   //https://www.pesapal.com/API/PostPesapalDirectOrderV4 when you are ready to go live!
 
 	//get form details
+	
 	$amount = $_POST['amount'];
 	$amount = number_format($amount, 2);//format amount to 2 decimal places
 
@@ -33,6 +37,8 @@ if(isset($_POST['submit'])){
 	$last_name = $_POST['last_name'];
 	$email = $_POST['email'];
 	$phonenumber = '';//ONE of email or phonenumber is required
+	$_SESSION["amount"] = $amount;
+    $_SESSION["client"] = $client;
 
 	$callback_url = 'http://139.59.187.229/pesapal/Pesapal-ipn.php'; //redirect url, the page that will handle the response from pesapal.
 

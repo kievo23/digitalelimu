@@ -1,5 +1,6 @@
 <?php
 include_once('OAuth.php');
+session_start();
 /*
 PesaPal Sandbox is at http://demo.pesapal.com. Use this to test your developement and 
 when you are ready to go live change to https://www.pesapal.com.
@@ -53,16 +54,39 @@ if($pesapalTrackingId!='')
 
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
-   echo "Elements<pre>";
+   /*echo "Elements<pre>";
    print_r($elements);
    echo "</pre>";
-   $status = $elements[1];
 
    echo "response<pre>";
    print_r($response);
-   echo "</pre>";
+   echo "</pre>";*/
+   $status = $elements[1];
 
    curl_close ($ch);
+   if($status){
+      $servername = "localhost";
+      $username = "root";
+      $password = "TpkvgZ3PqPU4hRNA";
+      $dbname = "digitalElimu";
+
+      try {
+          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+          // set the PDO error mode to exception
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $sql = "INSERT INTO subscriptions (client_id, book_id, amount)
+          VALUES ($_SESSION['client'], '$pesapal_merchant_reference', $_SESSION['amount'])";
+          // use exec() because no results are returned
+          $conn->exec($sql);
+          echo "New record created successfully";
+          }
+      catch(PDOException $e)
+          {
+          echo $sql . "<br>" . $e->getMessage();
+          }
+
+      $conn = null;
+   }
    
    //UPDATE YOUR DB TABLE WITH NEW STATUS FOR TRANSACTION WITH pesapal_transaction_tracking_id $pesapalTrackingId
 
