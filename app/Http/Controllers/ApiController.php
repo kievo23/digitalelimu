@@ -20,27 +20,6 @@ use Mail;
 class ApiController extends Controller
 {
     //
-    public function pesapalBuy(){
-        include(app_path() . '/Handlers/pesapal/pesapal.php');
-        $details = array(
-            'amount' => 10,
-            'description' => 'Test Transaction',
-            'type' => 'MERCHANT',
-            'first_name' => 'Fname',
-            'last_name' => 'Lname',
-            'email' => 'test@test.com',
-            'phonenumber' => '254-723232323',
-            'reference' => 12,
-            'height'=>'400px',
-            //'currency' => 'USD'
-        );
-        $iframe=Pesapal::makePayment($details);
-        return view('api.index',compact('iframe'));
-    }
-
-    public function pesapalPost(Request $request){
-        print_r($_POST);
-    }
 
     public function getCategories(){
     	$categories = Main::where('activate',1)->get();
