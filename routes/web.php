@@ -122,3 +122,7 @@ Route::any('/api/pesapal','ApiController@getPesapal');
 Route::post('/api/readBook','ApiController@readBook');
 
 //TEST ur
+Route::get('/pesapal', function() {
+    //return Redirect::to("Pesapal-iframe.php");
+    require(public_path()."/Pesapal-iframe.php");
+});

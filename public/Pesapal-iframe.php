@@ -3,7 +3,7 @@ include_once('OAuth.php');
 
 $bookid = $_GET['book_id'];
 
-if($_POST['submit']){
+if(isset($_POST['submit'])){
 	//pesapal params
 	$token = $params = NULL;
 
