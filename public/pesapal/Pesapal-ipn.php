@@ -62,10 +62,11 @@ if($pesapalTrackingId!='')
    print_r($response);
    echo "</pre>";*/
    $status = $elements[1];
+   print_r($_SESSION);
 
    curl_close ($ch);
    if($status){
-      $servername = "localhost";
+      /*$servername = "localhost";
       $username = "root";
       $password = "TpkvgZ3PqPU4hRNA";
       $dbname = "digitalElimu";
@@ -85,7 +86,7 @@ if($pesapalTrackingId!='')
           echo $sql . "<br>" . $e->getMessage();
           }
 
-      $conn = null;
+      $conn = null;*/
    }
    
    //UPDATE YOUR DB TABLE WITH NEW STATUS FOR TRANSACTION WITH pesapal_transaction_tracking_id $pesapalTrackingId
