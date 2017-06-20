@@ -51,16 +51,27 @@ if(isset($_POST['submit'])){
 
 //display pesapal - iframe and pass iframe_src
 ?>
-<form method="post" action="">
-	<input type="text" name="first_name" value="" placeholder="first name">	
-	<input type="text" name="last_name" value="" placeholder="last Name">
-	<input type="hidden" name="description" value="Book subscription on Digital Elimu" readonly="readonly">
-	<input type="hidden" name="reference" value="<?php echo $bookid ?>" readonly="readonly">
-	<input type="text" name="email" placeholder="email">
-	<input type="hidden" name="type" value="MERCHANT" readonly="readonly" />
-	<input type="text" name="amount" placeholder="amount">
-	<input type="submit" name="submit" value="Buy">
-</form>
-<iframe src="<?php echo $iframe_src;?>" width="100%" height="700px"  scrolling="no" frameBorder="0">
-	<p>Browser unable to load iFrame</p>
-</iframe>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pesapal Payment</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<form method="post" action="" class="form-horizontal">
+			<input type="text" name="first_name" value="" placeholder="first name" class="form-control">	
+			<input type="text" name="last_name" value="" placeholder="last Name"  class="form-control">
+			<input type="hidden" name="description" value="Book subscription on Digital Elimu" readonly="readonly">
+			<input type="hidden" name="reference" value="<?php echo $bookid ?>" readonly="readonly">
+			<input type="text" name="email" placeholder="email"  class="form-control">
+			<input type="hidden" name="type" value="MERCHANT" readonly="readonly" />
+			<input type="text" name="amount" placeholder="amount"  class="form-control">
+			<input type="submit" name="submit" value="Buy"  class="form-control btn btn-primary">
+		</form>
+		<iframe src="<?php echo $iframe_src;?>" width="100%" height="700px"  scrolling="no" frameBorder="0">
+			<p>Browser unable to load iFrame</p>
+		</iframe>
+	</div>		
+</body>
+</html>

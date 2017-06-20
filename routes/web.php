@@ -121,7 +121,7 @@ Route::any('/api/payments','ApiController@getPayments');
 Route::any('/api/pesapal','ApiController@getPesapal');
 Route::post('/api/readBook','ApiController@readBook');
 
-//TEST ur
+//PesaPal, Unconventional
 Route::get('/pesapal', function() {
     //return Redirect::to("Pesapal-iframe.php");
     require(public_path()."/Pesapal-iframe.php");
