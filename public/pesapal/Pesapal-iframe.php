@@ -63,7 +63,7 @@ if(isset($_POST['submit'])){
 	<title>Pesapal Payment</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-<body>
+<body style="">
 	<div class="container">
 		<form method="post" action="" class="form-horizontal">
 			<input type="text" name="first_name" value="" placeholder="first name" class="form-control">	

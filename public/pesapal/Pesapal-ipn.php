@@ -78,8 +78,13 @@ if($pesapalTrackingId!='')
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           // set the PDO error mode to exception
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+          $stmt = $conn->prepare("SELECT id FROM clients where phone=".$client); 
+          $stmt->execute();
+          $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
-          VALUES ($client, '$pesapal_merchant_reference', $amount, '$today', '$today')";
+          VALUES ($client_id, '$pesapal_merchant_reference', $amount, '$today', '$today')";
           // use exec() because no results are returned
           $conn->exec($sql);
           echo "Successfully Subscribed to this book";
