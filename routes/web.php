@@ -124,5 +124,9 @@ Route::post('/api/readBook','ApiController@readBook');
 //PesaPal, Unconventional
 Route::get('/pesapal', function() {
     //return Redirect::to("Pesapal-iframe.php");
-    require(public_path()."/Pesapal-iframe.php");
+    require(public_path()."/pesapal/Pesapal-iframe.php");
+});
+Route::get('/pesapalIPN', function() {
+    //return Redirect::to("Pesapal-iframe.php");
+    require(public_path()."/pesapal/Pesapal-ipn.php");
 });
