@@ -1,5 +1,5 @@
 <?php
-include_once('oauth.php');
+include_once('OAuth.php');
 /*
 PesaPal Sandbox is at http://demo.pesapal.com. Use this to test your developement and 
 when you are ready to go live change to https://www.pesapal.com.
