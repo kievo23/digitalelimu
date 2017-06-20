@@ -53,6 +53,9 @@ if($pesapalNotification=="CHANGE" && $pesapalTrackingId!='')
 
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
+   echo "Elements<pre>";
+   print_r($elements);
+   echo "</pre>";
    $status = $elements[1];
 
    curl_close ($ch);
