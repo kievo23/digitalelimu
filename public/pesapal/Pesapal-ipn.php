@@ -14,7 +14,7 @@ $consumer_secret="5GFGPw8J+68ibOTlUETcuw7n26U=";// Use the secret from your test
                    //change the secret to the live account registered on www.pesapal.com!
 $statusrequestAPI = 'http://demo.pesapal.com/api/querypaymentstatus';//change to      
                    //https://www.pesapal.com/api/querypaymentstatus' when you are ready to go live!
-print_r($_GET);
+//print_r($_GET);
 // Parameters sent to you by PesaPal IPN
 $pesapalNotification=$_GET['pesapal_notification_type'];
 $pesapalTrackingId=$_GET['pesapal_transaction_tracking_id'];
@@ -62,7 +62,7 @@ if($pesapalTrackingId!='')
    print_r($response);
    echo "</pre>";*/
    $status = $elements[1];
-   print_r($_SESSION);
+   //print_r($_SESSION);
 
    curl_close ($ch);
    if($status){
@@ -71,17 +71,18 @@ if($pesapalTrackingId!='')
       $password = "TpkvgZ3PqPU4hRNA";
       $dbname = "digitalElimu";
       $client = $_SESSION['client'];
-      $amount = $_SESSION['amount'];
+      $amount = (int)$_SESSION['amount'];
+      $today = date("Y-m-d H:i:s");      
 
       try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           // set the PDO error mode to exception
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO subscriptions (client_id, book_id, amount)
-          VALUES ($client, '$pesapal_merchant_reference', $amount)";
+          $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
+          VALUES ($client, '$pesapal_merchant_reference', $amount, $today, $today)";
           // use exec() because no results are returned
           $conn->exec($sql);
-          echo "New record created successfully";
+          echo "Successfully Subscribed to this book";
           }
       catch(PDOException $e)
           {
@@ -97,7 +98,7 @@ if($pesapalTrackingId!='')
    {
       $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
       ob_start();
-      echo $resp;
+      //echo $resp;
       ob_flush();
       exit;
    }
