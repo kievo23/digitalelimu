@@ -58,6 +58,10 @@ if($pesapalTrackingId!='')
    echo "</pre>";
    $status = $elements[1];
 
+   echo "Status<pre>";
+   print_r($status);
+   echo "</pre>";
+
    curl_close ($ch);
    
    //UPDATE YOUR DB TABLE WITH NEW STATUS FOR TRANSACTION WITH pesapal_transaction_tracking_id $pesapalTrackingId
