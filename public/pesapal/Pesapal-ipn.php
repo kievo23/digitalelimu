@@ -66,17 +66,19 @@ if($pesapalTrackingId!='')
 
    curl_close ($ch);
    if($status){
-      /*$servername = "localhost";
+      $servername = "localhost";
       $username = "root";
       $password = "TpkvgZ3PqPU4hRNA";
       $dbname = "digitalElimu";
+      $client = $_SESSION['client'];
+      $amount = $_SESSION['amount'];
 
       try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           // set the PDO error mode to exception
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount)
-          VALUES ($_SESSION['client'], '$pesapal_merchant_reference', $_SESSION['amount'])";
+          VALUES ($client, '$pesapal_merchant_reference', $amount)";
           // use exec() because no results are returned
           $conn->exec($sql);
           echo "New record created successfully";
@@ -86,7 +88,7 @@ if($pesapalTrackingId!='')
           echo $sql . "<br>" . $e->getMessage();
           }
 
-      $conn = null;*/
+      $conn = null;
    }
    
    //UPDATE YOUR DB TABLE WITH NEW STATUS FOR TRANSACTION WITH pesapal_transaction_tracking_id $pesapalTrackingId
