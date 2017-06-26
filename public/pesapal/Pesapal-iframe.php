@@ -53,7 +53,7 @@ if(isset($_POST['submit'])){
 	$iframe_src->set_parameter("pesapal_request_data", $post_xml);
 	$iframe_src->sign_request($signature_method, $consumer, $token);
 
-}
+}else{
 
 //display pesapal - iframe and pass iframe_src
 ?>
@@ -81,3 +81,4 @@ if(isset($_POST['submit'])){
 	</div>		
 </body>
 </html>
+<?php } ?>
