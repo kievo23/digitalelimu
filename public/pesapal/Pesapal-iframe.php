@@ -22,7 +22,7 @@ if(isset($_POST['submit'])){
                    //account on demo.pesapal.com. When you are ready to go live make sure you 
                    //change the secret to the live account registered on www.pesapal.com!
 	$signature_method = new OAuthSignatureMethod_HMAC_SHA1();
-	$iframelink = 'http://demo.pesapal.com/api/PostPesapalDirectOrderV4';//change to      
+	$iframelink = 'https://www.pesapal.com/api/PostPesapalDirectOrderV4';//change to      
 	                   //https://www.pesapal.com/API/PostPesapalDirectOrderV4 when you are ready to go live!
 
 	//get form details
