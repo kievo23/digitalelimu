@@ -5,11 +5,11 @@ session_start();
 PesaPal Sandbox is at http://demo.pesapal.com. Use this to test your developement and 
 when you are ready to go live change to https://www.pesapal.com.
 */
-$consumer_key="hD4FirKu1Ct09nfUeB+J7LJrg/Kt1Bbc";//Register a merchant account on
+$consumer_key="roIpBWqRZAVUKX8KCUgr2l2oFVSJ/kzE";//Register a merchant account on
                    //demo.pesapal.com and use the merchant key for testing.
                    //When you are ready to go live make sure you change the key to the live account
                    //registered on www.pesapal.com!
-$consumer_secret="5GFGPw8J+68ibOTlUETcuw7n26U=";// Use the secret from your test
+$consumer_secret="2eLiIH9Q0esLIbGGL/I8PYcI4Wo=";// Use the secret from your test
                    //account on demo.pesapal.com. When you are ready to go live make sure you 
                    //change the secret to the live account registered on www.pesapal.com!
 $statusrequestAPI = 'http://demo.pesapal.com/api/querypaymentstatus';//change to      
