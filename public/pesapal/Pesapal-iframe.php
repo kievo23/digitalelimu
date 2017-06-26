@@ -52,7 +52,22 @@ if(isset($_POST['submit'])){
 	$iframe_src->set_parameter("oauth_callback", $callback_url);
 	$iframe_src->set_parameter("pesapal_request_data", $post_xml);
 	$iframe_src->sign_request($signature_method, $consumer, $token);
-
+	?>
+	<!DOCTYPE html>
+<html>
+<head>
+	<title>Pesapal Payment</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body style="">
+	<div class="container">
+		<iframe src="<?php echo $iframe_src;?>" width="100%" height="700px"  scrolling="no" frameBorder="0">
+			<p>Browser unable to load iFrame</p>
+		</iframe>
+	</div>		
+</body>
+</html>
+<?php
 }else{
 
 //display pesapal - iframe and pass iframe_src
