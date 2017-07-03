@@ -64,7 +64,7 @@ if($pesapalTrackingId!='')
    $status = $elements[1];
    print_r($_SESSION);
 
-   curl_close ($ch);
+   
    if($status){
       $servername = "localhost";
       $username = "root";
@@ -97,6 +97,7 @@ if($pesapalTrackingId!='')
 
       $conn = null;
    }
+   curl_close ($ch);
    
    //UPDATE YOUR DB TABLE WITH NEW STATUS FOR TRANSACTION WITH pesapal_transaction_tracking_id $pesapalTrackingId
 
