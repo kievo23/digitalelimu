@@ -63,9 +63,7 @@ if($pesapalTrackingId!='')
    echo "</pre>";*/
    $status = $elements[1];
    print_r($_SESSION);
-   print_r($elements);
-   
-   if($status){
+
       $servername = "localhost";
       $username = "root";
       $password = "TpkvgZ3PqPU4hRNA";
@@ -111,5 +109,4 @@ if($pesapalTrackingId!='')
       ob_flush();
       exit;
    }
-}
 ?>
