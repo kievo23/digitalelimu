@@ -63,7 +63,7 @@ if($pesapalTrackingId!='')
    echo "</pre>";*/
    $status = $elements[1];
    print_r($_SESSION);
-   print_r($status);
+   print_r($elements);
    
    if($status){
       $servername = "localhost";
