@@ -62,7 +62,7 @@ if($pesapalTrackingId!='')
    print_r($response);
    echo "</pre>";*/
    $status = $elements[1];
-   //print_r($_SESSION);
+   print_r($_SESSION);
 
    curl_close ($ch);
    if($status){
@@ -72,6 +72,7 @@ if($pesapalTrackingId!='')
       $dbname = "digitalElimu";
       $client = $_SESSION['client'];
       $amount = (int)$_SESSION['amount'];
+      $book = $_SESSION["book"];
       $today = date("Y-m-d H:i:s");      
 
       try {
@@ -84,10 +85,10 @@ if($pesapalTrackingId!='')
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
 
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
-          VALUES ($client_id, '$pesapal_merchant_reference', $amount, '$today', '$today')";
+          VALUES ($client_id, '$book', $amount, '$today', '$today')";
           // use exec() because no results are returned
           $conn->exec($sql);
-          echo "Successfully Subscribed to this book";
+          echo "<h2>Successfully Subscribed to this book</h2>";
           }
       catch(PDOException $e)
           {

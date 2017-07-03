@@ -39,6 +39,7 @@ if(isset($_POST['submit'])){
 	$phonenumber = '';//ONE of email or phonenumber is required
 	$_SESSION["amount"] = $amount;
     $_SESSION["client"] = $client;
+    $_SESSION["book"] = $bookid;
 
 	$callback_url = 'http://139.59.187.229/pesapal/Pesapal-ipn.php'; //redirect url, the page that will handle the response from pesapal.
 
