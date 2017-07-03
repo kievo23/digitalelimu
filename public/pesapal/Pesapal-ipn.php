@@ -73,7 +73,7 @@ if($pesapalTrackingId!='')
       $client = $_SESSION['client'];
       $amount = (int)$_SESSION['amount'];
       $book = $_SESSION["book"];
-      $today = date("Y-m-d H:i:s");      
+      $today = date("Y-m-d H:i:s");   
 
       try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -83,6 +83,7 @@ if($pesapalTrackingId!='')
           $stmt = $conn->prepare("SELECT id FROM clients where phone=".$client); 
           $stmt->execute();
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+          echo $client_id;
 
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
           VALUES ($client_id, '$book', $amount, '$today', '$today')";
