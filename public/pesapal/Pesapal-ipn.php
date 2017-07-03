@@ -81,12 +81,13 @@ if($pesapalTrackingId!='')
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $stmt = $conn->prepare("SELECT id FROM clients where phone='".$client."'"); 
+          echo $stmt;
           $stmt->execute();
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
           echo $client_id;
 
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
-          VALUES ($client_id, '$book', $amount, '$today', '$today')";
+          VALUES ($client_id, $book, '$amount', '$today', '$today')";
           // use exec() because no results are returned
           $conn->exec($sql);
           echo "<h2>Successfully Subscribed to this book</h2>";
