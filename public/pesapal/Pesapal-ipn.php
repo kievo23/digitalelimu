@@ -63,13 +63,13 @@ if($pesapalTrackingId!='')
 
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
-   echo "Elements<pre>";
+   /*echo "Elements<pre>";
    print_r($elements);
    echo "</pre>";
 
    echo "response<pre>";
    print_r($response);
-   echo "</pre>";
+   echo "</pre>";*/
    $status = $elements[1];
    print_r($_SESSION);
 
@@ -78,11 +78,11 @@ if($pesapalTrackingId!='')
       try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           // set the PDO error mode to exception
-          print_r($conn);
+          //print_r($conn);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $stmt = $conn->prepare("SELECT id FROM clients where phone='0710345130'"); 
-          print_r($stmt);
+          //print_r($stmt);
           $stmt->execute();
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
           echo $client_id;
