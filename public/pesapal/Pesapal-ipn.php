@@ -54,7 +54,7 @@ if($pesapalTrackingId!='')
 
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
-   /*echo "Elements<pre>";
+   echo "Elements<pre>";
    print_r($elements);
    echo "</pre>";
 
