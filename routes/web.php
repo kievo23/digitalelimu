@@ -108,6 +108,8 @@ Route::get('/api/getTerms/{phone}/{accesstoken}/{book}', 'ApiController@getTerms
 Route::get('/api/getWeeks/{phone}/{accesstoken}/{book}/{term}', 'ApiController@getWeeks');
 Route::get('/api/getLessons/{phone}/{accesstoken}/{book}/{term}/{week}', 'ApiController@getLessons');
 Route::get('/api/getContent/{phone}/{accesstoken}/{book}/{term}/{week}/{lesson}', 'ApiController@getContent');
+Route::get('/api/pdf/{phone}/{accesstoken}/{id}', 'ApiController@getPdf');
+Route::get('/api/pdf', 'ApiController@getPdf');
 Auth::routes();
 
 //API AUTH

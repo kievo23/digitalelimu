@@ -90,6 +90,19 @@ class ApiController extends Controller
 	return json_encode($terms);
     }
 
+    public function getPdf($phone,$accesstoken,$id){
+        $client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
+        if($client){
+            $book = Book::find($id);
+            return view('books.pdf',compact('book'));
+        }
+    }
+
+    public function getPdf(){
+            $book = Book::find(7);
+            return view('books.pdf',compact('book'));
+    }
+
     public function getWeeks($phone,$accesstoken,$book,$term){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){

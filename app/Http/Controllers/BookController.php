@@ -65,6 +65,7 @@ class BookController extends Controller
             'name'=>'required|unique:book|max:255',
             'class'=>'required|max:255',            
             'photo' => 'required|mimes:jpeg,png,jpg|max:800',
+            'pdf'=> 'mimes:pdf',
             'description'=>'required|max:255',
         ]);
         $topic = new Book();
@@ -81,8 +82,16 @@ class BookController extends Controller
             $constraint->aspectRatio();
         });
         $upld = $img->save('uploads/'.$fileName, 100);
-
         $topic->photo = $fileName;
+
+        if($request->file('pdf')){
+            $fileName = str_slug(rand(11111,99999).$request->file('pdf')->getClientOriginalName(), ".");
+            $upload = $request->file('pdf')->move('pdf/', $fileName);
+            //$upload = $img->save('pdf/'.$fileName);
+
+            $topic->pdf = $fileName;
+        }
+        
         if($upld){
             $rst = $topic->save();
             if($rst){
@@ -101,6 +110,8 @@ class BookController extends Controller
     public function show($id)
     {
         //
+        $book = Book::find($id);
+        //return view('books.pdf',compact('book'));
     }
 
     /**
@@ -141,6 +152,7 @@ class BookController extends Controller
             'name'=>'required|max:255',
             'class'=>'required|max:255',            
             'photo' => 'mimes:jpeg,png,jpg|max:800',
+            'pdf'=> 'mimes:pdf',
             'description'=>'required|max:255',
         ]);
 
@@ -160,6 +172,13 @@ class BookController extends Controller
             $upld = $img->save('uploads/'.$fileName, 70);
 
             $topic->photo = $fileName;
+        }
+        if($request->file('pdf')){
+            $fileName = str_slug(rand(11111,99999).$request->file('pdf')->getClientOriginalName(), ".");
+            $upload = $request->file('pdf')->move('pdf/', $fileName);
+            //$upload = $img->save('pdf/'.$fileName);
+
+            $topic->pdf = $fileName;
         }
         if($upld){
             $rst = $topic->save();

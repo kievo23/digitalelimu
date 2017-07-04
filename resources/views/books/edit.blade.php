@@ -68,6 +68,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('pdf') ? ' has-error' : '' }}">
+                            <label for="pdf" class="col-md-2 control-label">PDF</label>
+
+                            <div class="col-md-5">
+                                <input id="pdf" type="file" class="form-control" name="pdf" value="{{ old('pdf') }}" autofocus>
+
+                                @if ($errors->has('pdf'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('pdf') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="col-md-5">
+                                {{$book->pdf}}
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-2 control-label">Description</label>
 

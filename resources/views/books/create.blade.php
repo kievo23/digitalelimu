@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
-                            <label for="week" class="col-md-2 control-label">Photo</label>
+                            <label for="photo" class="col-md-2 control-label">Photo</label>
 
                             <div class="col-md-10">
                                 <input id="photo" type="file" class="form-control" name="photo" value="{{ old('photo') }}" autofocus>
@@ -59,6 +59,20 @@
                                 @if ($errors->has('photo'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('photo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div> 
+
+                        <div class="form-group{{ $errors->has('pdf') ? ' has-error' : '' }}">
+                            <label for="pdf" class="col-md-2 control-label">PDF</label>
+
+                            <div class="col-md-10">
+                                <input id="pdf" type="file" class="form-control" name="pdf" value="{{ old('pdf') }}" autofocus>
+
+                                @if ($errors->has('pdf'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('pdf') }}</strong>
                                     </span>
                                 @endif
                             </div>
