@@ -60,7 +60,7 @@ if($pesapalTrackingId!='')
 
    echo "response<pre>";
    print_r($response);
-   echo "</pre>";*/
+   echo "</pre>";
    $status = $elements[1];
    print_r($_SESSION);
 
