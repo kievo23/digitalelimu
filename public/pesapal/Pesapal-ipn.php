@@ -74,7 +74,7 @@ if($pesapalTrackingId!='')
    print_r($_SESSION);
 
         
-
+    if($status){
       try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           // set the PDO error mode to exception
@@ -97,7 +97,7 @@ if($pesapalTrackingId!='')
           {
           echo $sql . "<br>" . $e->getMessage();
           }
-
+    }
       $conn = null;
    }
    curl_close ($ch);
