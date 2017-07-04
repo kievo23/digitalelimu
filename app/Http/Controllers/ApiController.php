@@ -98,7 +98,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getPdf(){
+    public function getPdfs(){
             $book = Book::find(7);
             return view('books.pdf',compact('book'));
     }
