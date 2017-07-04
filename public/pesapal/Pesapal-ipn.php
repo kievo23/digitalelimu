@@ -52,6 +52,15 @@ if($pesapalTrackingId!='')
    $headerArray = explode("\r\n\r\n", $raw_header);
    $header      = $headerArray[count($headerArray) - 1];
 
+    $servername = "localhost";
+    $username = "root";
+    $password = "TpkvgZ3PqPU4hRNA";
+    $dbname = "digitalElimu";
+    $client = $_SESSION['client'];
+    $amount = (int)$_SESSION['amount'];
+    $book = $_SESSION["book"];
+    $today = date("Y-m-d H:i:s"); 
+
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
    echo "Elements<pre>";
@@ -64,14 +73,7 @@ if($pesapalTrackingId!='')
    $status = $elements[1];
    print_r($_SESSION);
 
-      $servername = "localhost";
-      $username = "root";
-      $password = "TpkvgZ3PqPU4hRNA";
-      $dbname = "digitalElimu";
-      $client = $_SESSION['client'];
-      $amount = (int)$_SESSION['amount'];
-      $book = $_SESSION["book"];
-      $today = date("Y-m-d H:i:s");   
+        
 
       try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
