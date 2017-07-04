@@ -82,7 +82,7 @@ if($pesapalTrackingId!='')
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $stmt = $conn->prepare("SELECT id FROM clients where phone='0710345130'"); 
-          echo $stmt;
+          print_r($stmt);
           $stmt->execute();
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
           echo $client_id;
