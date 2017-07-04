@@ -71,7 +71,7 @@ if($pesapalTrackingId!='')
    print_r($response);
    echo "</pre>";*/
    $status = $elements[1];
-   print_r($_SESSION);
+   //print_r($_SESSION);
 
         
     if($status){
@@ -85,7 +85,7 @@ if($pesapalTrackingId!='')
           //print_r($stmt);
           $stmt->execute();
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-          echo $client_id;
+          //echo $client_id;
 
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
           VALUES ($client_id, $book, '$amount', '$today', '$today')";
