@@ -68,7 +68,6 @@ class ContentController extends Controller
             'lesson'=>'required|integer',
             'description'=>'required|max:255',
             'details'=>'required',
-            'description'=>'required|max:255',
             'audio' => 'mimes:mpga,wav,ogg,mpeg',
             'video' => 'mimes:mp4,mov,flv,avi,wmv',
         ]);
@@ -81,7 +80,6 @@ class ContentController extends Controller
         $topic->description = $request->get('description');
         $topic->details = $request->get('details');
         if($request->hasFile('audio')){
-
             $file = $request->file('audio');
             $fileaudio = rand(11111,99999).$file->getClientOriginalName();
             $path = public_path().'/uploads/audio/';
