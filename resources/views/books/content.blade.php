@@ -8,7 +8,7 @@
 	{!! $content !!}
 	<?php
 	if($content == null){
-		echo "<h3>Dear customer, you have reached the end of this week. Kindly click on home button below to select another week</h3>";
+		echo "<h3>Dear customer, you have reached the end of this week. Kindly click on <font style'color=red;'>home button</font> below to select another week</h3>";
 	}else{
 		print_r($content);
 	}
