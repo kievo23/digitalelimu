@@ -47,6 +47,15 @@ class ApiController extends Controller
         }
     	return json_encode($books);
     }
+
+    public function getBooksAll(){
+        $books = Book::where('activate',1)
+        ->get();
+        foreach ($books as $key => $book) {
+            $book->lessons = DB::table('content')->whereBookId($book->id)->count();
+        }
+        return json_encode($books);
+    }
     
     public function getBooksSubscribed($phone,$accesstoken){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();

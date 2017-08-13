@@ -104,6 +104,7 @@ Route::get('/api/getCategories', 'ApiController@getCategories');
 Route::get('/api/getClasses/{category}', 'ApiController@getClasses');
 Route::get('/api/getBooks/{class}', 'ApiController@getBooks');
 Route::get('/api/getBooks/{phone}/{accesstoken}', 'ApiController@getBooksSubscribed');
+Route::get('/api/getBooksAll', 'ApiController@getBooksAll');
 Route::get('/api/getTerms/{phone}/{accesstoken}/{book}', 'ApiController@getTerms');
 Route::get('/api/getWeeks/{phone}/{accesstoken}/{book}/{term}', 'ApiController@getWeeks');
 Route::get('/api/getLessons/{phone}/{accesstoken}/{book}/{term}/{week}', 'ApiController@getLessons');
