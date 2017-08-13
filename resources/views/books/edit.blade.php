@@ -35,9 +35,16 @@
                             <label for="name" class="col-md-2 control-label">Class</label>
 
                             <div class="col-md-10">
+                                <?php 
+                                    foreach ($classes as $key => $value) {
+                                        if($value->id ==  $book->class_id){
+                                            $classThis = $value->name;
+                                        }
+                                    }
+                                 ?>
                                 <select class="form-control" name="class">
+                                <option value="{{$book->class_id}}">{{$classThis}}</option>
                                 @if($classes)
-
                                     @foreach($classes as $main)
                                     <option value="{{$main->id}}">{{$main->name}}</option>
                                     @endforeach
@@ -46,6 +53,31 @@
                                 @if($errors->has('class'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('class') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('booktype') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-2 control-label">Book Type</label>
+
+                            <div class="col-md-10">
+                                <?php 
+                                    $bodyTypeArray = array('','Term Type','Chapter Type');
+                                    if($book->booktype){
+                                        $bktp = $bodyTypeArray[$book->booktype];
+                                    }else{
+                                        $bktp = '';
+                                    }
+                                 ?>
+                                <select class="form-control" name="booktype">
+                                    <option value="{{$book->booktype}}"><?php echo $bktp; ?></option>
+                                    <option value="1">Term Type</option>
+                                    <option value="2">Chapter Type</option>
+                                </select>
+                                @if ($errors->has('booktype'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('booktype') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -72,7 +104,7 @@
                             <label for="pdf" class="col-md-2 control-label">PDF</label>
 
                             <div class="col-md-5">
-                                <input id="pdf" type="file" class="form-control" name="pdf" value="{{ old('pdf') }}" autofocus>
+                                <input id="pdf" type="file" class="form-control" name="pdf[]" value="{{ old('pdf') }}" autofocus multiple>
 
                                 @if ($errors->has('pdf'))
                                     <span class="help-block">

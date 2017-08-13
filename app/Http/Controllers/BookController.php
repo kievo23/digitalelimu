@@ -63,14 +63,15 @@ class BookController extends Controller
         //
         $validator = $this->validate($request,[
             'name'=>'required|unique:book|max:255',
-            'class'=>'required|max:255',            
+            'class'=>'required|max:255',  
+            'booktype' => 'required|max:255',          
             'photo' => 'required|mimes:jpeg,png,jpg|max:800',
-            'pdf'=> 'mimes:pdf',
             'description'=>'required|max:255',
         ]);
         $topic = new Book();
         $topic->name = $request->get('name');
         $topic->class_id = $request->get('class');
+        $topic->booktype = $request->get('booktype');
         $topic->description = $request->get('description');
         $topic->activate = 0;
 
@@ -83,22 +84,22 @@ class BookController extends Controller
         });
         $upld = $img->save('uploads/'.$fileName, 100);
         $topic->photo = $fileName;
-
+        $files = $request->file('pdf');
         if($request->file('pdf')){
-            $fileName = str_slug(rand(11111,99999).$request->file('pdf')->getClientOriginalName(), ".");
-            $upload = $request->file('pdf')->move('pdf/', $fileName);
-            //$upload = $img->save('pdf/'.$fileName);
-
-            $topic->pdf = $fileName;
+            $pdf = "";
+            foreach ($files as $file) {
+                $fileName = str_slug(rand(11111,99999).$file->getClientOriginalName(), ".");
+                $upload = $file->move('pdf/', $fileName);
+                $pdf .= $fileName.",";                
+            }
+            $topic->pdf = $pdf;
         }
         
-        if($upld){
-            $rst = $topic->save();
-            if($rst){
-                $topics = Book::all();
-                return redirect('book/index')->with('status','Input Successful');
-            }
-        }        
+        $rst = $topic->save();
+        if($rst){
+            $topics = Book::all();
+            return redirect('book/index')->with('status','Input Successful');
+        }   
     }
 
     /**
@@ -150,15 +151,17 @@ class BookController extends Controller
         //
         $validator = $this->validate($request,[
             'name'=>'required|max:255',
-            'class'=>'required|max:255',            
+            'class'=>'required|max:255',  
+            'booktype' => 'required|max:255',          
             'photo' => 'mimes:jpeg,png,jpg|max:800',
-            'pdf'=> 'mimes:pdf',
+            //'pdf'=> 'mimes:pdf',
             'description'=>'required|max:255',
         ]);
 
         $topic = Book::find($id);
         $topic->name = $request->get('name');
         $topic->class_id = $request->get('class');
+        $topic->booktype = $request->get('booktype');
         $topic->description = $request->get('description');
         $upld = true;
         if($request->file('photo')){
@@ -173,20 +176,22 @@ class BookController extends Controller
 
             $topic->photo = $fileName;
         }
+        $files = $request->file('pdf');
         if($request->file('pdf')){
-            $fileName = str_slug(rand(11111,99999).$request->file('pdf')->getClientOriginalName(), ".");
-            $upload = $request->file('pdf')->move('pdf/', $fileName);
-            //$upload = $img->save('pdf/'.$fileName);
-
-            $topic->pdf = $fileName;
-        }
-        if($upld){
-            $rst = $topic->save();
-            if($rst){
-                $topics = Book::all();
-                return redirect('book/index')->with('status','Input Successful');
+            $pdf = "";
+            $files = $request->file('pdf');
+            foreach ($files as $file) {
+                $fileName = str_slug(rand(11111,99999).$file->getClientOriginalName(), ".");
+                $upload = $file->move('pdf/', $fileName);
+                $pdf .= $fileName.",";                
             }
-        } 
+            $topic->pdf = $pdf;
+        }
+        $rst = $topic->save();
+        if($rst){
+            $topics = Book::all();
+            return redirect('book/index')->with('status','Input Successful');
+        }
         
         return view('books.index',compact('topic'));
     }

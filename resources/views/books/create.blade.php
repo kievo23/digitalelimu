@@ -50,6 +50,22 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('booktype') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-2 control-label">Book Type</label>
+
+                            <div class="col-md-10">
+                                <select class="form-control" name="booktype">
+                                    <option value="1">Term Type</option>
+                                    <option value="2">Chapter Type</option>
+                                </select>
+                                @if ($errors->has('booktype'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('booktype') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
                             <label for="photo" class="col-md-2 control-label">Photo</label>
 
@@ -68,7 +84,7 @@
                             <label for="pdf" class="col-md-2 control-label">PDF</label>
 
                             <div class="col-md-10">
-                                <input id="pdf" type="file" class="form-control" name="pdf" value="{{ old('pdf') }}" autofocus>
+                                <input id="pdf" type="file" class="form-control" name="pdf[]" value="{{ old('pdf') }}" autofocus multiple>
 
                                 @if ($errors->has('pdf'))
                                     <span class="help-block">
