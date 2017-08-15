@@ -102,7 +102,7 @@ class ApiController extends Controller
     public function getPdfList($phone,$accesstoken,$id){
         $client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
-            $book = Book::find($id)->pluck('pdf');;
+            $book = Book::select('pdf')->where('id',$id);
             return json_encode($book);
         }
     }
