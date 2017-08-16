@@ -92,7 +92,7 @@ class BookController extends Controller
                 $upload = $file->move('pdf/', $fileName);
                 $pdf .= $fileName.",";                
             }
-            $topic->pdf = $pdf;
+            $topic->pdf = strtolower($pdf);
         }
         
         $rst = $topic->save();
@@ -185,7 +185,7 @@ class BookController extends Controller
                 $upload = $file->move('pdf/', $fileName);
                 $pdf .= $fileName.",";                
             }
-            $topic->pdf = $pdf;
+            $topic->pdf = strtolower($pdf);
         }
         $rst = $topic->save();
         if($rst){

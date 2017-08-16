@@ -107,6 +107,7 @@ Route::get('/api/getBooks/{phone}/{accesstoken}', 'ApiController@getBooksSubscri
 Route::get('/api/getBooksAll', 'ApiController@getBooksAll');
 Route::get('/api/getTerms/{phone}/{accesstoken}/{book}', 'ApiController@getTerms');
 Route::get('/api/getPdfs/{phone}/{accesstoken}/{book}', 'ApiController@getPdfList');
+Route::get('/api/getPdfFile/{phone}/{accesstoken}/{pdf}', 'ApiController@getPdfFile');
 
 Route::get('/api/getWeeks/{phone}/{accesstoken}/{book}/{term}', 'ApiController@getWeeks');
 Route::get('/api/getLessons/{phone}/{accesstoken}/{book}/{term}/{week}', 'ApiController@getLessons');

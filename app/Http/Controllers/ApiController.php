@@ -120,6 +120,13 @@ class ApiController extends Controller
             return view('books.pdf',compact('book'));
     }
 
+    public function getPdfFile($pdf){
+        $client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
+        if($client){
+            return view('books.pdfread',compact('pdf'));
+        }
+    }
+
     public function getWeeks($phone,$accesstoken,$book,$term){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
