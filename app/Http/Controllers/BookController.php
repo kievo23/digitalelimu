@@ -64,7 +64,8 @@ class BookController extends Controller
         $validator = $this->validate($request,[
             'name'=>'required|unique:book|max:255',
             'class'=>'required|max:255',  
-            'booktype' => 'required|max:255',          
+            'booktype' => 'required|max:255',   
+            'bookpdf' => 'required|max:255',        
             'photo' => 'required|mimes:jpeg,png,jpg|max:800',
             'description'=>'required|max:255',
         ]);
@@ -84,9 +85,15 @@ class BookController extends Controller
         });
         $upld = $img->save('uploads/'.$fileName, 100);
         $topic->photo = $fileName;
-        $files = $request->file('pdf');
+        
+        if($request->file('bookpdf')){
+            $fileName = str_slug(rand(11111,99999).$request->file('bookpdf')->getClientOriginalName(), ".");
+            $upload = $request->file('bookpdf')->move('pdf/', $fileName);
+            $topic->bookpdf = strtolower($fileName);
+        }
         if($request->file('pdf')){
             $pdf = "";
+            $files = $request->file('pdf');
             foreach ($files as $file) {
                 $fileName = str_slug(rand(11111,99999).$file->getClientOriginalName(), ".");
                 $upload = $file->move('pdf/', $fileName);
@@ -154,6 +161,7 @@ class BookController extends Controller
             'class'=>'required|max:255',  
             'booktype' => 'required|max:255',          
             'photo' => 'mimes:jpeg,png,jpg|max:800',
+            'bookpdf' => 'required|max:255', 
             //'pdf'=> 'mimes:pdf',
             'description'=>'required|max:255',
         ]);
@@ -177,6 +185,11 @@ class BookController extends Controller
             $topic->photo = $fileName;
         }
         $files = $request->file('pdf');
+        if($request->file('bookpdf')){
+            $fileName = str_slug(rand(11111,99999).$request->file('bookpdf')->getClientOriginalName(), ".");
+            $upload = $request->file('bookpdf')->move('pdf/', $fileName);
+            $topic->bookpdf = strtolower($fileName);
+        }
         if($request->file('pdf')){
             $pdf = "";
             $files = $request->file('pdf');
