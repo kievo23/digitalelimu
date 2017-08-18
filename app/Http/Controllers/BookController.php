@@ -22,6 +22,7 @@ class BookController extends Controller
     public function index()
     {
         //
+        ini_set('memory_limit', '-1');
         $books = Book::all();
         return view('books.index',compact('books'));
     }
