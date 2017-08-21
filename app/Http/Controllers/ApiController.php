@@ -192,7 +192,7 @@ class ApiController extends Controller
     public function indexList()
     {
         $rst = array();        
-        $contents = Content::select('id','name','term','week','lesson','description')->all();
+        $contents = Content::select('id','name','term','book_id','week','lesson','description')->get();
         foreach ($contents as $key => $content) {
             $content->book = Book::find($content->book_id)->first();
         }
