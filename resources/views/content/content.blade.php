@@ -17,6 +17,7 @@
                 {{ session('status') }}
             </div>
         @endif   
+
         <table class="table" id="contents-server">
             <thead>
                 <tr>
@@ -46,7 +47,7 @@ $(document).ready( function () {
 
     $('#contents-server').DataTable( {
         "responsive": true,
-        "ajax": "/api/datatable/<?php echo $id; ?>",
+        "ajax": "/api/datatable",
         "columns": [
             { "data": "name" },
             { "data": "book",

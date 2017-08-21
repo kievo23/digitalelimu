@@ -189,7 +189,19 @@ class ApiController extends Controller
 	return view('books.content',compact('content'));
     }
 
-    public function indexList($id)
+    public function indexList()
+    {
+        $rst = array();        
+        $contents = Content::all();
+        foreach ($contents as $key => $content) {
+            $content->book = Book::find($content->book_id)->first();
+        }
+        $rst['recordsTotal'] = count($contents);
+        $rst['data'] = $contents; 
+        return json_encode($rst);
+    }
+
+    public function indexSelected($id)
     {
         //
         $rst = array();        

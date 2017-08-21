@@ -110,7 +110,8 @@ Route::get('/api/getTerms/{phone}/{accesstoken}/{book}', 'ApiController@getTerms
 Route::get('/api/getPdfs/{phone}/{accesstoken}/{book}', 'ApiController@getPdfList');
 Route::get('/api/getPdfFile/{phone}/{accesstoken}/{pdf}', 'ApiController@getPdfFile');
 
-Route::get('/api/datatable/{id}','ApiController@indexList');
+Route::get('/api/datatable/{id}','ApiController@indexSelected');
+Route::get('/api/datatable/','ApiController@indexList');
 
 Route::get('/api/getWeeks/{phone}/{accesstoken}/{book}/{term}', 'ApiController@getWeeks');
 Route::get('/api/getLessons/{phone}/{accesstoken}/{book}/{term}/{week}', 'ApiController@getLessons');
