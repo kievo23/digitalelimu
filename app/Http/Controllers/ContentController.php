@@ -22,14 +22,14 @@ class ContentController extends Controller
     {
         //
         $contents = Content::all();
-        return view('content.index',compact('contents'));
+        return view('content.index');
     }
     
     public function indexSort($id)
     {
         //
         $contents = Content::whereBookId($id)->get();
-        return view('content.index',compact('contents'));
+        return view('content.index');
     }    
 
     /**
