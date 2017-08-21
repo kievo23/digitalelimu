@@ -66,7 +66,7 @@ class BookController extends Controller
             'name'=>'required|unique:book|max:255',
             'class'=>'required|max:255',  
             'booktype' => 'required|max:255',   
-            'bookpdf' => 'required|max:255',        
+            'bookpdf' => 'required',        
             'photo' => 'required|mimes:jpeg,png,jpg|max:800',
             'description'=>'required|max:255',
         ]);
@@ -165,7 +165,7 @@ class BookController extends Controller
             'class'=>'required|max:255',  
             'booktype' => 'required|max:255',          
             'photo' => 'mimes:jpeg,png,jpg|max:800',
-            'bookpdf' => 'required|max:255', 
+            'bookpdf' => 'required', 
             //'pdf'=> 'mimes:pdf',
             'description'=>'required|max:255',
         ]);
