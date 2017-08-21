@@ -16,8 +16,9 @@
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
-        @endif                            
-        <table class="table" id="contents">
+        @endif   
+
+        <table class="table" id="contents-server">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -31,30 +32,6 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                @if($contents)
-                    @foreach($contents as $content)
-                        <tr>
-                            <td>{{ $content->name }}</td>
-                            <td>{{ $content->book->name }}</td>
-                            <td>{{ $content->term }}</td>
-                            <td>{{ $content->week }}</td>
-                            <td>{{ $content->lesson }}</td>
-                            <td>{{ $content->description }}</td>
-                            <td>{{ $content->audio }}</td>
-                            <td>{{ $content->video }}</td>
-                            <td>
-                                @permission('edit_content')
-                                <a href="{{ url('content/edit',['id'=>$content->id]) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                @endpermission
-                                @permission('delete_content')
-                                <a href="{{ url('content/destroy',['id'=>$content->id]) }}" onclick="return confirm('Are you sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                @endpermission
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
         </table>
     </div>
 </div>
@@ -66,6 +43,31 @@
 $(document).ready( function () {
     $('#contents').DataTable({
         responsive: true
+    });
+
+    $('#contents-server').DataTable( {
+        "responsive": true,
+        "ajax": "/api/datatable/1",
+        "columns": [
+            { "data": "name" },
+            { "data": "book",
+                render: function(data, type, row){
+                    return data.name;
+                }
+            },
+            { "data": "term" },
+            { "data": "week" },
+            { "data": "lesson" },
+            { "data": "description"},
+            { "data": "audio"},
+            { "data": "video"},
+            { "data": "id",
+                render: function(data, type, row){
+                    return '<a href="/content/edit/'+row.id+'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>\
+                    <a href="/content/destroy/'+row.id+'" onclick="return confirm(\'Are you sure?\')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+                }
+            }
+        ]
     });
 });
 

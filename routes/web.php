@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/content/store', ['as'=>'content.store','uses'=>'ContentController@store', 'middleware'=>['permission:create_content']]);
     Route::get('/content/index',['as'=>'content.index','uses'=>'ContentController@index', 'middleware'=>['permission:list_content']]);
     Route::get('/content/index/{id}',['as'=>'content.index','uses'=>'ContentController@indexSort', 'middleware'=>['permission:list_content']]);
+
     Route::post('/content/update/{id}', ['as'=>'content.update','uses'=>'ContentController@update', 'middleware'=>['permission:edit_content']]);
     Route::get('/content/edit/{id}', ['as'=>'content.edit','uses'=>'ContentController@edit', 'middleware'=>['permission:edit_content']]);
     Route::any('/content/destroy/{id}', ['as'=>'content.destroy','uses'=>'ContentController@destroy', 'middleware'=>['permission:delete_content']]);
@@ -108,6 +109,8 @@ Route::get('/api/getBooksAll', 'ApiController@getBooksAll');
 Route::get('/api/getTerms/{phone}/{accesstoken}/{book}', 'ApiController@getTerms');
 Route::get('/api/getPdfs/{phone}/{accesstoken}/{book}', 'ApiController@getPdfList');
 Route::get('/api/getPdfFile/{phone}/{accesstoken}/{pdf}', 'ApiController@getPdfFile');
+
+Route::get('/api/datatable/{id}','ApiController@indexList');
 
 Route::get('/api/getWeeks/{phone}/{accesstoken}/{book}/{term}', 'ApiController@getWeeks');
 Route::get('/api/getLessons/{phone}/{accesstoken}/{book}/{term}/{week}', 'ApiController@getLessons');

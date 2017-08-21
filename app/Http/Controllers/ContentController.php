@@ -25,12 +25,12 @@ class ContentController extends Controller
         return view('content.index',compact('contents'));
     }
     
-    public function indexSort($main)
+    public function indexSort($id)
     {
         //
-        $contents = Content::whereBookId($main)->get();
+        $contents = Content::whereBookId($id)->get();
         return view('content.index',compact('contents'));
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.

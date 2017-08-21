@@ -188,6 +188,20 @@ class ApiController extends Controller
     	}
 	return view('books.content',compact('content'));
     }
+
+    public function indexList($id)
+    {
+        //
+        $rst = array();        
+        $contents = Content::whereBookId($id)->get();
+        foreach ($contents as $key => $content) {
+            $content->book = Book::find($content->book_id)->first();
+        }
+        $rst['recordsTotal'] = count($contents);
+        $rst['data'] = $contents; 
+        $rst['id'] = $id;         
+        return json_encode($rst);
+    }
     
     public function readBook(Request $request){
         $client = Clients::wherePhoneAndAccesstoken($request->get('phone'),$request->get('accesstoken'))->first();
