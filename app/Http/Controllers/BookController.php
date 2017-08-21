@@ -77,15 +77,18 @@ class BookController extends Controller
         $topic->description = $request->get('description');
         $topic->activate = 0;
 
-        $fileName = rand(11111,99999).$request->file('photo')->getClientOriginalName();
-        //$upld = $request->file('photo')->move('uploads/', $fileName);
+        if($request->file('photo')){
+            $fileName = rand(11111,99999).$request->file('photo')->getClientOriginalName();
+            //$upld = $request->file('photo')->move('uploads/', $fileName);
 
-        $img = \Image::make($request->file('photo'));
-        $img->resize(150, null, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        $upld = $img->save('uploads/'.$fileName, 100);
-        $topic->photo = $fileName;
+            $img = \Image::make($request->file('photo'));
+            $img->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $upld = $img->save('uploads/'.$fileName, 70);
+
+            $topic->photo = $fileName;
+        }
         
         if($request->file('bookpdf')){
             $fileName = str_slug(rand(11111,99999).$request->file('bookpdf')->getClientOriginalName(), ".");
