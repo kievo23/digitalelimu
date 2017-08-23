@@ -165,7 +165,6 @@ class BookController extends Controller
             'class'=>'required|max:255',  
             'booktype' => 'required|max:255',          
             'photo' => 'mimes:jpeg,png,jpg|max:800',
-            'bookpdf' => 'required', 
             //'pdf'=> 'mimes:pdf',
             'description'=>'required|max:255',
         ]);
