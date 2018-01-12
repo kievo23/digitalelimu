@@ -12,7 +12,8 @@
         "intervention/image": "^2.3",
         "zizaco/entrust": "5.2.x-dev",
         "laravelcollective/html": "^5.2.0",
-        "swiftmailer/swiftmailer": "^5.4"
+        "swiftmailer/swiftmailer": "^5.4",
+        "safaricom/mpesa": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

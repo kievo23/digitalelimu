@@ -12,7 +12,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-    	'api/payments','api/readBook','api/registerUser'
+    	'api/payments','api/readBook','api/registerUser','api/stkpush'
         //
     ];
 }

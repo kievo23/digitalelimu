@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Safaricom\Mpesa\MpesaServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -181,7 +182,6 @@ return [
         Unisharp\Ckeditor\ServiceProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
     ],
 
     /*
@@ -232,5 +232,6 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Mpesa'=> \Safaricom\Mpesa\MpesaServiceProvider::class,
     ],
 ];

@@ -127,6 +127,7 @@ Route::get('/api/newpassword/{phone}/{password}/{code}','ApiController@newpasswo
 Route::any('/api/authUser/{phone}/{password}','ApiController@authClient');
 Route::any('/api/payments','ApiController@getPayments');
 Route::post('/api/readBook','ApiController@readBook');
+Route::post('/api/stkpush','ApiController@stkpush');
 
 //PesaPal, Unconventional
 Route::get('/pesapal', function() {

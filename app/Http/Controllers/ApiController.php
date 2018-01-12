@@ -379,6 +379,36 @@ class ApiController extends Controller
             $days = 5000;
         return $days;
     }
+
+    /****************
+
+    MPESA CONFIGURATION
+
+    *****************/
+    public function stkpush(Request $request){
+        $mpesa= new \Safaricom\Mpesa\Mpesa();
+
+        $paybill=env("safaricom_paybill");
+
+        $clientphone = $request->get('phone');
+        $amount = $request->get('amount');
+        $bookid = $request->get('bookid');
+        $bookname = $request->get('bookname');
+
+        $BusinessShortCode = $paybill;
+        $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
+        $TransactionType = 'CustomerPayBillOnline';
+        $Amount = $amount;
+        $PartyA = $clientphone;
+        $PartyB = $paybill;
+        $PhoneNumber = $clientphone;
+        $CallBackURL = "http://elearning.com";
+        $AccountReference = $bookid;
+        $TransactionDesc = "Subscribe to ".$bookname;
+        $Remarks = "Book Subscription API";
+        $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
+        print_r($stkPushSimulation);
+    }
  /*
    
     public function getContent($subtopicid){
