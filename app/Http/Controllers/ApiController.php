@@ -410,12 +410,12 @@ class ApiController extends Controller
         return $stkPushSimulation;
     }
 
-    public function stkresponse($bookid){
+    public function stkresponse(){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $callbackData  =  $mpesa->getDataFromCallback();
         $payments = new Payments();
-        $payments->transcode = $bookid;
+        $payments->transcode = "ewer";
         $payments->category = "weewr";
         $payments->providerRefId = "we";
         $payments->source = "df";
