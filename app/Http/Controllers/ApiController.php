@@ -409,6 +409,24 @@ class ApiController extends Controller
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
         return $stkPushSimulation;
     }
+
+    public function stkpush(Request $request){
+        $mpesa= new \Safaricom\Mpesa\Mpesa();
+
+        $callbackData  =  $mpesa->getDataFromCallback();
+        $payments = new Payments();
+        $payments->transcode = "";
+        $payments->category = "";
+        $payments->providerRefId = "";
+        $payments->source = "";
+        $payments->destination = "";
+        $payments->accountNumber = "";
+        $payments->amount = "";
+        $payments->status = "";
+        $payments->jsond = $callbackData;
+        $payments->save();
+        $callbackData=$mpesa->finishTransaction();
+    }
  /*
    
     public function getContent($subtopicid){
