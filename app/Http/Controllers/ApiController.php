@@ -410,7 +410,7 @@ class ApiController extends Controller
         return $stkPushSimulation;
     }
 
-    public function stkpush(Request $request){
+    public function stkresponse(Request $request){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $callbackData  =  $mpesa->getDataFromCallback();
