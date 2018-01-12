@@ -402,7 +402,7 @@ class ApiController extends Controller
         $PartyA = $clientphone;
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
-        $CallBackURL = "http://elearning.com";
+        $CallBackURL = "http://139.59.187.229/api/stkresponse";
         $AccountReference = $bookid;
         $TransactionDesc = "Subscribe to ".$bookname;
         $Remarks = "Book Subscription API";
@@ -410,12 +410,12 @@ class ApiController extends Controller
         return $stkPushSimulation;
     }
 
-    public function stkresponse(Request $request){
+    public function stkresponse($bookid){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $callbackData  =  $mpesa->getDataFromCallback();
         $payments = new Payments();
-        $payments->transcode = "ewer";
+        $payments->transcode = $bookid;
         $payments->category = "weewr";
         $payments->providerRefId = "we";
         $payments->source = "df";
