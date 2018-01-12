@@ -407,7 +407,7 @@ class ApiController extends Controller
         $TransactionDesc = "Subscribe to ".$bookname;
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
-        return json_encode($stkPushSimulation);
+        return $stkPushSimulation;
     }
  /*
    
