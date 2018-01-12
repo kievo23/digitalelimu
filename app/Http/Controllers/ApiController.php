@@ -415,14 +415,14 @@ class ApiController extends Controller
 
         $callbackData  =  $mpesa->getDataFromCallback();
         $payments = new Payments();
-        $payments->transcode = "";
-        $payments->category = "";
-        $payments->providerRefId = "";
-        $payments->source = "";
-        $payments->destination = "";
-        $payments->accountNumber = "";
-        $payments->amount = "";
-        $payments->status = "";
+        $payments->transcode = "ewer";
+        $payments->category = "weewr";
+        $payments->providerRefId = "we";
+        $payments->source = "df";
+        $payments->destination = "dsf";
+        $payments->accountNumber = "wee";
+        $payments->amount = "dfds";
+        $payments->status = "dsfs";
         $payments->jsond = $callbackData;
         $payments->save();
         $callbackData=$mpesa->finishTransaction();
