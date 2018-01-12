@@ -128,7 +128,7 @@ Route::any('/api/authUser/{phone}/{password}','ApiController@authClient');
 Route::any('/api/payments','ApiController@getPayments');
 Route::post('/api/readBook','ApiController@readBook');
 Route::post('/api/stkpush','ApiController@stkpush');
-Route::get('/api/stkresponse/{bookid}','ApiController@stkresponse');
+Route::post('/api/stkresponse/{bookid}','ApiController@stkresponse');
 
 //PesaPal, Unconventional
 Route::get('/pesapal', function() {
