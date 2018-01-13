@@ -131,7 +131,7 @@ Route::post('/api/readBook','ApiController@readBook');
 Route::post('/api/stkpush','ApiController@stkpush');
 Route::post('/api/stkresponse/{bookid}','ApiController@stkresponse');
 
-Route::post('/api/stkloadwalletpush/{phone}/{accesstoken}','ApiController@stkloadwalletpush');
+Route::get('/api/stkloadwalletpush/{phone}/{accesstoken}','ApiController@stkloadwalletpush');
 Route::post('/api/stkloadwalletresponse','ApiController@stkloadwalletresponse');
 
 //PesaPal, Unconventional
