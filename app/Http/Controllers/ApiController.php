@@ -373,10 +373,8 @@ class ApiController extends Controller
             $days = $amount * (30/50);
         if($amount >= 100 && $amount < 250)
             $days = $amount * (120/100);
-        if($amount >= 250 && $amount < 400)
+        if($amount >= 250)
             $days = $amount * (365/250);
-        if($amount >= 400)
-            $days = 5000;
         return $days;
     }
 
@@ -410,6 +408,29 @@ class ApiController extends Controller
         return $stkPushSimulation;
     }
 
+    public function stkloadwalletpush(Request $request){
+        $mpesa= new \Safaricom\Mpesa\Mpesa();
+
+        $paybill=env("safaricom_paybill");
+
+        $clientphone = $request->get('phone');
+        $amount = $request->get('amount');
+
+        $BusinessShortCode = $paybill;
+        $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
+        $TransactionType = 'CustomerPayBillOnline';
+        $Amount = $amount;
+        $PartyA = $clientphone;
+        $PartyB = $paybill;
+        $PhoneNumber = $clientphone;
+        $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
+        $AccountReference = $clientphone."LoadWallet";
+        $TransactionDesc = "Load Your Wallet";
+        $Remarks = "Book Subscription API";
+        $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
+        return $stkPushSimulation;
+    }
+
     public function stkresponse(Request $request, $bookid){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
@@ -425,6 +446,40 @@ class ApiController extends Controller
         $payments->status = "dsfs";
         $payments->jsond = $callbackData;
         $payments->save();
+
+        $client = Clients::wherePhone("0".substr($bookid,-9))->first();
+        
+        $sub = new Subscriptions();
+        $sub->client_id = $client->id;
+        $sub->book_id = substr($data->clientAccount,0,-6);
+        $sub->amount = substr($data->value,4,-5);
+        $sub->save();
+        $callbackData=$mpesa->finishTransaction();
+    }
+
+    public function stkloadwalletresponse(Request $request){
+        $mpesa= new \Safaricom\Mpesa\Mpesa();
+
+        $callbackData  =  $mpesa->getDataFromCallback();
+        $payments = new Payments();
+        $payments->transcode = $bookid;
+        $payments->category = "weewr";
+        $payments->providerRefId = "we";
+        $payments->source = "df";
+        $payments->destination = "dsf";
+        $payments->accountNumber = "wee";
+        $payments->amount = "dfds";
+        $payments->status = "dsfs";
+        $payments->jsond = $callbackData;
+        $payments->save();
+
+        $client = Clients::wherePhone("0".substr($bookid,-9))->first();
+        
+        $sub = new Subscriptions();
+        $sub->client_id = $client->id;
+        $sub->book_id = substr($data->clientAccount,0,-6);
+        $sub->amount = substr($data->value,4,-5);
+        $sub->save();
         $callbackData=$mpesa->finishTransaction();
     }
  /*
