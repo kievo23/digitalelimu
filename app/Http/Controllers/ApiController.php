@@ -13,6 +13,7 @@ use Validator;
 use App\Clients;
 use App\Payments;
 use App\Subscriptions;
+use App\Wallet;
 use Carbon\Carbon;
 use DB;
 use Mail;
@@ -408,27 +409,32 @@ class ApiController extends Controller
         return $stkPushSimulation;
     }
 
-    public function stkloadwalletpush(Request $request){
+    public function stkloadwalletpush($phone,$amount){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $paybill=env("safaricom_paybill");
 
-        $clientphone = $request->get('phone');
-        $amount = $request->get('amount');
-
-        $BusinessShortCode = $paybill;
-        $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
-        $TransactionType = 'CustomerPayBillOnline';
-        $Amount = $amount;
-        $PartyA = $clientphone;
-        $PartyB = $paybill;
-        $PhoneNumber = $clientphone;
-        $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
-        $AccountReference = $clientphone."LoadWallet";
-        $TransactionDesc = "Load Your Wallet";
-        $Remarks = "Book Subscription API";
-        $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
-        return $stkPushSimulation;
+        $clientphone = $phone;
+        $amount = $amount;
+        $user = Clients::wherePhone($phone)->first();
+        if($user){
+            $balance = Wallet::select('id','amount')->whereClientId($user->id)->first();
+            return $balance;
+        }else{
+            $BusinessShortCode = $paybill;
+            $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
+            $TransactionType = 'CustomerPayBillOnline';
+            $Amount = $amount;
+            $PartyA = $clientphone;
+            $PartyB = $paybill;
+            $PhoneNumber = $clientphone;
+            $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
+            $AccountReference = $clientphone."LoadWallet";
+            $TransactionDesc = "Load Your Wallet";
+            $Remarks = "Book Subscription API";
+            $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
+            return $stkPushSimulation;
+        }
     }
 
     public function stkresponse(Request $request, $bookid){
