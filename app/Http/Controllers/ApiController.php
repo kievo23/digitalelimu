@@ -513,7 +513,7 @@ class ApiController extends Controller
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $paybill=env("safaricom_paybill");
-        $clientphone = "254".substr($req->get('phone'),-9);
+        $clientphone = $req->get('phone');
 
         $BusinessShortCode = $paybill;
         $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
@@ -524,7 +524,7 @@ class ApiController extends Controller
         $PhoneNumber = $clientphone;
         $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
         $AccountReference = "Loading my ELearning Innovations Wallet";
-        $TransactionDesc = "Subscribe to ";
+        $TransactionDesc = "Load My wallet";
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
         return json_encode(array(
