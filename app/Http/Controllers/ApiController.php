@@ -526,7 +526,7 @@ class ApiController extends Controller
         $PhoneNumber = $clientphone;
         $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
         $AccountReference = "Load-My-Wallet";
-        $TransactionDesc = "Load My Wallet";
+        $TransactionDesc = "Subscribe to ".date("Y-m-d H:i:s");
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
         return $stkPushSimulation;
