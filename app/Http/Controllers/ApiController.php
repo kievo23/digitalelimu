@@ -508,6 +508,7 @@ class ApiController extends Controller
 
         $sub = Wallet::whereClientId($client->id)->first();
         print_r($sub->amount);
+        exit();
         $sub->amount = $amount + $sub->amount;
         $sub->save();
         $callbackData=$mpesa->finishTransaction();
