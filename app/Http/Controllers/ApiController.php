@@ -488,7 +488,7 @@ class ApiController extends Controller
 
         $callbackData  =  $mpesa->getDataFromCallback();
 
-        $amount = json_decode($callbackData->Body->stkCallback->CallbackMetadata->Item);
+        $amount = json_decode($callbackData);
         print_r($amount);
         exit();
         $phone = $callbackData->Body->stkCallback->CallbackMetadata->Item[4]->Value;
