@@ -447,7 +447,7 @@ class ApiController extends Controller
                 //STK PUSH
                 ApiController::customstkpush($phone,$amount);
                 return json_encode(array(
-                        "code"=>"101",
+                        "code"=>"103",
                         "msg"=>"Stk Push Initiated to top up account"
                     ));
             }
@@ -515,6 +515,7 @@ class ApiController extends Controller
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $paybill=env("safaricom_paybill");
+        $clientphone = "254".substr($clientphone,-9);
 
         $BusinessShortCode = $paybill;
         $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
