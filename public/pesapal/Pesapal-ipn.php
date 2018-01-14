@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', '1');
 include_once('OAuth.php');
 session_start();
 /*
@@ -59,6 +60,10 @@ if($pesapalTrackingId!='')
     $client = $_SESSION['client'];
     $amount = (int)$_SESSION['amount'];
     $book = $_SESSION["book"];
+
+    $client = "0722779770";
+    $amount = 5;
+    $book = "4";
     $today = date("Y-m-d H:i:s"); 
     echo "Client Phone:".$client;
     echo "Client Amount:".$amount;
@@ -77,7 +82,7 @@ if($pesapalTrackingId!='')
    //print_r($_SESSION);
 
         
-    if($status){
+    //if($status){
       try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           // set the PDO error mode to exception
@@ -89,7 +94,7 @@ if($pesapalTrackingId!='')
           $stmt->execute();
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
           echo "Client Id<br>";
-          echo $client_id;
+          print_r($client_id);
 
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
           VALUES ($client_id, $book, '$amount', '$today', '$today')";
@@ -103,7 +108,7 @@ if($pesapalTrackingId!='')
           {
           echo $sql . "<br>" . $e->getMessage();
           }
-    }
+    //}
       $conn = null;
    }
    curl_close ($ch);
