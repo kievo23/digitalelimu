@@ -529,11 +529,11 @@ class ApiController extends Controller
         $TransactionDesc = "Subscribe to ".date("Y-m-d H:i:s");
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
-        return json_encode(
+        return json_encode(array(
             "code"=>"100",
             "msg"=>"trying to initiate an STK Push",
             "rst"=> json_decode($stkPushSimulation)
-            );
+            ));
     }
  /*
    
