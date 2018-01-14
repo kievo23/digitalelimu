@@ -68,6 +68,8 @@ class ApiController extends Controller
                 foreach($result as $single){
                 	$date = Carbon::createFromFormat('Y-m-d H:i:s',$single->created_at);
 
+                    if($single->amount < 5)
+                        $terminationDate = $date->addDays(0);
                     if($single->amount >= 5 && $single->amount < 15)
                         $terminationDate = $date->addDays($single->amount/5);
                     if($single->amount >= 15 && $single->amount < 50 )
