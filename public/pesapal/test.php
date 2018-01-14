@@ -16,7 +16,7 @@ $client = "0722779770";
           $stmt = $conn->prepare("SELECT `id`,`phone` FROM clients where phone='".$client."'"); 
           print_r($stmt);
           $stmt->execute();
-          $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+          $client_id = $stmt->fetch(PDO::FETCH_ASSOC); 
           echo "Client Id<br>";
           print_r($client_id);
 
