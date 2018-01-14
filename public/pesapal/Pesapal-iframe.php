@@ -82,13 +82,13 @@ if(isset($_POST['submit'])){
 <body style="">
 	<div class="container">
 		<form method="post" action="" class="form-horizontal">
-			<input type="text" name="first_name" value="" placeholder="first name" class="form-control">	
-			<input type="text" name="last_name" value="" placeholder="last Name"  class="form-control">
-			<input type="hidden" name="description" value="Book subscription on Digital Elimu" readonly="readonly">
+			<input type="text" name="first_name" value="" placeholder="first name" class="form-control" style="margin:10px">	
+			<input type="text" name="last_name" value="" placeholder="last Name"  class="form-control" style="margin:10px">
+			<input type="hidden" name="description" value="Book subscription on Digital Elimu" readonly="readonly" style="margin:10px">
 			<input type="hidden" name="reference" value="<?php echo $bookid ?>" readonly="readonly">
-			<input type="text" name="email" placeholder="email"  class="form-control">
+			<input type="text" name="email" placeholder="email"  class="form-control" style="margin:10px">
 			<input type="hidden" name="type" value="MERCHANT" readonly="readonly" />
-			<input type="text" name="amount" placeholder="amount"  class="form-control">
+			<input type="text" name="amount" placeholder="amount"  class="form-control" style="margin:10px">
 			<input type="submit" name="submit" value="Buy"  class="form-control btn btn-primary">
 		</form>
 		<iframe src="<?php echo $iframe_src;?>" width="100%" height="700px"  scrolling="yes" frameBorder="0">
