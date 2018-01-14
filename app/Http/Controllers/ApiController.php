@@ -409,31 +409,53 @@ class ApiController extends Controller
         return $stkPushSimulation;
     }
 
-    public function stkloadwalletpush($phone,$amount){
+    public function stkloadwalletpush($phone,$amount,$bookid){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $paybill=env("safaricom_paybill");
-
-        $clientphone = $phone;
         $amount = $amount;
         $user = Clients::wherePhone($phone)->first();
         if($user){
-            $balance = Wallet::select('id','amount')->whereClientId($user->id)->first();
-            return $balance;
+            $record = Wallet::select('id','amount')->whereClientId($user->id)->first();
+            if($record){
+                if($amount > $record->amount){
+                    //STK PUSH
+                    ApiController::customstkpush($phone,$amount);
+                    return json_encode(array(
+                        "code"=>"101",
+                        "msg"=>"Stk Push Initiated to top up account"
+                    ));
+                }else{
+                    //DEDUCT CASH.
+                    $record->amount = $record->amount - $amount;
+                    $record->save();                     
+
+                    $sub = new Subscriptions();
+                    $sub->client_id = $user->id;
+                    $sub->book_id = $bookid;
+                    $sub->amount = $amount;
+                    $sub->save();
+                    return json_encode(array(
+                        "code"=>"100",
+                        "msg"=>"Subscribed to this book"
+                    )); 
+                }
+            }else{
+                $input['amount'] = "0";
+                $input['client_id'] = $user->id;
+                $createUser = User::create($input);
+                //STK PUSH
+                ApiController::customstkpush($phone,$amount);
+                return json_encode(array(
+                        "code"=>"101",
+                        "msg"=>"Stk Push Initiated to top up account"
+                    ));
+            }
         }else{
-            $BusinessShortCode = $paybill;
-            $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
-            $TransactionType = 'CustomerPayBillOnline';
-            $Amount = $amount;
-            $PartyA = $clientphone;
-            $PartyB = $paybill;
-            $PhoneNumber = $clientphone;
-            $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
-            $AccountReference = $clientphone."LoadWallet";
-            $TransactionDesc = "Load Your Wallet";
-            $Remarks = "Book Subscription API";
-            $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
-            return $stkPushSimulation;
+            return json_encode(array(
+                "code"=>"101",
+                "msg"=>"User not found"
+            ));            
         }
     }
 
@@ -487,6 +509,26 @@ class ApiController extends Controller
         $sub->amount = substr($data->value,4,-5);
         $sub->save();
         $callbackData=$mpesa->finishTransaction();
+    }
+
+    public static function customstkpush($clientphone,$amount){
+        $mpesa= new \Safaricom\Mpesa\Mpesa();
+
+        $paybill=env("safaricom_paybill");
+
+        $BusinessShortCode = $paybill;
+        $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
+        $TransactionType = 'CustomerPayBillOnline';
+        $Amount = $amount;
+        $PartyA = $clientphone;
+        $PartyB = $paybill;
+        $PhoneNumber = $clientphone;
+        $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
+        $AccountReference = "Loading my ELearning Innovations Wallet";
+        $TransactionDesc = "Subscribe to ";
+        $Remarks = "Book Subscription API";
+        $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
+        return $stkPushSimulation;
     }
  /*
    
