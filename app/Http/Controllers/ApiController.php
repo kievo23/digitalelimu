@@ -523,7 +523,7 @@ class ApiController extends Controller
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
         $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
-        $AccountReference = "Loading my ELearning Innovations Wallet";
+        $AccountReference = "ELearning-Innovations-Wallet";
         $TransactionDesc = "Load My wallet";
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
