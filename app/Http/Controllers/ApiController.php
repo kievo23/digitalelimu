@@ -487,19 +487,23 @@ class ApiController extends Controller
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $callbackData  =  $mpesa->getDataFromCallback();
+
+        $amount = $callbackData->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+        $phone = $callbackData->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+
         $payments = new Payments();
-        $payments->transcode = $bookid.rand(90000000);
+        $payments->transcode = date("Y-m-d H:i:s")."@".$bookid;
         $payments->category = "weewr";
-        $payments->providerRefId = "we";
-        $payments->source = "df";
+        $payments->providerRefId = $callbackData->Body->stkCallback->CallbackMetadata->Item[1]->Value;;
+        $payments->source = "Safaricom";
         $payments->destination = "dsf";
-        $payments->accountNumber = "wee";
-        $payments->amount = "dfds";
-        $payments->status = "dsfs";
+        $payments->accountNumber = $phone;
+        $payments->amount = $amount;
+        $payments->status = "Successful";
         $payments->jsond = $callbackData;
         $payments->save();
 
-        $client = Clients::wherePhone("0".substr($bookid,-9))->first();
+        $client = Clients::wherePhone("0".substr($phone,-9))->first();
         
         $sub = new Subscriptions();
         $sub->client_id = $client->id;
