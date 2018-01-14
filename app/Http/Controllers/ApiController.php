@@ -460,25 +460,29 @@ class ApiController extends Controller
     public function stkresponse(Request $request, $bookid){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
-        $callbackData  =  $mpesa->getDataFromCallback();
+        $callbackData  =  json_decode($mpesa->getDataFromCallback());
+
+        $amount = $callbackData->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+        $phone = $callbackData->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+
         $payments = new Payments();
-        $payments->transcode = $bookid;
+        $payments->transcode = date("Y-m-d H:i:s")."@".$bookid;
         $payments->category = "weewr";
-        $payments->providerRefId = "we";
-        $payments->source = "df";
+        $payments->providerRefId = $callbackData->Body->stkCallback->CallbackMetadata->Item[1]->Value;
+        $payments->source = "Safaricom";
         $payments->destination = "dsf";
-        $payments->accountNumber = "wee";
-        $payments->amount = "dfds";
-        $payments->status = "dsfs";
-        $payments->jsond = $callbackData;
+        $payments->accountNumber = $phone;
+        $payments->amount = $amount;
+        $payments->status = "Successful";
+        $payments->jsond = json_encode($callbackData);
         $payments->save();
 
-        $client = Clients::wherePhone("0".substr($bookid,-9))->first();
+        $client = Clients::wherePhone("0".substr($phone,-9))->first();
         
         $sub = new Subscriptions();
         $sub->client_id = $client->id;
-        $sub->book_id = substr($data->clientAccount,0,-6);
-        $sub->amount = substr($data->value,4,-5);
+        $sub->book_id = substr($bookid);
+        $sub->amount = substr($amount);
         $sub->save();
         $callbackData=$mpesa->finishTransaction();
     }
@@ -494,7 +498,7 @@ class ApiController extends Controller
         $payments = new Payments();
         $payments->transcode = date("Y-m-d H:i:s")."@";
         $payments->category = "weewr";
-        $payments->providerRefId = $callbackData->Body->stkCallback->CallbackMetadata->Item[1]->Value;;
+        $payments->providerRefId = $callbackData->Body->stkCallback->CallbackMetadata->Item[1]->Value;
         $payments->source = "Safaricom";
         $payments->destination = "dsf";
         $payments->accountNumber = $phone;
@@ -502,14 +506,6 @@ class ApiController extends Controller
         $payments->status = "Successful";
         $payments->jsond = json_encode($callbackData);
         $payments->save();
-
-        $client = Clients::wherePhone("0".substr($phone,-9))->first();
-        
-        $sub = new Subscriptions();
-        $sub->client_id = $client->id;
-        $sub->book_id = substr($data->clientAccount,0,-6);
-        $sub->amount = substr($data->value,4,-5);
-        $sub->save();
         $callbackData=$mpesa->finishTransaction();
     }
 
