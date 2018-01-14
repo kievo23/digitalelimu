@@ -503,6 +503,12 @@ class ApiController extends Controller
         $payments->status = "Successful";
         $payments->jsond = json_encode($callbackData);
         $payments->save();
+
+        $client = Clients::wherePhone("0".substr($phone,-9))->first();
+
+        $sub = Wallet()::whereClientId($client->id);
+        $sub->amount = $amount + $sub->amount;
+        $sub->save();
         $callbackData=$mpesa->finishTransaction();
     }
 
