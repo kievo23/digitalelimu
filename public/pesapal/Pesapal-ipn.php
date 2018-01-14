@@ -1,5 +1,4 @@
 <?php
-ini_set('display_errors', '1');
 include_once('OAuth.php');
 session_start();
 /*
@@ -61,13 +60,8 @@ if($pesapalTrackingId!='')
     $amount = (int)$_SESSION['amount'];
     $book = $_SESSION["book"];
 
-    $client = "0722779770";
-    $amount = 5;
-    $book = "4";
+    
     $today = date("Y-m-d H:i:s"); 
-    echo "Client Phone:".$client;
-    echo "Client Amount:".$amount;
-    echo "Client Book:".$book;
 
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
