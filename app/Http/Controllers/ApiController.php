@@ -514,6 +514,8 @@ class ApiController extends Controller
 
         $clientphone = $request->get('phone');
         $amount = $request->get('amount');
+        $bookid = $request->get('bookid');
+        $bookname = $request->get('bookname');
 
         $BusinessShortCode = $paybill;
         $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
@@ -522,18 +524,12 @@ class ApiController extends Controller
         $PartyA = $clientphone;
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
-        $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
-        $AccountReference = "ELearning-Innovations-Wallet";
-        $TransactionDesc = "Load My wallet";
+        $CallBackURL = "http://139.59.187.229/api/stkresponse/".$bookid;
+        $AccountReference = $bookid;
+        $TransactionDesc = "Subscribe to ".$bookname;
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
-        return json_encode(array(
-            "code"=>"103",
-            "msg"=>"Stk Push Initiated to top up account",
-            "rst" => json_decode($stkPushSimulation),
-            "phone" => $clientphone,
-            "amount" => $Amount
-        ));
+        return $stkPushSimulation;
     }
  /*
    
