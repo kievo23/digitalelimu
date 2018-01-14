@@ -420,11 +420,9 @@ class ApiController extends Controller
             if($record){
                 if($amount > $record->amount){
                     //STK PUSH
-                    $rst = ApiController::customstkpush($phone,$amount);
                     return json_encode(array(
-                        "code"=>"101",
-                        "msg"=>"Stk Push Initiated to top up account",
-                        "rst" => $rst
+                        "code"=>"103",
+                        "msg"=>"Stk Push Initiated to top up account"
                     ));
                 }else{
                     //DEDUCT CASH.
@@ -446,11 +444,9 @@ class ApiController extends Controller
                 $input['client_id'] = $user->id;
                 $createUser = Wallet::create($input);
                 //STK PUSH
-                $rst = ApiController::customstkpush($phone,$amount);
                 return json_encode(array(
                         "code"=>"103",
-                        "msg"=>"Stk Push Initiated to top up account",
-                        "rst" => $rst
+                        "msg"=>"Stk Push Initiated to top up account"
                     ));
             }
         }else{
