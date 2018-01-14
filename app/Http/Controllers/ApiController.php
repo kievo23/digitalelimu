@@ -486,9 +486,9 @@ class ApiController extends Controller
     public function stkloadwalletresponse(Request $request){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
-        $callbackData  =  $mpesa->getDataFromCallback();
+        $callbackData  =  json_decode($mpesa->getDataFromCallback());
 
-        $amount = json_decode($callbackData);
+        $amount = $callbackData->Body->stkCallback->CallbackMetadata->Item);
         print_r($amount);
         exit();
         $phone = $callbackData->Body->stkCallback->CallbackMetadata->Item[4]->Value;
