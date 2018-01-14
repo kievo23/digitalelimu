@@ -13,7 +13,7 @@ $client = "0722779770";
           //print_r($conn);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-          $stmt = $conn->prepare("SELECT id FROM clients where phone='".$client."'"); 
+          $stmt = $conn->prepare("SELECT id,phone FROM clients where phone='".$client."'"); 
           print_r($stmt);
           $stmt->execute();
           $client_id = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
