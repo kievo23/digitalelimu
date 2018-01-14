@@ -528,10 +528,10 @@ class ApiController extends Controller
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
         return json_encode(array(
-                        "code"=>"103",
-                        "msg"=>"Stk Push Initiated to top up account",
-                        "rst" => json_decode($stkPushSimulation)
-                    ));
+            "code"=>"103",
+            "msg"=>"Stk Push Initiated to top up account",
+            "rst" => json_decode($stkPushSimulation)
+        ));
     }
  /*
    
