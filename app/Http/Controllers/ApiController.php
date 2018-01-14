@@ -493,7 +493,7 @@ class ApiController extends Controller
         $phone = $callbackData->Body->stkCallback->CallbackMetadata->Item[4]->Value;
 
         $payments = new Payments();
-        $payments->transcode = date("Y-m-d H:i:s")."@";
+        $payments->transcode = date("Y-m-d H:i:s")."@".$bookid;
         $payments->category = "weewr";
         $payments->providerRefId = $callbackData->Body->stkCallback->CallbackMetadata->Item[1]->Value;
         $payments->source = "Safaricom";
@@ -530,7 +530,7 @@ class ApiController extends Controller
         $PartyA = $clientphone;
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
-        $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse/";
+        $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse";
         $AccountReference = "Load-My-Wallet";
         $TransactionDesc = "Subscribe to ".date("Y-m-d H:i:s");
         $Remarks = "Book Subscription API";
