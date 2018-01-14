@@ -60,6 +60,9 @@ if($pesapalTrackingId!='')
     $amount = (int)$_SESSION['amount'];
     $book = $_SESSION["book"];
     $today = date("Y-m-d H:i:s"); 
+    echo "Client Phone:".$client;
+    echo "Client Amount:".$amount;
+    echo "Client Book:".$book;
 
    //transaction status
    $elements = preg_split("/=/",substr($response, $header_size));
