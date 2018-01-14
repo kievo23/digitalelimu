@@ -488,7 +488,7 @@ class ApiController extends Controller
 
         $callbackData  =  $mpesa->getDataFromCallback();
         $payments = new Payments();
-        $payments->transcode = $bookid;
+        $payments->transcode = $bookid.rand(90000000);
         $payments->category = "weewr";
         $payments->providerRefId = "we";
         $payments->source = "df";
