@@ -530,7 +530,9 @@ class ApiController extends Controller
         return json_encode(array(
             "code"=>"103",
             "msg"=>"Stk Push Initiated to top up account",
-            "rst" => json_decode($stkPushSimulation)
+            "rst" => json_decode($stkPushSimulation),
+            "phone" => $clientphone,
+            "amount" => $Amount
         ));
     }
  /*
