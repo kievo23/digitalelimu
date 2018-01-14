@@ -509,7 +509,7 @@ class ApiController extends Controller
         $callbackData=$mpesa->finishTransaction();
     }
 
-    public static function customstkpush($clientphone,$amount){
+    public static function walletstkpush($clientphone,$amount){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $paybill=env("safaricom_paybill");
@@ -527,7 +527,11 @@ class ApiController extends Controller
         $TransactionDesc = "Subscribe to ";
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
-        return $stkPushSimulation;
+        return json_encode(array(
+                        "code"=>"103",
+                        "msg"=>"Stk Push Initiated to top up account",
+                        "rst" => json_decode($stkPushSimulation)
+                    ));
     }
  /*
    

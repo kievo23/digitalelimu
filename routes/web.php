@@ -133,6 +133,7 @@ Route::post('/api/stkresponse/{bookid}','ApiController@stkresponse');
 
 Route::get('/api/stkloadwalletpush/{phone}/{amount}/{bookid}','ApiController@stkloadwalletpush');
 Route::post('/api/stkloadwalletresponse','ApiController@stkloadwalletresponse');
+Route::post('/api/walletstkpush','ApiController@walletstkpush');
 
 //PesaPal, Unconventional
 Route::get('/pesapal', function() {
