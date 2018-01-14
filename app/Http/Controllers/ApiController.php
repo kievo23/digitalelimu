@@ -410,9 +410,6 @@ class ApiController extends Controller
     }
 
     public function stkloadwalletpush($phone,$amount,$bookid){
-        $mpesa= new \Safaricom\Mpesa\Mpesa();
-
-        $paybill=env("safaricom_paybill");
         $amount = $amount;
         $user = Clients::wherePhone($phone)->first();
         if($user){
