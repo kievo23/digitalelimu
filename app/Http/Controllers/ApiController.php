@@ -500,7 +500,7 @@ class ApiController extends Controller
         $payments->accountNumber = $phone;
         $payments->amount = $amount;
         $payments->status = "Successful";
-        $payments->jsond = $callbackData;
+        $payments->jsond = json_encode($callbackData);
         $payments->save();
 
         $client = Clients::wherePhone("0".substr($phone,-9))->first();
