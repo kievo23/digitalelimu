@@ -481,8 +481,8 @@ class ApiController extends Controller
         
         $sub = new Subscriptions();
         $sub->client_id = $client->id;
-        $sub->book_id = substr($bookid);
-        $sub->amount = substr($amount);
+        $sub->book_id = $bookid;
+        $sub->amount = $amount;
         $sub->save();
         $callbackData=$mpesa->finishTransaction();
     }
