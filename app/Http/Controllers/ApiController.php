@@ -443,7 +443,7 @@ class ApiController extends Controller
             }else{
                 $input['amount'] = "0";
                 $input['client_id'] = $user->id;
-                $createUser = User::create($input);
+                $createUser = Wallet::create($input);
                 //STK PUSH
                 ApiController::customstkpush($phone,$amount);
                 return json_encode(array(
