@@ -509,16 +509,16 @@ class ApiController extends Controller
         $callbackData=$mpesa->finishTransaction();
     }
 
-    public static function walletstkpush($clientphone,$amount){
+    public static function walletstkpush(Request $req){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
         $paybill=env("safaricom_paybill");
-        $clientphone = "254".substr($clientphone,-9);
+        $clientphone = "254".substr($req->get('phone'),-9);
 
         $BusinessShortCode = $paybill;
         $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
         $TransactionType = 'CustomerPayBillOnline';
-        $Amount = $amount;
+        $Amount = $req->get('amount');
         $PartyA = $clientphone;
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
