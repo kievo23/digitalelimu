@@ -86,8 +86,8 @@ if($pesapalTrackingId!='')
 
           $stmt = $conn->prepare("SELECT `id`,`phone` FROM clients where phone='".$client."'"); 
           $stmt->execute();
-          $client = $stmt->fetch(PDO::FETCH_ASSOC); 
-          $client_id = $client['id'];
+          $cliented = $stmt->fetch(PDO::FETCH_ASSOC); 
+          $client_id = $cliented['id'];
 
           $sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
           VALUES ($client_id, $book, '$amount', '$today', '$today')";
