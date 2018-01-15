@@ -78,12 +78,13 @@ if($pesapalTrackingId!='')
         
     //if($status){
       try {
+
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           // set the PDO error mode to exception
           //print_r($conn);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-          $stmt = $conn->prepare("SELECT id FROM clients where phone=".$client); 
+          $stmt = $conn->prepare("SELECT `id`,`phone` FROM clients where phone='".$client."'"); 
           $stmt->execute();
           $client = $stmt->fetch(PDO::FETCH_ASSOC); 
           $client_id = $client['id'];
