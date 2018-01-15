@@ -6,6 +6,7 @@ $client = "0722779770";
     $username = "root";
     $password = "TpkvgZ3PqPU4hRNA";
     $dbname = "digitalElimu";
+    $today = date("Y-m-d H:i:s"); 
 
     try {
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -24,6 +25,8 @@ $client = "0722779770";
           VALUES ($client_id, $book, '$amount', '$today', '$today')";
           // use exec() because no results are returned
           $rst = $conn->exec($sql);
+          echo "SQL<br>";
+          print_r($sql);
           echo "Result<br>";
           print_r($rst);
           echo "<h2>Successfully Subscribed to this book</h2>";
