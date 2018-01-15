@@ -247,8 +247,7 @@ class ApiController extends Controller
                 "id"=>"0",
                 "client_id"=>"0",
                 "book_id"=>"0",
-                "amount"=>"Session Is Probably Expired, Kindly Logout and Login Again",
-                "status"=>"Session Is Probably Expired, Kindly Logout and Login Again"
+                "amount"=>"Session Is Probably Expired, Kindly Logout and Login Again"
             );
         }
         return json_encode($rst);
