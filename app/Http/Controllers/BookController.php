@@ -91,7 +91,7 @@ class BookController extends Controller
         }
         
         if($request->file('bookpdf')){
-            $fileName = str_slug(rand(11111,99999).$request->file('bookpdf')->getClientOriginalName(), ".");
+            $fileName = $request->file('bookpdf')->getClientOriginalName(), ".").str_slug(rand(111,999);
             $upload = $request->file('bookpdf')->move('pdf/', $fileName);
             $topic->bookpdf = strtolower($fileName);
         }
@@ -197,7 +197,7 @@ class BookController extends Controller
             $pdf = "";
             $files = $request->file('pdf');
             foreach ($files as $file) {
-                $fileName = str_slug(rand(11111,99999).$file->getClientOriginalName(), ".");
+                $fileName = $file->getClientOriginalName(), ".").str_slug(rand(111,999);
                 $upload = $file->move('pdf/', $fileName);
                 $pdf .= $fileName.",";                
             }
