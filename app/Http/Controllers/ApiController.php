@@ -107,9 +107,9 @@ class ApiController extends Controller
             foreach ($terms as $key => $term) {
                 $term->weeks = DB::table('content')->whereTermAndBookId($term->term,$term->book_id)->count();
             }
-	}else{
-		$terms = null;
-	}
+    	}else{
+    		$terms = null;
+    	}
 	return json_encode($terms);
     }
 
@@ -420,7 +420,7 @@ class ApiController extends Controller
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
         $CallBackURL = "http://139.59.187.229/api/stkresponse/".$bookid;
-        $AccountReference = $bookid;
+        $AccountReference = $clientphone;
         $TransactionDesc = "Subscribe to ".$bookname;
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
@@ -549,7 +549,7 @@ class ApiController extends Controller
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
         $CallBackURL = "http://139.59.187.229/api/stkloadwalletresponse";
-        $AccountReference = "Load-My-Wallet";
+        $AccountReference = $clientphone;
         $TransactionDesc = "Subscribe to ".date("Y-m-d H:i:s");
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
