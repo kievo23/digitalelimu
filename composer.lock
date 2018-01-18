@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "81a8a1eaffd750383529f3b6e2eb09f1",
+    "content-hash": "92efc067f336b621d5ac399a612622a0",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -1850,19 +1850,21 @@
         },
         {
             "name": "unisharp/laravel-filemanager",
-            "version": "v1.8.0",
+            "version": "v1.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniSharp/laravel-filemanager.git",
-                "reference": "63a788e5f62d3e9c8b8be8fd5bac9c9d59325e29"
+                "reference": "ccbba303a3a66a9706b50c98923af12e2f9ac02a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniSharp/laravel-filemanager/zipball/63a788e5f62d3e9c8b8be8fd5bac9c9d59325e29",
-                "reference": "63a788e5f62d3e9c8b8be8fd5bac9c9d59325e29",
+                "url": "https://api.github.com/repos/UniSharp/laravel-filemanager/zipball/ccbba303a3a66a9706b50c98923af12e2f9ac02a",
+                "reference": "ccbba303a3a66a9706b50c98923af12e2f9ac02a",
                 "shasum": ""
             },
             "require": {
+                "ext-exif": "*",
+                "ext-fileinfo": "*",
                 "illuminate/support": ">=4.2.0",
                 "intervention/image": "2.*",
                 "php": ">=5.4.0"
@@ -1880,6 +1882,14 @@
                 "bin/debug"
             ],
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Unisharp\\Laravelfilemanager\\LaravelFilemanagerServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Unisharp\\Laravelfilemanager\\": "src/"
@@ -1910,7 +1920,7 @@
                 "tinymce",
                 "upload"
             ],
-            "time": "2017-06-11T15:15:20+00:00"
+            "time": "2017-12-28T09:23:53+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
