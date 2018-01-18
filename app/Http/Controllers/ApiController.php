@@ -34,7 +34,7 @@ class ApiController extends Controller
         ->select('class.id', 'main.photo', 'class.name','class.description')
         ->get();
         foreach ($classes as $key => $class) {
-            $class->books = DB::table('book')->whereClassId($class->id)->count();
+            $class->books = DB::table('book')->whereClassIdAndActivate($class->id,1)->count();
         }
         return json_encode($classes);
     }
