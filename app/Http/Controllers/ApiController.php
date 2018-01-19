@@ -241,8 +241,10 @@ class ApiController extends Controller
             $wallet = Wallet::whereClientId($client->id)->first();
             if(empty($wallet)){
                 $result->balance = "0";
+                $bal = "0";
             }else{
                 $result->balance = $wallet->amount;
+                $bal = $wallet->amount;
             }
 
             if(Carbon::now() > $terminationDate){
