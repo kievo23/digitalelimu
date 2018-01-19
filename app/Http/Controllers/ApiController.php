@@ -252,7 +252,7 @@ class ApiController extends Controller
                 }else{
                     $result->balance = $wallet->amount;
                 }         
-                $rst = $wallet;
+                $rst = $result;
             }
         }else{
             $rst = array(
