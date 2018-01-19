@@ -238,16 +238,29 @@ class ApiController extends Controller
             $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
             $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
             if(Carbon::now() > $terminationDate){
-                $rst = null;
+                $rst = array(
+                    "id"=>"02",
+                    "client_id"=>"0",
+                    "book_id"=>"0",
+                    "amount"=>"Kindly Subscribe to Read",
+                    "balance" => "0"
+                );
             }else{
+                $wallet = DB::table('wallet')->whereClientId($client->$id)->first();
+                if(empty($wallet)){
+                    $result->balance = "0";
+                }else{
+                    $result->balance = $wallet->amount;
+                }         
                 $rst = $result;
             }
         }else{
             $rst = array(
-                "id"=>"0",
+                "id"=>"01",
                 "client_id"=>"0",
                 "book_id"=>"0",
-                "amount"=>"Session Is Probably Expired, Kindly Logout and Login Again"
+                "amount"=>"Session Is Probably Expired, Kindly Logout and Login Again",
+                "balance" => "0"
             );
         }
         return json_encode($rst);
