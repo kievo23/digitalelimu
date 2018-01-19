@@ -238,20 +238,20 @@ class ApiController extends Controller
             $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
             $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
             if(Carbon::now() > $terminationDate){
+                $wallet = Wallet::whereClientId($client->id)->first();
+                if(empty($wallet)){
+                    $balance = "0";
+                }else{
+                    $balance = $wallet->amount;
+                }
                 $rst = array(
                     "id"=>0,
                     "client_id"=>"0002",
                     "book_id"=>"0",
                     "amount"=>"Kindly Subscribe to Read",
-                    "balance" => "0"
+                    "balance" => $balance
                 );
-            }else{
-                $wallet = Wallet::whereClientId($client->id)->first();
-                if(empty($wallet)){
-                    $result->balance = "0";
-                }else{
-                    $result->balance = $wallet->amount;
-                }         
+            }else{                         
                 $rst = $result;
             }
         }else{
