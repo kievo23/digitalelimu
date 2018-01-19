@@ -239,8 +239,8 @@ class ApiController extends Controller
             $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
             if(Carbon::now() > $terminationDate){
                 $rst = array(
-                    "id"=>"02",
-                    "client_id"=>"0",
+                    "id"=>0,
+                    "client_id"=>"0002",
                     "book_id"=>"0",
                     "amount"=>"Kindly Subscribe to Read",
                     "balance" => "0"
@@ -256,8 +256,8 @@ class ApiController extends Controller
             }
         }else{
             $rst = array(
-                "id"=>"01",
-                "client_id"=>"0",
+                "id"=>0,
+                "client_id"=>"0001",
                 "book_id"=>"0",
                 "amount"=>"Session Is Probably Expired, Kindly Logout and Login Again",
                 "balance" => "0"
