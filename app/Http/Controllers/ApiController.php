@@ -246,12 +246,12 @@ class ApiController extends Controller
                     "balance" => "0"
                 );
             }else{
-                $wallet = Wallet::whereClientId($client->$id)->first();
+                /*$wallet = Wallet::whereClientId($client->$id)->first();
                 if(empty($wallet)){
                     $result->balance = "0";
                 }else{
                     $result->balance = $wallet->amount;
-                }         
+                }    */     
                 $rst = $result;
             }
         }else{
