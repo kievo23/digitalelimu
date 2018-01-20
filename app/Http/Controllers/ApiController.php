@@ -235,29 +235,40 @@ class ApiController extends Controller
         	$result = Subscriptions::whereClientIdAndBookId($client->id,$request->get('bookid'))
                 ->orderBy('id', 'DESC')
                 ->first();
-            $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
-            $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
 
-            $wallet = Wallet::whereClientId($client->id)->first();
-            if(empty($wallet)){
-                $result->balance = "0";
-                $bal = "0";
+            if(!empty($result)){   
+                $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
+                $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
+
+                $wallet = Wallet::whereClientId($client->id)->first();
+                if(empty($wallet)){
+                    $result->balance = "0";
+                    $bal = "0";
+                }else{
+                    $result->balance = $wallet->amount;
+                    $bal = $wallet->amount;
+                }
+
+                if(Carbon::now() > $terminationDate){
+                    
+                    $rst = array(
+                        "id"=>0,
+                        "client_id"=>"0002",
+                        "book_id"=>"0",
+                        "amount"=>"Kindly Subscribe to Read",
+                        "balance" => $bal
+                    );
+                }else{                         
+                    $rst = $result;
+                }
             }else{
-                $result->balance = $wallet->amount;
-                $bal = $wallet->amount;
-            }
-
-            if(Carbon::now() > $terminationDate){
-                
                 $rst = array(
-                    "id"=>0,
-                    "client_id"=>"0002",
-                    "book_id"=>"0",
-                    "amount"=>"Kindly Subscribe to Read",
-                    "balance" => $bal
-                );
-            }else{                         
-                $rst = $result;
+                        "id"=>0,
+                        "client_id"=>"0002",
+                        "book_id"=>"0",
+                        "amount"=>"Kindly Subscribe to Read",
+                        "balance" => $bal
+                    );
             }
         }else{
             $rst = array(
