@@ -267,7 +267,7 @@ class ApiController extends Controller
                         "client_id"=>"0002",
                         "book_id"=>"0",
                         "amount"=>"Kindly Subscribe to Read",
-                        "balance" => $bal
+                        "balance" => "0"
                     );
             }
         }else{
