@@ -241,15 +241,14 @@ class ApiController extends Controller
                 $result->balance = "0";
                 $bal = "0";
             }else{
-                $result->balance = $wallet->amount;
                 $bal = $wallet->amount;
             }
 
             if(!empty($result)){   
                 $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
                 $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
-
                 
+                $result->balance = $bal;
 
                 if(Carbon::now() > $terminationDate){
                     
