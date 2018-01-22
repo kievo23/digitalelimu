@@ -236,18 +236,20 @@ class ApiController extends Controller
                 ->orderBy('id', 'DESC')
                 ->first();
 
+            $wallet = Wallet::whereClientId($client->id)->first();
+            if(empty($wallet)){
+                $result->balance = "0";
+                $bal = "0";
+            }else{
+                $result->balance = $wallet->amount;
+                $bal = $wallet->amount;
+            }
+
             if(!empty($result)){   
                 $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
                 $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
 
-                $wallet = Wallet::whereClientId($client->id)->first();
-                if(empty($wallet)){
-                    $result->balance = "0";
-                    $bal = "0";
-                }else{
-                    $result->balance = $wallet->amount;
-                    $bal = $wallet->amount;
-                }
+                
 
                 if(Carbon::now() > $terminationDate){
                     
@@ -267,7 +269,7 @@ class ApiController extends Controller
                         "client_id"=>"0002",
                         "book_id"=>"0",
                         "amount"=>"Kindly Subscribe to Read",
-                        "balance" => "0"
+                        "balance" => $bal
                     );
             }
         }else{
