@@ -67,20 +67,8 @@ class ApiController extends Controller
                 	->get();
                 foreach($result as $single){
                 	$date = Carbon::createFromFormat('Y-m-d H:i:s',$single->created_at);
-
-                    if($single->amount < 5)
-                        $terminationDate = $date->addDays(0);
-                    if($single->amount >= 5 && $single->amount < 15)
-                        $terminationDate = $date->addDays($single->amount/5);
-                    if($single->amount >= 15 && $single->amount < 50 )
-                        $terminationDate = $date->addDays($single->amount * ceil(7 / 15));
-                    if($single->amount >= 50 && $single->amount < 100)
-                        $terminationDate = $date->addDays($single->amount * ceil(30/50));
-                    if($single->amount >= 100 && $single->amount < 250)
-                        $terminationDate = $date->addDays($single->amount * ceil(120/100));
-                    if($single->amount >= 250)
-                        $terminationDate = $date->addDays($single->amount * ceil(365/250));
-	            	
+                    $terminationDate = $date->addDays(self::daysDeterminant($single->amount));
+                    
 	            	if(Carbon::now() > $terminationDate){
 	               		$rst = null;
 	            	}else{
@@ -414,6 +402,8 @@ class ApiController extends Controller
 
     public function daysDeterminant($amount){
         $days = "";
+        if($amount < 5)
+            $days = 0;
         if($amount >= 5 && $amount < 15)
             $days = $amount/5;
         if($amount >= 15 && $amount < 50 )
