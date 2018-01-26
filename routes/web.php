@@ -128,12 +128,24 @@ Route::any('/api/authUser/{phone}/{password}','ApiController@authClient');
 Route::any('/api/payments','ApiController@getPayments');
 Route::post('/api/readBook','ApiController@readBook');
 
-Route::post('/api/stkpush','ApiController@stkpush');
-Route::post('/api/stkresponse/{bookid}','ApiController@stkresponse');
 
-Route::get('/api/stkloadwalletpush/{phone}/{amount}/{bookid}','ApiController@stkloadwalletpush');
-Route::post('/api/stkloadwalletresponse','ApiController@stkloadwalletresponse');
-Route::post('/api/walletstkpush','ApiController@walletstkpush');
+//STK PUSH APIs
+    Route::post('/api/stkpush','ApiController@stkpush');
+    Route::post('/api/stkresponse/{bookid}','ApiController@stkresponse');
+
+    //subscribe to book from wallet no push here
+    Route::get('/api/stkloadwalletpush/{phone}/{amount}/{bookid}','ApiController@stkloadwalletpush');
+    Route::post('/api/stkloadwalletresponse','ApiController@stkloadwalletresponse');
+    //load wallet through stk Push
+    Route::post('/api/walletstkpush','ApiController@walletstkpush');
+
+    //************  CLASS STK PUSH APIs  **************//
+        //subscribe to class from wallet no push here
+        Route::get('/api/stkloadwalletpushclass/{phone}/{amount}/{classid}','ApiController@stkloadwalletpush');
+        // subscribe to class
+        Route::post('/api/stkpushclass','ApiController@stkpushclass');
+        Route::post('/api/stkresponseclass/{classid}','ApiController@stkresponseclass');
+
 
 //PesaPal, Unconventional
 Route::get('/pesapal', function() {

@@ -434,7 +434,7 @@ class ApiController extends Controller
 
     /****************
 
-    MPESA CONFIGURATION
+    MPESA CONFIGURATION STK
 
     *****************/
     public function stkpush(Request $request){
@@ -457,6 +457,30 @@ class ApiController extends Controller
         $CallBackURL = "http://139.59.187.229/api/stkresponse/".$bookid;
         $AccountReference = $clientphone;
         $TransactionDesc = "Subscribe to ".$bookname;
+        $Remarks = "Book Subscription API";
+        $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
+        return $stkPushSimulation;
+    }
+
+    public function stkpushclass(Request $request){
+        $mpesa= new \Safaricom\Mpesa\Mpesa();
+
+        $paybill=env("safaricom_paybill");
+
+        $clientphone = $request->get('phone');
+        $amount = $request->get('amount');
+        $classid = $request->get('classid');
+
+        $BusinessShortCode = $paybill;
+        $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
+        $TransactionType = 'CustomerPayBillOnline';
+        $Amount = $amount;
+        $PartyA = $clientphone;
+        $PartyB = $paybill;
+        $PhoneNumber = $clientphone;
+        $CallBackURL = "http://139.59.187.229/api/stkresponseclass/".$classid;
+        $AccountReference = $clientphone;
+        $TransactionDesc = "Subscribe to class";
         $Remarks = "Book Subscription API";
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
         return $stkPushSimulation;
@@ -534,6 +558,45 @@ class ApiController extends Controller
         $sub->book_id = $bookid;
         $sub->amount = $amount;
         $sub->save();
+        $callbackData=$mpesa->finishTransaction();
+    }
+
+    public function stkresponseclass(Request $request, $classid){
+        $mpesa= new \Safaricom\Mpesa\Mpesa();
+
+        $callbackData  =  json_decode($mpesa->getDataFromCallback());
+
+        $amount = $callbackData->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+        $phone = $callbackData->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+
+        $payments = new Payments();
+        $payments->transcode = date("Y-m-d H:i:s")."@".$bookid;
+        $payments->category = "weewr";
+        $payments->providerRefId = $callbackData->Body->stkCallback->CallbackMetadata->Item[1]->Value;
+        $payments->source = "Safaricom";
+        $payments->destination = "dsf";
+        $payments->accountNumber = $phone;
+        $payments->amount = $amount;
+        $payments->status = "Successful";
+        $payments->jsond = json_encode($callbackData);
+        $payments->save();
+
+        $client = Clients::wherePhone("0".substr($phone,-9))->first();
+
+        $books = Book::where('class_id','=',$class)
+        ->where('activate',1)
+        ->get();
+
+        $booksNo = count($books);
+        $pricePerBook = $amount/$booksNo;
+        
+        foreach($books as $book){
+            $sub = new Subscriptions();
+            $sub->client_id = $client->id;
+            $sub->book_id = $book->id;
+            $sub->amount = $pricePerBook;
+            $sub->save();
+        }
         $callbackData=$mpesa->finishTransaction();
     }
 
