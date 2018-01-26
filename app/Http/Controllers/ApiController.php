@@ -570,7 +570,7 @@ class ApiController extends Controller
         $phone = $callbackData->Body->stkCallback->CallbackMetadata->Item[4]->Value;
 
         $payments = new Payments();
-        $payments->transcode = date("Y-m-d H:i:s")."@".$bookid;
+        $payments->transcode = date("Y-m-d H:i:s")."@".$classid;
         $payments->category = "weewr";
         $payments->providerRefId = $callbackData->Body->stkCallback->CallbackMetadata->Item[1]->Value;
         $payments->source = "Safaricom";

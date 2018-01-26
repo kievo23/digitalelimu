@@ -141,7 +141,7 @@ Route::post('/api/readBook','ApiController@readBook');
 
     //************  CLASS STK PUSH APIs  **************//
         //subscribe to class from wallet no push here
-        Route::get('/api/stkloadwalletpushclass/{phone}/{amount}/{classid}','ApiController@stkloadwalletpush');
+        Route::get('/api/stkloadwalletpushclass/{phone}/{amount}/{classid}','ApiController@stkloadwalletpushclass');
         // subscribe to class
         Route::post('/api/stkpushclass','ApiController@stkpushclass');
         Route::post('/api/stkresponseclass/{classid}','ApiController@stkresponseclass');
