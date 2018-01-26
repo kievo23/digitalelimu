@@ -565,7 +565,7 @@ class ApiController extends Controller
 
                     return json_encode(array(
                         "code"=>"100",
-                        "msg"=>"Subscribed to this book"
+                        "msg"=>"Subscribed to this class"
                     )); 
                 }
             }else{
