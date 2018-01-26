@@ -583,7 +583,7 @@ class ApiController extends Controller
 
         $client = Clients::wherePhone("0".substr($phone,-9))->first();
 
-        $books = Book::where('class_id','=',$class)
+        $books = Book::where('class_id','=',$classid)
         ->where('activate',1)
         ->get();
 
