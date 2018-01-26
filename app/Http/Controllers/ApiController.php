@@ -39,14 +39,29 @@ class ApiController extends Controller
         return json_encode($classes);
     }
 
-    public function getBooks($class){
+    public function getBooks($class,$phone){
     	$books = Book::where('class_id','=',$class)
         ->where('activate',1)
         ->get();
+
+        $client = Clients::wherePhone($phone)->first();
+        if($client){
+            $wallet = Wallet::whereClientId($client->id)->first();
+            if(empty($wallet)){
+                $result->balance = "0";
+                $bal = "0";
+            }else{
+                $bal = $wallet->amount;
+            }
+        }else{
+            $bal = "0";
+        }
+        
+
         foreach ($books as $key => $book) {
             $book->lessons = DB::table('content')->whereBookId($book->id)->count();
         }
-    	return json_encode($books);
+    	return json_encode(array('books'=>$books, 'walletbal'=>$bal));
     }
 
     public function getBooksAll(){
