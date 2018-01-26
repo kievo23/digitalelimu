@@ -531,6 +531,61 @@ class ApiController extends Controller
         }
     }
 
+
+    public function stkloadwalletpushclass($phone,$amount,$classid){
+        $user = Clients::wherePhone($phone)->first();
+        if($user){
+            $record = Wallet::select('id','amount')->whereClientId($user->id)->first();
+            if($record){
+                if($amount > $record->amount){
+                    //STK PUSH
+                    return json_encode(array(
+                        "code"=>"103",
+                        "msg"=>"Stk Push Initiated to top up account"
+                    ));
+                }else{
+                    //DEDUCT CASH.
+                    $record->amount = $record->amount - $amount;
+                    $record->save();                     
+
+                    $books = Book::where('class_id','=',$classid)
+                    ->where('activate',1)
+                    ->get();
+
+                    $booksNo = count($books);
+                    $pricePerBook = $amount/$booksNo;
+                    
+                    foreach($books as $book){
+                        $sub = new Subscriptions();
+                        $sub->client_id = $user->id;
+                        $sub->book_id = $book->id;
+                        $sub->amount = $pricePerBook;
+                        $sub->save();
+                    }
+
+                    return json_encode(array(
+                        "code"=>"100",
+                        "msg"=>"Subscribed to this book"
+                    )); 
+                }
+            }else{
+                $input['amount'] = "0";
+                $input['client_id'] = $user->id;
+                $createUser = Wallet::create($input);
+                //STK PUSH
+                return json_encode(array(
+                        "code"=>"103",
+                        "msg"=>"Stk Push Initiated to top up account"
+                    ));
+            }
+        }else{
+            return json_encode(array(
+                "code"=>"101",
+                "msg"=>"User not found"
+            ));            
+        }
+    }
+
     public function stkresponse(Request $request, $bookid){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
