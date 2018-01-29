@@ -437,15 +437,15 @@ class ApiController extends Controller
         if($amount < 25)
             $pricePerBook = 0;
         if($amount >= 25 && $amount < 75)
-            $pricePerBook = (($amount/5)/$booksNo < 1) ? 5 : (($amount/5)/$booksNo < 1);
+            $pricePerBook = ($amount/$booksNo < 5) ? 5 : $amount/$booksNo;
         if($amount >= 75 && $amount < 250 )
-            $pricePerBook = (($amount * (7 / 15))/$booksNo < 7) ? 15 : (($amount * (7 / 15))/$booksNo < 1);
+            $pricePerBook = ($amount/$booksNo < 15) ? 15 : $amount/$booksNo;
         if($amount >= 50 && $amount < 100)
-            $pricePerBook = (($amount * (30 / 50))/$booksNo < 30) ? 50 : (($amount * (30 / 50))/$booksNo < 1);
+            $pricePerBook = ($amount/$booksNo < 50) ? 50 : $amount/$booksNo;
         if($amount >= 100 && $amount < 250)
-            $pricePerBook = (($amount * (120 / 100))/$booksNo < 120) ? 100 : (($amount * (120 / 100))/$booksNo < 1);
+            $pricePerBook = ($amount/$booksNo < 100) ? 100 : $amount/$booksNo;
         if($amount >= 250)
-            $pricePerBook = (($amount * (365 / 250))/$booksNo < 365) ? 250 : (($amount * (365 / 250))/$booksNo < 1);
+            $pricePerBook = ($amount/$booksNo < 250) ? 250 : $amount/$booksNo;
         return $pricePerBook;
     }
 
