@@ -570,13 +570,13 @@ class ApiController extends Controller
                     ->get();
 
                     $booksNo = count($books);
-                    $pricePerBook = $amount/$booksNo;
+                    $pricePerBook = self::priceDeterminantclass($amount,$booksNo);
                     
                     foreach($books as $book){
                         $sub = new Subscriptions();
                         $sub->client_id = $user->id;
                         $sub->book_id = $book->id;
-                        $sub->amount = self::priceDeterminantclass($amount,$booksNo);
+                        $sub->amount = $pricePerBook;
                         $sub->save();
                     }
 
@@ -660,13 +660,13 @@ class ApiController extends Controller
         ->get();
 
         $booksNo = count($books);
-        $pricePerBook = $amount/$booksNo;
+        $pricePerBook = self::priceDeterminantclass($amount,$booksNo);
         
         foreach($books as $book){
             $sub = new Subscriptions();
             $sub->client_id = $client->id;
             $sub->book_id = $book->id;
-            $sub->amount = self::priceDeterminantclass($amount,$booksNo);
+            $sub->amount = $pricePerBook;
             $sub->save();
         }
         $callbackData=$mpesa->finishTransaction();
