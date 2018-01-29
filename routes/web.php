@@ -146,7 +146,7 @@ Route::post('/api/readBook','ApiController@readBook');
         Route::post('/api/stkpushclass','ApiController@stkpushclass');
         Route::post('/api/stkresponseclass/{classid}','ApiController@stkresponseclass');
 
-Route::get('api/test/{amount}/{bookNo}','priceDeterminantclass');
+Route::get('api/test/{amount}/{bookNo}','ApiController@priceDeterminantclass');
 
 
 //PesaPal, Unconventional
