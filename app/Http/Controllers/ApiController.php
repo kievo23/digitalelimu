@@ -433,7 +433,7 @@ class ApiController extends Controller
     }
 
     public function priceDeterminantclass($amount,$booksNo){
-        $pricePerBook = "";
+        $pricePerBook = 0;
         if($amount < 25)
             $pricePerBook = 0;
         if($amount >= 25 && $amount < 75)

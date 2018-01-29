@@ -129,7 +129,7 @@ Route::any('/api/payments','ApiController@getPayments');
 Route::post('/api/readBook','ApiController@readBook');
 
 
-//STK PUSH APIs
+    //STK PUSH APIs
     Route::post('/api/stkpush','ApiController@stkpush');
     Route::post('/api/stkresponse/{bookid}','ApiController@stkresponse');
 
