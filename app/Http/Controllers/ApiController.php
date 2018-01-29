@@ -432,15 +432,32 @@ class ApiController extends Controller
         return $days;
     }
 
+    public function priceDeterminantclass($amount,$booksNo){
+        $pricePerBook = "";
+        if($amount < 25)
+            $pricePerBook = 0;
+        if($amount >= 25 && $amount < 75)
+            $pricePerBook = (($amount/5)/$booksNo < 1) ? 5 : (($amount/5)/$booksNo < 1);
+        if($amount >= 75 && $amount < 250 )
+            $pricePerBook = (($amount * (7 / 15))/$booksNo < 7) ? 15 : (($amount * (7 / 15))/$booksNo < 1);
+        if($amount >= 50 && $amount < 100)
+            $pricePerBook = (($amount * (30 / 50))/$booksNo < 30) ? 50 : (($amount * (30 / 50))/$booksNo < 1);
+        if($amount >= 100 && $amount < 250)
+            $pricePerBook = (($amount * (120 / 100))/$booksNo < 120) ? 100 : (($amount * (120 / 100))/$booksNo < 1);
+        if($amount >= 250)
+            $pricePerBook = (($amount * (365 / 250))/$booksNo < 365) ? 250 : (($amount * (365 / 250))/$booksNo < 1);
+        return $pricePerBook;
+    }
+
     /****************
 
     MPESA CONFIGURATION STK
 
     *****************/
     public function stkpush(Request $request){
-        $mpesa= new \Safaricom\Mpesa\Mpesa();
+        $mpesa   = new \Safaricom\Mpesa\Mpesa();
 
-        $paybill=env("safaricom_paybill");
+        $paybill = env("safaricom_paybill");
 
         $clientphone = $request->get('phone');
         $amount = $request->get('amount');
@@ -559,7 +576,7 @@ class ApiController extends Controller
                         $sub = new Subscriptions();
                         $sub->client_id = $user->id;
                         $sub->book_id = $book->id;
-                        $sub->amount = $pricePerBook;
+                        $sub->amount = self::priceDeterminantclass($amount,$booksNo);
                         $sub->save();
                     }
 
@@ -649,7 +666,7 @@ class ApiController extends Controller
             $sub = new Subscriptions();
             $sub->client_id = $client->id;
             $sub->book_id = $book->id;
-            $sub->amount = $pricePerBook;
+            $sub->amount = self::priceDeterminantclass($amount,$booksNo);
             $sub->save();
         }
         $callbackData=$mpesa->finishTransaction();
