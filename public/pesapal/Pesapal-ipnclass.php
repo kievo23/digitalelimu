@@ -58,7 +58,7 @@ if($pesapalTrackingId!='')
     $dbname = "digitalElimu";
     $client = $_SESSION['client'];
     $amount = (int)$_SESSION['amount'];
-    $book = $_SESSION["book"];
+    $class = $_SESSION["class"];
 
     
     $today = date("Y-m-d H:i:s"); 
@@ -89,20 +89,25 @@ if($pesapalTrackingId!='')
           $cliented = $stmt->fetch(PDO::FETCH_ASSOC); 
           $client_id = $cliented['id'];
 
-          /*$sql = "INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
-          VALUES ($client_id, $book, '$amount', '$today', '$today')";*/
-          // use exec() because no results are returned
-          //$rst = $conn->exec($sql);
-          $statement = $link->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
-              VALUES(:client_id, :book_id, :amount, :created_at, :updated_at)");
-          $statement->execute(array(
-              "client_id" => $client_id,
-              "book_id" => $book,
-              "amount" => $amount,
-              "created_at" => $today,
-              "updated_at" => $today
-          ));
-          echo "<h2>Successfully Subscribed to this book</h2>";
+          $class = $conn->prepare("SELECT * FROM book where class_id='".$class."'"); 
+          $class->execute();
+          $class = $class->fetch(PDO::FETCH_ASSOC); 
+
+          $booksNo = count($class);
+          $pricePerBook = priceDeterminantclass($amount,$booksNo);
+
+            foreach($books as $book){
+                $statement = $link->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
+                  VALUES(:client_id, :book_id, :amount, :created_at, :updated_at)");
+                $statement->execute(array(
+                    "client_id" => $client_id,
+                    "book_id" => $book['id'],
+                    "amount" => $pricePerBook,
+                    "created_at" => $today,
+                    "updated_at" => $today
+                ));
+                echo "<h2>Successfully Subscribed to this book</h2>";
+            }
           }
       catch(PDOException $e)
           {
@@ -123,4 +128,22 @@ if($pesapalTrackingId!='')
       ob_flush();
       exit;
    }
+
+
+   public function priceDeterminantclass($amount,$booksNo){
+        $pricePerBook = 0;
+        if($amount < 25)
+            $pricePerBook = 0;
+        if($amount >= 25 && $amount < 75)
+            $pricePerBook = ($amount/$booksNo < 5) ? 5 : $amount/$booksNo;
+        if($amount >= 75 && $amount < 250 )
+            $pricePerBook = ($amount/$booksNo < 15) ? 15 : $amount/$booksNo;
+        if($amount >= 50 && $amount < 100)
+            $pricePerBook = ($amount/$booksNo < 50) ? 50 : $amount/$booksNo;
+        if($amount >= 100 && $amount < 250)
+            $pricePerBook = ($amount/$booksNo < 100) ? 100 : $amount/$booksNo;
+        if($amount >= 250)
+            $pricePerBook = ($amount/$booksNo < 250) ? 250 : $amount/$booksNo;
+        return $pricePerBook;
+    }
 ?>
