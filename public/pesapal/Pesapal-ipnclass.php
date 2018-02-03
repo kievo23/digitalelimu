@@ -1,5 +1,6 @@
 <?php
 include_once('OAuth.php');
+ini_set('display_errors', 1);
 session_start();
 /*
 PesaPal Sandbox is at http://demo.pesapal.com. Use this to test your developement and 
