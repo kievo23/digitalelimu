@@ -5,7 +5,7 @@ include_once('OAuth.php');
 session_start();
 $classid = $_GET['class_id'];
 $client = $_GET['client'];
-print_r($_GET);
+//print_r($_GET);
 
 if(isset($_POST['submit'])){
 	//pesapal params
