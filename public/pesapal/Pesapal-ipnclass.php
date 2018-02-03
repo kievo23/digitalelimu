@@ -84,6 +84,16 @@ if($pesapalTrackingId!='')
           //print_r($conn);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+          $statement = $link->prepare("INSERT INTO payments (client_id, book_id, amount, created_at, updated_at)
+                  VALUES(:id, :transcode, :category, :providerRefId, :providerRefId, :source, :destination, :created_at, :updated_at)");
+                $statement->execute(array(
+                    "client_id" => $client_id,
+                    "book_id" => $book['id'],
+                    "amount" => $pricePerBook,
+                    "created_at" => $today,
+                    "updated_at" => $today
+                ));
+
           $stmt = $conn->prepare("SELECT `id`,`phone` FROM clients where phone='".$client."'"); 
           $stmt->execute();
           $cliented = $stmt->fetch(PDO::FETCH_ASSOC); 
