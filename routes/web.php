@@ -149,12 +149,22 @@ Route::post('/api/readBook','ApiController@readBook');
 Route::get('api/test/{amount}/{bookNo}','ApiController@priceDeterminantclass');
 
 
-//PesaPal, Unconventional
-Route::get('/pesapal', function() {
+//PesaPal Book, Unconventional
+Route::get('/pesapalbook', function() {
     //return Redirect::to("Pesapal-iframe.php");
     require(public_path()."/pesapal/Pesapal-iframe.php");
 });
 Route::get('/pesapalIPN', function() {
     //return Redirect::to("Pesapal-iframe.php");
     require(public_path()."/pesapal/Pesapal-ipn.php");
+});
+
+//PesaPal Class, Unconventional
+Route::get('/pesapalclass', function() {
+    //return Redirect::to("Pesapal-iframe.php");
+    require(public_path()."/pesapal/Pesapal-iframeclass.php");
+});
+Route::get('/pesapalIPNclass', function() {
+    //return Redirect::to("Pesapal-iframe.php");
+    require(public_path()."/pesapal/Pesapal-ipnclass.php");
 });

@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 include_once('OAuth.php');
 session_start();
 /*
@@ -16,7 +17,7 @@ $statusrequestAPI = 'https://www.pesapal.com/api/querypaymentstatus';//change to
                    //https://www.pesapal.com/api/querypaymentstatus' when you are ready to go live!
 //print_r($_GET);
 // Parameters sent to you by PesaPal IPN
-$pesapalNotification=$_GET['pesapal_notification_type'];
+//$pesapalNotification=$_GET['pesapal_notification_type'];
 $pesapalTrackingId=$_GET['pesapal_transaction_tracking_id'];
 $pesapal_merchant_reference=$_GET['pesapal_merchant_reference'];
 
@@ -55,7 +56,9 @@ if($pesapalTrackingId!='')
     $servername = "localhost";
     $username = "root";
     $password = "TpkvgZ3PqPU4hRNA";
+    //$password = "kev@50";
     $dbname = "digitalElimu";
+    //$dbname = "booksgits";
     $client = $_SESSION['client'];
     $amount = (int)$_SESSION['amount'];
     $book = $_SESSION["book"];
@@ -76,7 +79,7 @@ if($pesapalTrackingId!='')
    //print_r($_SESSION);
 
         
-    //if($status){
+    if($status){
       try {
 
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -93,22 +96,25 @@ if($pesapalTrackingId!='')
           VALUES ($client_id, $book, '$amount', '$today', '$today')";*/
           // use exec() because no results are returned
           //$rst = $conn->exec($sql);
-          $statement = $link->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
+          $statement = $conn->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
               VALUES(:client_id, :book_id, :amount, :created_at, :updated_at)");
           $statement->execute(array(
-              "client_id" => $client_id,
+              "client_id" => $client,
               "book_id" => $book,
               "amount" => $amount,
               "created_at" => $today,
               "updated_at" => $today
           ));
           echo "<h2>Successfully Subscribed to this book</h2>";
+          unset($_SESSION['client']);
+          unset($_SESSION['amount']);
+          unset($_SESSION['book']);
           }
       catch(PDOException $e)
           {
-          echo $sql . "<br>" . $e->getMessage();
+          echo  "<br>" . $e->getMessage();
           }
-    //}
+    }
       $conn = null;
    }
    curl_close ($ch);
@@ -117,7 +123,7 @@ if($pesapalTrackingId!='')
 
    if(DB_UPDATE_IS_SUCCESSFUL)
    {
-      $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
+      $resp="pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
       ob_start();
       //echo $resp;
       ob_flush();

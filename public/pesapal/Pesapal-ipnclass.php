@@ -17,7 +17,7 @@ $statusrequestAPI = 'https://www.pesapal.com/api/querypaymentstatus';//change to
                    //https://www.pesapal.com/api/querypaymentstatus' when you are ready to go live!
 //print_r($_GET);
 // Parameters sent to you by PesaPal IPN
-$pesapalNotification=$_GET['pesapal_notification_type'];
+//$pesapalNotification=$_GET['pesapal_notification_type'];
 $pesapalTrackingId=$_GET['pesapal_transaction_tracking_id'];
 $pesapal_merchant_reference=$_GET['pesapal_merchant_reference'];
 
@@ -56,7 +56,9 @@ if($pesapalTrackingId!='')
     $servername = "localhost";
     $username = "root";
     $password = "TpkvgZ3PqPU4hRNA";
+    //$password = "kev@50";
     $dbname = "digitalElimu";
+     //$dbname = "booksgits";
     $client = $_SESSION['client'];
     $amount = (int)$_SESSION['amount'];
     $class = $_SESSION["class"];
@@ -77,7 +79,7 @@ if($pesapalTrackingId!='')
    //print_r($_SESSION);
 
         
-    //if($status){
+    if($status){
       try {
 
           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -85,12 +87,15 @@ if($pesapalTrackingId!='')
           //print_r($conn);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-          $statement = $link->prepare("INSERT INTO payments (client_id, book_id, amount, created_at, updated_at)
-                  VALUES(:id, :transcode, :category, :providerRefId, :providerRefId, :source, :destination, :created_at, :updated_at)");
+          $statement = $conn->prepare("INSERT INTO payments (transcode, category, providerRefId, source, destination, amount, created_at, updated_at)
+                  VALUES(:transcode, :category, :providerRefId, :source, :destination, :amount, :created_at, :updated_at)");
                 $statement->execute(array(
-                    "client_id" => $client_id,
-                    "book_id" => $book['id'],
-                    "amount" => $pricePerBook,
+                    "transcode" => "Pesapal".date("l jS \of F Y h:i:s A"),
+                    "category" => "Pesapal",
+                    "providerRefId" => $pesapalTrackingId,
+                    "amount" => $amount,
+                    "source" => "pesapal",
+                    "destination" => "Class Subscription",
                     "created_at" => $today,
                     "updated_at" => $today
                 ));
@@ -100,18 +105,18 @@ if($pesapalTrackingId!='')
           $cliented = $stmt->fetch(PDO::FETCH_ASSOC); 
           $client_id = $cliented['id'];
 
-          $class = $conn->prepare("SELECT * FROM book where class_id='".$class."'"); 
-          $class->execute();
-          $class = $class->fetch(PDO::FETCH_ASSOC); 
+          $stmtclass = $conn->prepare("SELECT * FROM book where class_id='".$class."'"); 
+          $stmtclass->execute();
+          $class = $stmtclass->fetchAll(PDO::FETCH_ASSOC); 
 
           $booksNo = count($class);
           $pricePerBook = priceDeterminantclass($amount,$booksNo);
 
-            foreach($books as $book){
-                $statement = $link->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
+            foreach($class as $book){
+                $statement = $conn->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
                   VALUES(:client_id, :book_id, :amount, :created_at, :updated_at)");
                 $statement->execute(array(
-                    "client_id" => $client_id,
+                    "client_id" => $client,
                     "book_id" => $book['id'],
                     "amount" => $pricePerBook,
                     "created_at" => $today,
@@ -119,12 +124,15 @@ if($pesapalTrackingId!='')
                 ));
                 echo "<h2>Successfully Subscribed to this book</h2>";
             }
+            unset($_SESSION['client']);
+            unset($_SESSION['amount']);
+            unset($_SESSION['class']);
           }
       catch(PDOException $e)
           {
-          echo $sql . "<br>" . $e->getMessage();
+          echo "<br>" . $e->getMessage();
           }
-    //}
+    }
       $conn = null;
    }
    curl_close ($ch);
@@ -133,7 +141,7 @@ if($pesapalTrackingId!='')
 
    if(DB_UPDATE_IS_SUCCESSFUL)
    {
-      $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
+      $resp="pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
       ob_start();
       //echo $resp;
       ob_flush();
@@ -141,7 +149,7 @@ if($pesapalTrackingId!='')
    }
 
 
-   public function priceDeterminantclass($amount,$booksNo){
+   function priceDeterminantclass($amount,$booksNo){
         $pricePerBook = 0;
         if($amount < 25)
             $pricePerBook = 0;
