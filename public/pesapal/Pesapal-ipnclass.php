@@ -58,7 +58,7 @@ if($pesapalTrackingId!='')
     $password = "TpkvgZ3PqPU4hRNA";
     //$password = "kev@50";
     $dbname = "digitalElimu";
-     //$dbname = "booksgits";
+     $dbname = "booksgits";
     $client = $_SESSION['client'];
     $amount = (int)$_SESSION['amount'];
     $class = $_SESSION["class"];
@@ -116,7 +116,7 @@ if($pesapalTrackingId!='')
                 $statement = $conn->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
                   VALUES(:client_id, :book_id, :amount, :created_at, :updated_at)");
                 $statement->execute(array(
-                    "client_id" => $client,
+                    "client_id" => $client_id,
                     "book_id" => $book['id'],
                     "amount" => $pricePerBook,
                     "created_at" => $today,

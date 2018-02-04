@@ -99,7 +99,7 @@ if($pesapalTrackingId!='')
           $statement = $conn->prepare("INSERT INTO subscriptions (client_id, book_id, amount, created_at, updated_at)
               VALUES(:client_id, :book_id, :amount, :created_at, :updated_at)");
           $statement->execute(array(
-              "client_id" => $client,
+              "client_id" => $client_id,
               "book_id" => $book,
               "amount" => $amount,
               "created_at" => $today,
