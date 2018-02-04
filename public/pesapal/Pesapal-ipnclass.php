@@ -1,6 +1,6 @@
 <?php
 include_once('OAuth.php');
-ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 session_start();
 /*
 PesaPal Sandbox is at http://demo.pesapal.com. Use this to test your developement and 
@@ -122,7 +122,7 @@ if($pesapalTrackingId!='')
                     "created_at" => $today,
                     "updated_at" => $today
                 ));
-                echo "<h2>Successfully Subscribed to this book</h2>";
+                echo "<h2>Successfully Subscribed to book id ".$book['id']."</h2>";
             }
             unset($_SESSION['client']);
             unset($_SESSION['amount']);
