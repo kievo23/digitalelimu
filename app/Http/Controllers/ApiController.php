@@ -47,6 +47,8 @@ class ApiController extends Controller
         $client = Clients::wherePhone($phone)->first();
         if($client){
             $wallet = Wallet::whereClientId($client->id)->first();
+            print_r($wallet);
+            die();
             if(empty($wallet)){
                 $result->balance = "0";
                 $bal = "0";
