@@ -240,8 +240,7 @@ class ApiController extends Controller
                 ->first();
 
             $wallet = Wallet::whereClientId($client->id)->first();
-            if(empty($wallet)){
-                $result->balance = "0";
+            if($wallet == NULL){
                 $bal = "0";
             }else{
                 $bal = $wallet->amount;
