@@ -50,7 +50,6 @@ class ApiController extends Controller
             print_r($wallet);
             
             if($wallet == NULL){
-                $result->balance = "0";
                 $bal = "0";
                 echo "wallet is null";
             }else{
