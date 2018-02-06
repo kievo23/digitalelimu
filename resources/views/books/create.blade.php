@@ -81,7 +81,7 @@
                         </div> 
 
                         <div class="form-group{{ $errors->has('pdf') ? ' has-error' : '' }}">
-                            <label for="bookpdf" class="col-md-2 control-label">Book PDF</label>
+                            <label for="bookpdf" class="col-md-2 control-label">Whole Book PDF</label>
 
                             <div class="col-md-10">
                                 <input id="bookpdf" type="file" class="form-control" name="bookpdf" value="{{ old('bookpdf') }}" autofocus>
@@ -95,7 +95,7 @@
                         </div> 
 
                         <div class="form-group{{ $errors->has('pdf') ? ' has-error' : '' }}">
-                            <label for="pdf" class="col-md-2 control-label">PDFs</label>
+                            <label for="pdf" class="col-md-2 control-label">Chapter PDF(s)</label>
 
                             <div class="col-md-10">
                                 <input id="pdf" type="file" class="form-control" name="pdf[]" value="{{ old('pdf') }}" autofocus multiple>
