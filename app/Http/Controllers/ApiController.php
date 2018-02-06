@@ -48,13 +48,16 @@ class ApiController extends Controller
         if($client){
             $wallet = Wallet::whereClientId($client->id)->first();
             print_r($wallet);
-            die();
-            if(empty($wallet)){
+            
+            if($wallet == NULL){
                 $result->balance = "0";
                 $bal = "0";
+                echo "wallet is null";
             }else{
                 $bal = $wallet->amount;
+                echo "wallet is not null";
             }
+            die();
         }else{
             $bal = "0";
         }
