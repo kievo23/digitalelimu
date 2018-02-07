@@ -211,7 +211,7 @@ class ApiController extends Controller
         $rst = array();        
         $contents = Content::select('id','name','term','book_id','week','lesson','description','audio','video')->get();
         foreach ($contents as $key => $content) {
-            $content->book = Book::find($content->book_id)->first();
+            $content->book = Book::find($content->book_id);
         }
         $rst['recordsTotal'] = count($contents);
         $rst['data'] = $contents; 
