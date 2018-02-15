@@ -224,7 +224,7 @@ class ApiController extends Controller
         $rst = array();        
         $contents = Content::whereBookId($id)->get();
         foreach ($contents as $key => $content) {
-            $content->book = Book::find($content->book_id)->first();
+            $content->book = Book::find($content->book_id);
         }
         $rst['recordsTotal'] = count($contents);
         $rst['data'] = $contents; 
