@@ -25,12 +25,10 @@
     </script>
 </head>
 <body>
-    <div id="app">        
-        <div class="container">
+    <div id="app">  
             <div class="row">
                     @yield('content')
             </div>
-        </div>
     </div>
 
     <!-- Scripts -->
