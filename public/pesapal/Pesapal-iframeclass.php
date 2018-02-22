@@ -90,7 +90,7 @@ if(isset($_POST['submit'])){
 			<input type="text" name="email" placeholder="email"  class="form-control" style="margin:10px">
 			<input type="hidden" name="type" value="MERCHANT" readonly="readonly" />
 			<input type="text" name="amount" placeholder="amount"  class="form-control" style="margin:10px">
-			<input type="submit" name="submit" value="Buy"  class="form-control btn btn-primary">
+			<input type="submit" name="submit" value="Subscribe"  class="form-control btn btn-primary">
 		</form>
 		<iframe src="<?php echo $iframe_src;?>" width="100%" height="700px"  scrolling="yes" frameBorder="0">
 			<p>Browser unable to load iFrame</p>
