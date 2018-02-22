@@ -4,7 +4,7 @@
 <!--
 	<input type="range" min="80" max="180" id="slider"  value="110" style="position:fixed;top:10px;"/>
 	-->
-<div style="padding-top:10px">
+<div style="padding:10px">
 	
 	<?php
 	if($content == null){
