@@ -63,7 +63,7 @@
 
                             <div class="col-md-10">
                                 <?php 
-                                    if($publishers){
+                                    if(count($publishers) > 0){
                                        foreach ($publishers as $key => $value) {
                                             if($value->id ==  $book->publisher){
                                                 $publisherThis = $value->publisher;
@@ -72,7 +72,7 @@
                                             }
                                         } 
                                     }else{
-                                        $publisherThis = "No Publishers In System";
+                                        $publisherThis = "No Publishers In The System";
                                     }
                                     
                                  ?>
