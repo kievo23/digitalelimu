@@ -164,7 +164,15 @@
                                 @endif
                             </div>
                             <div class="col-md-5">
-                                {{$book->pdf}}
+                                <?php
+
+                                $pdfList = explode(",", $book->pdf);
+                                foreach ($pdfList as $key => $pdf) {
+                                    # code...
+                                    echo $pdf."<br>";
+                                }
+
+                                ?>
                             </div>
                         </div>
 
