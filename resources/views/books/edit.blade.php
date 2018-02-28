@@ -65,7 +65,7 @@
                                 <?php 
                                     foreach ($publishers as $key => $value) {
                                         if($value->id ==  $book->publisher){
-                                            $publisherThis = $value->name;
+                                            $publisherThis = $value->publisher;
                                         }else{
                                             $publisherThis = "No Publisher";
                                         }
