@@ -130,7 +130,9 @@
                                 @endif
                             </div>
                             <div class="col-md-5">
+                                <div class="alert alert-success" role="alert">
                                 {{$book->photo}}
+                                </div>
                             </div>
                         </div>
 
@@ -147,7 +149,9 @@
                                 @endif
                             </div>
                             <div class="col-md-5">
+                                <div class="alert alert-info" role="alert">
                                 {{$book->bookpdf}}
+                                </div>
                             </div>
                         </div>
 
@@ -169,7 +173,7 @@
                                 $pdfList = explode(",", $book->pdf);
                                 foreach ($pdfList as $key => $pdf) {
                                     # code...
-                                    echo $pdf."<br>";
+                                    echo "<div class='alert alert-warning' role='alert'>".$pdf."</div>";
                                 }
 
                                 ?>
