@@ -66,3 +66,6 @@ input[type=range]::-webkit-slider-runnable-track {
 ::-ms-tooltip { 
     display: none;
 }
+.twopadding{
+    padding: 2px;
+}
