@@ -63,13 +63,18 @@
 
                             <div class="col-md-10">
                                 <?php 
-                                    foreach ($publishers as $key => $value) {
-                                        if($value->id ==  $book->publisher){
-                                            $publisherThis = $value->publisher;
-                                        }else{
-                                            $publisherThis = "No Publisher";
-                                        }
+                                    if($publishers){
+                                       foreach ($publishers as $key => $value) {
+                                            if($value->id ==  $book->publisher){
+                                                $publisherThis = $value->publisher;
+                                            }else{
+                                                $publisherThis = "No Publisher Selected";
+                                            }
+                                        } 
+                                    }else{
+                                        $publisherThis = "No Publishers In System";
                                     }
+                                    
                                  ?>
                                 <select class="form-control" name="publisher">
                                 <option value="{{$book->publisher}}">{{$publisherThis}}</option>
