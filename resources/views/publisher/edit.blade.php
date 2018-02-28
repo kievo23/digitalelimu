@@ -33,8 +33,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="Update" class="btn btn-primary">
-                                    Create
+                                <button type="Update" class="btn btn-primary form-control">
+                                    Update
                                 </button>
                             </div>
                         </div>
