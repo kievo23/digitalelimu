@@ -18,6 +18,7 @@ class CreateBookTable extends Migration
             $table->string('name')->nullable();
             $table->integer('class_id')->unsigned();
             $table->foreign('class_id')->references('id')->on('class');
+            $table->string('publisher')->nullable();
             $table->string('photo')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();

@@ -114,6 +114,7 @@
                             @permission('list_clients')
                             <a class="btn" href="{{ url('/category/clients') }}">Clients</a>
                             @endpermission
+                            <a class="btn" href="{{ url('/publishers/index') }}">Publishers</a>
                         </div>
                     </div>
                 </div>

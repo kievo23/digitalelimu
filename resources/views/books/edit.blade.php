@@ -58,6 +58,35 @@
                             </div>
                         </div>
 
+                         <div class="form-group{{ $errors->has('publisher') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-2 control-label">Publisher</label>
+
+                            <div class="col-md-10">
+                                <?php 
+                                    foreach ($publishers as $key => $value) {
+                                        if($value->id ==  $book->publisher){
+                                            $publisherThis = $value->name;
+                                        }else{
+                                            $publisherThis = "No Publisher";
+                                        }
+                                    }
+                                 ?>
+                                <select class="form-control" name="publisher">
+                                <option value="{{$book->publisher}}">{{$publisherThis}}</option>
+                                @if($publishers)
+                                    @foreach($publishers as $main)
+                                    <option value="{{$main->id}}">{{$main->publisher}}</option>
+                                    @endforeach
+                                @endif
+                                </select>
+                                @if($errors->has('publisher'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('publisher') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('booktype') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-2 control-label">Book Type</label>
 

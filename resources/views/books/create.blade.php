@@ -50,6 +50,26 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('publisher') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-2 control-label">Publisher</label>
+
+                            <div class="col-md-10">
+                                <select class="form-control" name="publisher">
+                                <option value="">-- Select Publisher --</option>
+                                @if($publishers)
+                                    @foreach($publishers as $publisher)
+                                    <option value="{{$publisher->id}}">{{$publisher->publisher}}</option>
+                                    @endforeach
+                                @endif
+                                </select>
+                                @if ($errors->has('publisher'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('publisher') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('booktype') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-2 control-label">Book Type</label>
 

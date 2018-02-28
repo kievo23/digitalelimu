@@ -98,6 +98,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::any('/content/destroy/{id}', ['as'=>'content.destroy','uses'=>'ContentController@destroy', 'middleware'=>['permission:delete_content']]);
 
     Route::get('/edits/index/{id}',['as'=>'edits.index','uses'=>'EditsController@index', 'middleware'=>['permission:list_edits']]);
+
+    Route::get('/publishers/index',['as'=>'publisher.index','uses'=>'PublisherController@index']);
+    Route::get('/publisher/create',['as'=>'publisher.create','uses'=>'PublisherController@create']);
+    Route::post('/publisher/store',['as'=>'publisher.store','uses'=>'PublisherController@store']);
+    Route::get('/publisher/edit/{id}', ['as'=>'publisher.edit','uses'=>'PublisherController@edit']);
+    Route::post('/publisher/update/{id}', ['as'=>'publisher.update','uses'=>'PublisherController@update']);
 });
 
 //API

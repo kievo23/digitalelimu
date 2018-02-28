@@ -10,7 +10,7 @@ class Book extends Model
     protected $table = 'book';
     
     protected $fillable = [
-        'name','class_id','photo','bookpdf','lesson','description','category','activate','booktype'
+        'name','class_id','photo','bookpdf','lesson','description','category','activate','booktype','publisher'
     ];
 
     public function category()

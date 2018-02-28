@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Clas;
 Use App\Book;
+use App\Publisher;
 use Intervention\Image\Facades\Image as Image;
 
 class BookController extends Controller
@@ -43,7 +44,8 @@ class BookController extends Controller
     {
         //
         $classes = Clas::all();
-        return view('books.create',compact('classes'));
+        $publishers = Publisher::all();
+        return view('books.create',compact('classes','publishers'));
     }
 
     public function createId($id)
@@ -74,6 +76,7 @@ class BookController extends Controller
         $topic->name = $request->get('name');
         $topic->class_id = $request->get('class');
         $topic->booktype = $request->get('booktype');
+        $topic->publisher = $request->get('publisher');
         $topic->description = $request->get('description');
         $topic->activate = 0;
 
@@ -137,7 +140,8 @@ class BookController extends Controller
         //
         $book = Book::find($id);
         $classes = Clas::all();
-        return view('books.edit',compact('book','classes'));
+        $publishers = Publisher::all();
+        return view('books.edit',compact('book','classes','publishers'));
     }
 
     /**
@@ -173,6 +177,7 @@ class BookController extends Controller
         $topic->name = $request->get('name');
         $topic->class_id = $request->get('class');
         $topic->booktype = $request->get('booktype');
+        $topic->publisher = $request->get('publisher');
         $topic->description = $request->get('description');
         $upld = true;
         if($request->file('photo')){
