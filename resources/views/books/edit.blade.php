@@ -117,6 +117,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-2 control-label">Description</label>
+
+                            <div class="col-md-10">
+                                <input id="description" type="text" class="form-control" name="description" value="{{ $book->description }}" autofocus>
+
+                                @if ($errors->has('description'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
                             <label for="week" class="col-md-2 control-label">Photo</label>
 
@@ -180,24 +194,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-2 control-label">Description</label>
-
-                            <div class="col-md-10">
-                                <input id="description" type="text" class="form-control" name="description" value="{{ $book->description }}" autofocus>
-
-                                @if ($errors->has('description'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Post
+                                    Update
                                 </button>
                             </div>
                         </div>
