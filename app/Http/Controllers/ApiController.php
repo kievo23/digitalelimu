@@ -485,8 +485,6 @@ class ApiController extends Controller
 
         $clientphone = $request->get('phone');
         $amount = $request->get('amount');
-        $bookid = $request->get('bookid');
-        $bookname = $request->get('bookname');
 
         $BusinessShortCode = $paybill;
         $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
