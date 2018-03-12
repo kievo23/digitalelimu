@@ -139,6 +139,8 @@ Route::post('/api/readBook','ApiController@readBook');
     Route::post('/api/stkpush','ApiController@stkpush');
     Route::post('/api/stkresponse/{bookid}','ApiController@stkresponse');
 
+    Route::post('/api/stkpushnakumatt','ApiController@stkpushnakumatt');
+
     //subscribe to book from wallet no push here
     Route::get('/api/stkloadwalletpush/{phone}/{amount}/{bookid}','ApiController@stkloadwalletpush');
     Route::post('/api/stkloadwalletresponse','ApiController@stkloadwalletresponse');

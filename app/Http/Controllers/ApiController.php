@@ -478,6 +478,31 @@ class ApiController extends Controller
         return $stkPushSimulation;
     }
 
+    public function stkpushnakumatt(Request $request){
+        $mpesa   = new \Safaricom\Mpesa\Mpesa();
+
+        $paybill = env("safaricom_paybill");
+
+        $clientphone = $request->get('phone');
+        $amount = $request->get('amount');
+        $bookid = $request->get('bookid');
+        $bookname = $request->get('bookname');
+
+        $BusinessShortCode = $paybill;
+        $LipaNaMpesaPasskey = "b4ba82b446f3412e10d8b6190c6eeb048d852d7924b34e5d9722afdcd65a0d4a";
+        $TransactionType = 'CustomerPayBillOnline';
+        $Amount = $amount;
+        $PartyA = $clientphone;
+        $PartyB = $paybill;
+        $PhoneNumber = $clientphone;
+        $CallBackURL = "http://139.59.187.229/api/stkresponse/";
+        $AccountReference = $clientphone;
+        $TransactionDesc = "Pay for goods Online";
+        $Remarks = "Book Subscription API";
+        $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
+        return $stkPushSimulation;
+    }
+
     public function stkpushclass(Request $request){
         $mpesa= new \Safaricom\Mpesa\Mpesa();
 
