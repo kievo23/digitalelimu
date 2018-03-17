@@ -493,7 +493,7 @@ class ApiController extends Controller
         $PartyA = $clientphone;
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
-        $CallBackURL = "http://139.59.187.229/api/stkresponse/";
+        $CallBackURL = "http://localhost:3000/receive";
         $AccountReference = $clientphone;
         $TransactionDesc = "Pay for goods Online";
         $Remarks = "Book Subscription API";
