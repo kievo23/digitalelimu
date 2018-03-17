@@ -493,7 +493,7 @@ class ApiController extends Controller
         $PartyA = $clientphone;
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
-        $CallBackURL = "http://localhost:3000/receive";
+        $CallBackURL = "http://127.0.0.1:3000/receive";
         $AccountReference = $clientphone;
         $TransactionDesc = "Pay for goods Online";
         $Remarks = "Book Subscription API";
