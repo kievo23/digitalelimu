@@ -493,7 +493,7 @@ class ApiController extends Controller
         $PartyA = $clientphone;
         $PartyB = $paybill;
         $PhoneNumber = $clientphone;
-        $CallBackURL = "https://nakumatt.herokuapp.com//receive";
+        $CallBackURL = "https://nakumatt.herokuapp.com/receive";
         $AccountReference = $clientphone;
         $TransactionDesc = "Pay for goods Online";
         $Remarks = "Book Subscription API";
