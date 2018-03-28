@@ -53,6 +53,15 @@
                 {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Publisher:</strong>
+                {!! Form::select('publisher', [
+                   '' => '-- Select Publisher --',
+                   '1' => 'Publisher',
+                   '0' => 'Not Publisher'],[], array('class' => 'form-control')) !!}
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary  form-control">Create</button>
         </div>
