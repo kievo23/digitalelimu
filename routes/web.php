@@ -17,7 +17,7 @@ Route::get('/', function () {
 		return redirect('home');
 	}else{
 		return view('welcome');
-	}    
+	}
 });
 
 Auth::routes();
@@ -110,7 +110,7 @@ Route::group(['middleware' => ['auth']], function() {
 Route::get('/api/getCategories', 'ApiController@getCategories');
 Route::get('/api/getClasses/{category}', 'ApiController@getClasses');
 Route::get('/api/getBooks/{class}/{phone}', 'ApiController@getBooks');
-Route::get('/api/getBooks/{phone}/{accesstoken}', 'ApiController@getBooksSubscribed');
+Route::get('/api/getSubscribed/{phone}/{accesstoken}', 'ApiController@getBooksSubscribed');
 Route::get('/api/getBooksAll', 'ApiController@getBooksAll');
 Route::get('/api/getTerms/{phone}/{accesstoken}/{book}', 'ApiController@getTerms');
 Route::get('/api/getPdfs/{phone}/{accesstoken}/{book}', 'ApiController@getPdfList');
