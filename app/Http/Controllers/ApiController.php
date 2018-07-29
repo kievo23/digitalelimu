@@ -47,7 +47,7 @@ class ApiController extends Controller
         $client = Clients::wherePhone($phone)->first();
         if($client){
             $wallet = Wallet::whereClientId($client->id)->first();
-            
+
             if($wallet == NULL){
                 $bal = "0";
             }else{
@@ -56,7 +56,7 @@ class ApiController extends Controller
         }else{
             $bal = "0";
         }
-        
+
 
         foreach ($books as $key => $book) {
             $book->lessons = DB::table('content')->whereBookId($book->id)->count();
@@ -72,7 +72,7 @@ class ApiController extends Controller
         }
         return json_encode($books);
     }
-    
+
     public function getBooksSubscribed($phone,$accesstoken){
     	$client = Clients::wherePhoneAndAccesstoken($phone,$accesstoken)->first();
         if($client){
@@ -83,7 +83,7 @@ class ApiController extends Controller
                 foreach($result as $single){
                 	$date = Carbon::createFromFormat('Y-m-d H:i:s',$single->created_at);
                     $terminationDate = $date->addDays(self::daysDeterminant($single->amount));
-                    
+
 	            	if(Carbon::now() > $terminationDate){
 	               		$rst = null;
 	            	}else{
@@ -188,7 +188,7 @@ class ApiController extends Controller
             $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
             if(Carbon::now() > $terminationDate){
                 $content = null;
-            }else{                
+            }else{
                 $content = Content::where('book_id','=',$book)
                 ->where('term','=',$term)
                 ->where('week','=',$week)
@@ -198,7 +198,7 @@ class ApiController extends Controller
                     $content == null;
                 }else{
                     $content = $content->details;
-                }                
+                }
             }
     	}else{
     		$content = null;
@@ -208,30 +208,30 @@ class ApiController extends Controller
 
     public function indexList()
     {
-        $rst = array();        
+        $rst = array();
         $contents = Content::select('id','name','term','book_id','week','lesson','description','audio','video')->get();
         foreach ($contents as $key => $content) {
             $content->book = Book::find($content->book_id);
         }
         $rst['recordsTotal'] = count($contents);
-        $rst['data'] = $contents; 
+        $rst['data'] = $contents;
         return json_encode($rst);
     }
 
     public function indexSelected($id)
     {
         //
-        $rst = array();        
+        $rst = array();
         $contents = Content::whereBookId($id)->get();
         foreach ($contents as $key => $content) {
             $content->book = Book::find($content->book_id);
         }
         $rst['recordsTotal'] = count($contents);
-        $rst['data'] = $contents; 
-        $rst['id'] = $id;         
+        $rst['data'] = $contents;
+        $rst['id'] = $id;
         return json_encode($rst);
     }
-    
+
     public function readBook(Request $request){
         $client = Clients::wherePhoneAndAccesstoken($request->get('phone'),$request->get('accesstoken'))->first();
         if($client){
@@ -246,14 +246,14 @@ class ApiController extends Controller
                 $bal = $wallet->amount;
             }
 
-            if(!empty($result)){   
+            if(!empty($result)){
                 $date = Carbon::createFromFormat('Y-m-d H:i:s',$result->created_at);
                 $terminationDate = $date->addDays(self::daysDeterminant($result->amount));
-                
+
                 $result->balance = $bal;
 
                 if(Carbon::now() > $terminationDate){
-                    
+
                     $rst = array(
                         "id"=>0,
                         "client_id"=>"0002",
@@ -261,7 +261,7 @@ class ApiController extends Controller
                         "amount"=>"Kindly Subscribe to Read",
                         "balance" => $bal
                     );
-                }else{                         
+                }else{
                     $rst = $result;
                 }
             }else{
@@ -284,8 +284,8 @@ class ApiController extends Controller
         }
         return json_encode($rst);
     }
-    
-    
+
+
     public function getPayments(){
         $data = json_decode(utf8_encode(file_get_contents("php://input")));
         $payments = new Payments();
@@ -299,16 +299,16 @@ class ApiController extends Controller
         $payments->status = $data->status;
         $payments->jsond = file_get_contents("php://input");
         $payments->save();
-        
+
         $client = Clients::wherePhone("0".substr($data->source,-9))->first();
-        
+
         $sub = new Subscriptions();
         $sub->client_id = $client->id;
         $sub->book_id = substr($data->clientAccount,0,-6);
         $sub->amount = substr($data->value,4,-5);
         $sub->save();
     }
-    
+
     public function getPesapal(){
         $data = json_decode(utf8_encode(file_get_contents("php://input")));
         $payments = new Payments();
@@ -322,9 +322,9 @@ class ApiController extends Controller
         $payments->status = $data->status;
         $payments->jsond = file_get_contents("php://input");
         $payments->save();
-        
+
         $client = Clients::wherePhone("0".substr($data->source,-9))->first();
-        
+
         $sub = new Subscriptions();
         $sub->client_id = $client->id;
         $sub->book_id = substr($data->clientAccount,0,-6);
@@ -342,7 +342,7 @@ class ApiController extends Controller
                 $user->accesstoken = md5($user->phone . date("Y-m-d h:i:sa"));;
                 $user->save();
                 $result = $user;
-            }                
+            }
         }else{
             $token = md5($phone . date("Y-m-d h:i:sa"));
             $data = ['phone'=>$phone,'password'=>$password,'accesstoken'=>$token];
@@ -360,7 +360,13 @@ class ApiController extends Controller
             return json_encode($user);
         }else{
             $token = md5($request->get('phone') . date("Y-m-d h:i:sa"));
-            $data = ['phone'=>$request->get('phone'),'password'=>$request->get('password'),'accesstoken'=>$token,'email'=>$request->get('email')];
+            $data = [
+              'phone'=>$request->get('phone'),
+              'password'=>$request->get('password'),
+              'accesstoken'=>$token,
+              'email'=>$request->get('email'),
+              'agent'=>$request->get('agent')
+          ];
             $user = Clients::create($data);
             if($user){
                 Mail::send('emails.welcome', ['username'=> $user->phone ,'password'=> $user->password,'user' => $user], function ($message) use ($user) {
@@ -384,7 +390,7 @@ class ApiController extends Controller
                 return json_encode($user);
             }else{
                 return json_encode(null);
-            }            
+            }
         }
     }
 
@@ -540,7 +546,7 @@ class ApiController extends Controller
                 }else{
                     //DEDUCT CASH.
                     $record->amount = $record->amount - $amount;
-                    $record->save();                     
+                    $record->save();
 
                     $sub = new Subscriptions();
                     $sub->client_id = $user->id;
@@ -550,7 +556,7 @@ class ApiController extends Controller
                     return json_encode(array(
                         "code"=>"100",
                         "msg"=>"Subscribed to this book"
-                    )); 
+                    ));
                 }
             }else{
                 $input['amount'] = "0";
@@ -566,7 +572,7 @@ class ApiController extends Controller
             return json_encode(array(
                 "code"=>"101",
                 "msg"=>"User not found"
-            ));            
+            ));
         }
     }
 
@@ -585,7 +591,7 @@ class ApiController extends Controller
                 }else{
                     //DEDUCT CASH.
                     $record->amount = $record->amount - $amount;
-                    $record->save();                     
+                    $record->save();
 
                     $books = Book::where('class_id','=',$classid)
                     ->where('activate',1)
@@ -593,7 +599,7 @@ class ApiController extends Controller
 
                     $booksNo = count($books);
                     $pricePerBook = self::priceDeterminantclass($amount,$booksNo);
-                    
+
                     foreach($books as $book){
                         $sub = new Subscriptions();
                         $sub->client_id = $user->id;
@@ -605,7 +611,7 @@ class ApiController extends Controller
                     return json_encode(array(
                         "code"=>"100",
                         "msg"=>"Subscribed to this class"
-                    )); 
+                    ));
                 }
             }else{
                 $input['amount'] = "0";
@@ -621,7 +627,7 @@ class ApiController extends Controller
             return json_encode(array(
                 "code"=>"101",
                 "msg"=>"User not found"
-            ));            
+            ));
         }
     }
 
@@ -646,7 +652,7 @@ class ApiController extends Controller
         $payments->save();
 
         $client = Clients::wherePhone("0".substr($phone,-9))->first();
-        
+
         $sub = new Subscriptions();
         $sub->client_id = $client->id;
         $sub->book_id = $bookid;
@@ -683,7 +689,7 @@ class ApiController extends Controller
 
         $booksNo = count($books);
         $pricePerBook = self::priceDeterminantclass($amount,$booksNo);
-        
+
         foreach($books as $book){
             $sub = new Subscriptions();
             $sub->client_id = $client->id;
@@ -752,7 +758,7 @@ class ApiController extends Controller
             ));
     }
  /*
-   
+
     public function getContent($subtopicid){
     	$books = Book::find($subtopicid);
     	return "<div class='details'><style type='text/css'>
