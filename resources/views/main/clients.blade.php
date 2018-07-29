@@ -11,12 +11,13 @@
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
-        @endif                            
+        @endif
         <table class="table">
             <thead>
                 <tr>
                     <th>Phone</th>
                     <th>Password</th>
+                    <th>Agent</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                         <tr>
                             <td>{{ $topic->phone }}</td>
                             <td>{{ $topic->password }}</td>
+                            <td>{{ $topic->agent }}</td>
                         </tr>
                     @endforeach
                 @endif
