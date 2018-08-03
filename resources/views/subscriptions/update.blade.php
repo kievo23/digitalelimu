@@ -46,7 +46,7 @@
 
                             <div class="col-md-10">
                                 <select class="form-control" name="book">
-                                  <option value="{{$trans->book_id}}">{{ $books[$trans->book_id] }}</option>
+                                  <option value="{{$trans->book_id}}"><?php $buk = $books[$trans->book_id];echo $buk->name; ?></option>
                                 @if($books)
 
                                     @foreach($books as $main)
