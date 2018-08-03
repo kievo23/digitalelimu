@@ -45,7 +45,7 @@
                             <label for="name" class="col-md-2 control-label">Book</label>
 
                             <div class="col-md-10">
-                              {!! Form::select('book', $books, $trans->book_id, array('class' => 'form-control')) !!}
+                              {!! Form::select('book[]', $books, $trans->book_id, array('class' => 'form-control')) !!}
                                 <select class="form-control" name="book">
 
                                 @if($books)
