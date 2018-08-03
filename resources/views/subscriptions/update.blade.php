@@ -46,9 +46,14 @@
 
                             <div class="col-md-10">
                                 <select class="form-control" name="book">
-                                  <option value="{{$trans->book_id}}"><?php print_r($books); ?></option>
+                                  <option value="{{$trans->book_id}}">
+                                    @foreach($books as $main)
+                                      @if($trans->book_id == $main->id)
+                                        {{$main->name}}
+                                      @endif
+                                  @endforeach
+                                </option>
                                 @if($books)
-
                                     @foreach($books as $main)
                                     <option value="{{$main->id}}">{{$main->name}}</option>
                                     @endforeach
