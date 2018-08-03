@@ -46,7 +46,7 @@
 
                             <div class="col-md-10">
                                 <select class="form-control" name="book">
-                                  <option value="{{$trans->book_id}}">{{$books[$trans->book_id]->name}}</option>
+                                  <option value="{{$trans->book_id}}">{{ ($books[$trans->book_id])->name }}</option>
                                 @if($books)
 
                                     @foreach($books as $main)
