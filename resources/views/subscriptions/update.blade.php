@@ -27,6 +27,13 @@
 
                             <div class="col-md-10">
                                 <select class="form-control" name="client">
+                                  <option value="{{$trans->client_id}}">
+                                    @foreach($clients as $main)
+                                      @if($trans->client_id == $main->id)
+                                        {{$main->phone}}
+                                      @endif
+                                  @endforeach
+                                </option>
                                 @if($clients)
                                     @foreach($clients as $main)
                                     <option value="{{$main->id}}">{{$main->phone}}</option>
