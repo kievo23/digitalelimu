@@ -18,7 +18,7 @@
 		            <div class="alert alert-success">
 		                {{ session('status') }}
 		            </div>
-		        @endif 
+		        @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/subscriptions/update',['id'=>$trans->id]) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
@@ -45,7 +45,9 @@
                             <label for="name" class="col-md-2 control-label">Book</label>
 
                             <div class="col-md-10">
+                              {!! Form::select('book', $books, $trans->book_id, array('class' => 'form-control')) !!}
                                 <select class="form-control" name="book">
+
                                 @if($books)
 
                                     @foreach($books as $main)
@@ -73,7 +75,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>                    
+                    </form>
                 </div>
             </div>
 @endsection
